@@ -1,5 +1,4 @@
 import { dbConnect } from "../../../utils/dbConnect";
-import { models } from "mongoose";
 import User from "../../../models/User";
 import Patient from "../../../models/Patient";
 import Professional from "../../../models/Professional";
@@ -24,15 +23,12 @@ export default async function handler(req, res) {
 
       if (user.isProfessional) {
         let professionalUser;
-        if (models.Appointment) {
-          professionalUser = await Professional.findOne({ email })
-            .populate("appointmentsRef")
-            .select("-createdAt -updatedAt");
-        } else {
-          professionalUser = await Professional.findOne({ email }).select(
-            "-createdAt -updatedAt"
-          );
-        }
+
+        professionalUser = await Professional.findById(
+          user.professionalRef.toString()
+        )
+          .populate("appointmentsRef")
+          .select("-createdAt -updatedAt");
 
         if (!professionalUser) {
           const error = new Error("Professional not found");
@@ -41,26 +37,17 @@ export default async function handler(req, res) {
         return res.status(200).json({ ...user._doc, ...professionalUser._doc });
       } else {
         let patientUser;
-        console.log(email);
-        if (models.Appointment) {
-          patientUser = await Patient.findOne({ email })
-            .populate({
-              path: "appointmentsRef",
-              select: "-_id -createdAt -updatedAt -patientRef",
-            })
-            .populate({
-              path: "clinicHistoryRef",
-              select: "-_id -createdAt -updatedAt",
-            })
-            .select("-createdAt -updatedAt");
-        } else {
-          patientUser = await Patient.findOne({ email })
-            .populate({
-              path: "clinicHistoryRef",
-              select: "-_id -createdAt -updatedAt",
-            })
-            .select("-createdAt -updatedAt");
-        }
+
+        patientUser = await Patient.findById(user.patientRef.toString())
+          .populate({
+            path: "appointmentsRef",
+            select: "-_id -createdAt -updatedAt -patientRef",
+          })
+          .populate({
+            path: "clinicHistoryRef",
+            select: "-_id -createdAt -updatedAt",
+          })
+          .select("-createdAt -updatedAt");
 
         if (!patientUser) {
           const error = new Error("Patient not found");
@@ -77,15 +64,17 @@ export default async function handler(req, res) {
           const error = new Error("Email in use");
           return res.status(400).json({ msg: error.message });
         }
+
+        // creo el registro de usuario
+        const newUser = new User({
+          email: body.email,
+          password: body.password,
+          isProfessional: body.isProfessional,
+        });
+
         // condicional si es profesional o no
         if (body.isProfessional) {
-          // si es profesioanl
-          // creo el registro de usuario
-          const newUser = new User({
-            email: body.email,
-            password: body.password,
-            isProfessional: body.isProfessional,
-          });
+          // si es profesional
 
           // creo el registro de profesioanl
           const newProfessional = new Professional({
@@ -99,17 +88,12 @@ export default async function handler(req, res) {
             days: body.days,
           });
 
+          newUser.professionalRef = newProfessional._id;
           const savedUser = await newUser.save();
           await newProfessional.save();
           return res.status(201).json(savedUser);
         } else {
-          // si no es profesioanl
-          // creo el registro de usuario
-          const newUser = new User({
-            email: body.email,
-            password: body.password,
-            isProfessional: body.isProfessional,
-          });
+          // si no es profesional
 
           // Creo el registro de historia clinia
           const newClinicHistory = new ClinicHistory();
@@ -128,6 +112,8 @@ export default async function handler(req, res) {
           // Relaciono al paciente con la historia clinica
           newPatient.clinicHistoryRef = newClinicHistory._id;
 
+          newUser.patientRef = newPatient._id;
+
           // Guardo los registros
           const savedUser = await newUser.save();
           await newPatient.save();
@@ -143,16 +129,18 @@ export default async function handler(req, res) {
       const { id } = body;
       try {
         const user = await User.findById(id);
-        const { email } = user;
+
         if (!user) {
           const error = new Error("User not found");
           return res.status(400).json({ msg: error.message });
         }
+
         if (user.isProfessional) {
-          const professional = await Professional.findOne({ email });
-          console.log(professional);
+          const professional = await Professional.findById(
+            user.professionalRef.toString()
+          );
+
           if (professional.appointmentsRef.length > 0) {
-            console.log("asd");
             professional.AppointmentsRef.forEach(async (appointment) => {
               await Appointment.findByIdAndRemove(appointment._id);
             });
@@ -161,10 +149,9 @@ export default async function handler(req, res) {
           await Professional.findByIdAndRemove(professional._id);
           await User.findByIdAndDelete(id);
         } else {
-          const patient = await Patient.findOne({ email });
+          const patient = await Patient.findById(user.patientRef.toString());
 
           if (patient.appointmentsRef.length > 0) {
-            console.log("asd");
             patient.AppointmentsRef.forEach(async (appointment) => {
               await Appointment.findByIdAndRemove(appointment._id);
             });

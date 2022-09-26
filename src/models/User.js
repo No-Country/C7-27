@@ -24,6 +24,14 @@ const userSchema = new Schema(
       trim: true,
       default: "",
     },
+    patientRef: {
+      type: Schema.Types.ObjectId,
+      ref: "Patient",
+    },
+    professionalRef: {
+      type: Schema.Types.ObjectId,
+      ref: "Professional",
+    },
   },
   {
     timestamps: true,

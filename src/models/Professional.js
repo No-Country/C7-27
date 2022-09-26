@@ -16,7 +16,7 @@ const professionalSchema = new Schema(
   {
     email: {
       type: String,
-      required: [true, "Professioanl email is required"],
+      required: [true, "Professional email is required"],
       trim: true,
       unique: true,
     },
@@ -41,7 +41,8 @@ const professionalSchema = new Schema(
       trim: true,
     },
     specialities: {
-      type: [String],
+      type: String,
+      require: true,
     },
     medicalInsuranceList: {
       type: [String],
