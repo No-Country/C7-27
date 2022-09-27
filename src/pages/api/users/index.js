@@ -56,73 +56,73 @@ export default async function handler(req, res) {
 
         return res.status(200).json({ ...user._doc, ...patientUser._doc });
       }
-    case "POST":
-      try {
-        const { email } = body;
-        const userExists = await User.findOne({ email });
-        if (userExists) {
-          const error = new Error("Email in use");
-          return res.status(400).json({ msg: error.message });
-        }
+    // case "POST":
+    //   try {
+    //     const { email } = body;
+    //     const userExists = await User.findOne({ email });
+    //     if (userExists) {
+    //       const error = new Error("Email in use");
+    //       return res.status(400).json({ msg: error.message });
+    //     }
 
-        // creo el registro de usuario
-        const newUser = new User({
-          email: body.email,
-          password: body.password,
-          isProfessional: body.isProfessional,
-        });
+    //     // creo el registro de usuario
+    //     const newUser = new User({
+    //       email: body.email,
+    //       password: body.password,
+    //       isProfessional: body.isProfessional,
+    //     });
 
-        // condicional si es profesional o no
-        if (body.isProfessional) {
-          // si es profesional
+    //     // condicional si es profesional o no
+    //     if (body.isProfessional) {
+    //       // si es profesional
 
-          // creo el registro de profesioanl
-          const newProfessional = new Professional({
-            email: body.email,
-            firstName: body.firstName,
-            lastName: body.lastName,
-            birthday: body.birthday,
-            phoneNumber: body.phoneNumber,
-            specialities: body.specialities,
-            medicalInsuranceList: body.medicalInsuranceList,
-            days: body.days,
-          });
+    //       // creo el registro de profesioanl
+    //       const newProfessional = new Professional({
+    //         email: body.email,
+    //         firstName: body.firstName,
+    //         lastName: body.lastName,
+    //         birthday: body.birthday,
+    //         phoneNumber: body.phoneNumber,
+    //         specialities: body.specialities,
+    //         medicalInsuranceList: body.medicalInsuranceList,
+    //         days: body.days,
+    //       });
 
-          newUser.professionalRef = newProfessional._id;
-          const savedUser = await newUser.save();
-          await newProfessional.save();
-          return res.status(201).json(savedUser);
-        } else {
-          // si no es profesional
+    //       newUser.professionalRef = newProfessional._id;
+    //       const savedUser = await newUser.save();
+    //       await newProfessional.save();
+    //       return res.status(201).json(savedUser);
+    //     } else {
+    //       // si no es profesional
 
-          // Creo el registro de historia clinia
-          const newClinicHistory = new ClinicHistory();
+    //       // Creo el registro de historia clinia
+    //       const newClinicHistory = new ClinicHistory();
 
-          // Creo el registro de paciente
-          const newPatient = new Patient({
-            email: body.email,
-            firstName: body.firstName,
-            lastName: body.lastName,
-            birthday: body.birthday,
-            phoneNumber: body.phoneNumber,
-            medicalInsurance: body.medicalInsurance,
-            bloodType: body.bloodType,
-          });
+    //       // Creo el registro de paciente
+    //       const newPatient = new Patient({
+    //         email: body.email,
+    //         firstName: body.firstName,
+    //         lastName: body.lastName,
+    //         birthday: body.birthday,
+    //         phoneNumber: body.phoneNumber,
+    //         medicalInsurance: body.medicalInsurance,
+    //         bloodType: body.bloodType,
+    //       });
 
-          // Relaciono al paciente con la historia clinica
-          newPatient.clinicHistoryRef = newClinicHistory._id;
+    //       // Relaciono al paciente con la historia clinica
+    //       newPatient.clinicHistoryRef = newClinicHistory._id;
 
-          newUser.patientRef = newPatient._id;
+    //       newUser.patientRef = newPatient._id;
 
-          // Guardo los registros
-          const savedUser = await newUser.save();
-          await newPatient.save();
-          await newClinicHistory.save();
-          return res.status(201).json(savedUser);
-        }
-      } catch (e) {
-        return res.status(400).json({ msg: e.message });
-      }
+    //       // Guardo los registros
+    //       const savedUser = await newUser.save();
+    //       await newPatient.save();
+    //       await newClinicHistory.save();
+    //       return res.status(201).json(savedUser);
+    //     }
+    //   } catch (e) {
+    //     return res.status(400).json({ msg: e.message });
+    //   }
     case "PUT":
       return res.json({ msg: "User updated" });
     case "DELETE":
