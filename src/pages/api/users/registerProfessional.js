@@ -1,7 +1,6 @@
 import { dbConnect } from "../../../utils/dbConnect";
 import User from "../../../models/User";
-import Patient from "../../../models/Patient";
-import ClinicHistory from "../../../models/ClinicHistory";
+import Professional from "../../../models/Professional";
 
 dbConnect();
 
@@ -28,32 +27,23 @@ export default async function handler(req, res) {
       isProfessional: body.isProfessional,
     });
 
-    // Creo el registro de historia clinia
-    const newClinicHistory = new ClinicHistory();
-
-    // Creo el registro de paciente
-    const newPatient = new Patient({
+    // creo el registro de profesioanl
+    const newProfessional = new Professional({
       email: body.email,
       firstName: body.firstName,
       lastName: body.lastName,
       birthday: body.birthday,
       phoneNumber: body.phoneNumber,
-      medicalInsurance: body.medicalInsurance,
-      bloodType: body.bloodType,
+      specialities: body.specialities,
+      medicalInsuranceList: body.medicalInsuranceList,
+      days: body.days,
     });
 
-    // Relaciono al paciente con la historia clinica
-    newPatient.clinicHistoryRef = newClinicHistory._id;
-
-    newUser.patientRef = newPatient._id;
-
-    // Guardo los registros
+    newUser.professionalRef = newProfessional._id;
     const savedUser = await newUser.save();
-    await newPatient.save();
-    await newClinicHistory.save();
+    await newProfessional.save();
     return res.status(201).json(savedUser);
-  }
-  catch (e) {
+  } catch (e) {
     return res.status(400).json({ msg: e.message });
   }
 }

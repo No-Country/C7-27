@@ -1,9 +1,8 @@
-import { dbConnect } from "../../../config/dbConnect";
-import Patient from "../../../models/Patient";
-import Professional from "../../../models/Professional";
-import User from "../../../models/User";
-import jwt from "jsonwebtoken";
-import jwtGenerate from "../../../utils/jwtGenerate";
+import { dbConnect } from "../../config/dbConnect";
+import Patient from "../../models/Patient";
+import Professional from "../../models/Professional";
+import User from "../../models/User";
+import jwtGenerate from "../../utils/jwtGenerate";
 
 dbConnect();
 
@@ -31,6 +30,7 @@ export default async function handler(req, res) {
         const error = new Error("Professional not found");
         return res.status(400).json({ msg: error.message });
       }
+
       return res.status(200).json({
         ...user._doc,
         token: jwtGenerate(user._doc._id),
@@ -53,6 +53,9 @@ export default async function handler(req, res) {
         const error = new Error("Patient not found");
         return res.status(400).json({ msg: error.message });
       }
+
+      const serialized = jwtGenerate(user._doc._id);
+      res.setHeader("Set-Cookie", serialized);
 
       return res.status(200).json({
         ...user._doc,
