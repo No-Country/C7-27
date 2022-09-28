@@ -21,7 +21,12 @@ import { useForm } from 'react-hook-form';
 import { Layout } from '../../Layouts';
 
 export default function loginPage() {
-  const { email, password } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
   const [name, setName] = useState('');
   const [values, setValues] = useState({
     showPassword: false,
@@ -40,6 +45,12 @@ export default function loginPage() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const submit = (data) => {
+    reset();
+    console.log(data);
+  };
+
   return (
     <Layout>
       <Box
@@ -49,6 +60,7 @@ export default function loginPage() {
         }}
         noValidate
         autoComplete="off"
+        onSubmit={handleSubmit(submit)}
       >
         <Stack spacing={2}>
           <FormLabel component="legend">Login</FormLabel>
@@ -56,8 +68,7 @@ export default function loginPage() {
             <InputLabel htmlFor="component-outlined">Email Address</InputLabel>
             <OutlinedInput
               id="component-outlined"
-              value={name}
-              onChange={handleChange}
+              {...register('email')}
               type="email"
               label="email"
             />
@@ -66,8 +77,7 @@ export default function loginPage() {
             <InputLabel htmlFor="component-outlined">Password</InputLabel>
             <OutlinedInput
               id="component-outlined"
-              value={name}
-              onChange={handleChange}
+              {...register('password')}
               type={values.showPassword ? 'text' : 'password'}
               label="password"
               endAdornment={
@@ -90,7 +100,9 @@ export default function loginPage() {
               label="i'm not a robot"
             />
           </FormGroup>
-          <Button variant="contained">Sign in</Button>
+          <Button type="submit" variant="contained">
+            Sign in
+          </Button>
           <Stack direction="row" spacing={2}>
             <Button>Are you new in Hospital Name?</Button>
             <Button>Forgot password?</Button>
