@@ -11,7 +11,9 @@ import {
   FormControl,
   InputLabel,
   OutlinedInput,
-} from '../../components';
+  VisibilityOff,
+  Visibility,
+} from '../../components/auth';
 import { Layout } from '../../Layouts';
 
 export default function registerPage() {

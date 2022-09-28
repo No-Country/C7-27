@@ -1,13 +1,5 @@
 import { useState } from 'react';
 
-import { Layout } from '../../Layouts';
-import Box from '@mui/material/Box';
-import FilledInput from '@mui/material/FilledInput';
-import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
-import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import {
   Checkbox,
   FormControlLabel,
@@ -17,9 +9,16 @@ import {
   IconButton,
   InputAdornment,
   FormLabel,
-} from '@mui/material';
-import { VisibilityOff, Visibility } from '@mui/icons-material';
+  Box,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  VisibilityOff,
+  Visibility,
+} from '../../components/auth';
+
 import { useForm } from 'react-hook-form';
+import { Layout } from '../../Layouts';
 
 export default function loginPage() {
   const { email, password } = useForm();
