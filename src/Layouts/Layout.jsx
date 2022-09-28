@@ -25,17 +25,7 @@ export const Layout = ({ children }) => {
           {children}
         </Grid>
       </Grid>
-      <Grid
-        item
-        xs={5}
-        overflow="hidden"
-        height={'100vh'}
-        // sx={{
-        //   backgroundImage:
-        //     'url(https://images.unsplash.com/photo-1607799013470-8a46c0db7eb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80)',
-        //   objectFit: 'contain',
-        // }}
-      >
+      <Grid item xs={5} overflow="hidden" height={'100vh'}>
         <img
           src="https://images.unsplash.com/photo-1607799013470-8a46c0db7eb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
           alt="coss"
