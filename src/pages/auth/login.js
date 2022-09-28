@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import NextLink from 'next/link';
+
 import {
   Checkbox,
   FormControlLabel,
@@ -16,6 +18,7 @@ import {
   VisibilityOff,
   Visibility,
 } from '../../components/auth';
+import Link from '@mui/material/Link';
 
 import { useForm } from 'react-hook-form';
 import { Layout } from '../../Layouts';
@@ -27,14 +30,10 @@ export default function loginPage() {
     reset,
     formState: { errors },
   } = useForm();
-  const [name, setName] = useState('');
+
   const [values, setValues] = useState({
     showPassword: false,
   });
-
-  const handleChange = (event) => {
-    setName(event.target.value);
-  };
 
   const handleClickShowPassword = () => {
     setValues({
@@ -57,6 +56,8 @@ export default function loginPage() {
         component="form"
         sx={{
           '& > :not(style)': { m: 1 },
+          width: '100%',
+          maxWidth: '500px',
         }}
         noValidate
         autoComplete="off"
@@ -103,9 +104,13 @@ export default function loginPage() {
           <Button type="submit" variant="contained">
             Sign in
           </Button>
-          <Stack direction="row" spacing={2}>
-            <Button>Are you new in Hospital Name?</Button>
-            <Button>Forgot password?</Button>
+          <Stack direction="row" spacing={2} justifyContent="space-between">
+            <NextLink passHref href={'/auth/register'}>
+              <Link>Are you new in Hospital Name?</Link>
+            </NextLink>
+            <NextLink passHref href={'/auth/resetPassword'}>
+              <Link>Forgot password?</Link>
+            </NextLink>
           </Stack>
         </Stack>
       </Box>

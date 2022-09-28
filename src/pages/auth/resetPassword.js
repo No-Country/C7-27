@@ -18,7 +18,8 @@ export default function restPasswordPage() {
         component="form"
         sx={{
           '& > :not(style)': { m: 6 },
-          width: '70%',
+          width: '100%',
+          maxWidth: '800px',
         }}
         noValidate
         autoComplete="off"
