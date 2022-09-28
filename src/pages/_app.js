@@ -1,11 +1,15 @@
-import "../styles/globals.css";
-import Layout from "../components/Layout";
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
+import '../styles/globals.css';
+import theme from '../theme/theme';
+// import Layout from '../components/Layout';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Component {...pageProps} />
-    </Layout>
+    </ThemeProvider>
   );
 }
 
