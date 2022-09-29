@@ -24,7 +24,7 @@ export default async function handler(req, res) {
         user.professionalRef.toString()
       )
         .populate("appointmentsRef")
-        .select("-createdAt -updatedAt");
+        .select("-createdAt -updatedAt -professionalRef");
 
       if (!professionalUser) {
         const error = new Error("Professional not found");
