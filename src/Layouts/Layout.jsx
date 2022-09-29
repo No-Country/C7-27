@@ -5,32 +5,62 @@ export const Layout = ({ children }) => {
   return (
     <Grid
       container
-      sx={{ width: '100%', height: '100vh' }}
       justifyContent="space-between"
+      flexDirection={{ xs: 'column-reverse', md: 'row' }}
       spacing={0}
+      width={'100%'}
+      height={{ md: '100vh' }}
     >
-      <Grid item xs={7} display="flex" padding={3}>
-        <Box sx={{ position: 'absolute' }}>
+      <Grid
+        item
+        xs={12}
+        md={7}
+        display="flex"
+        padding={3}
+        sx={{ position: 'absolute' }}
+        top={0}
+      >
+        <Box>
           <Typography variant="h3" component="h2">
             <AccessibleForwardIcon sx={{ fontSize: 40 }} color="primary" />
             Hospital Name
           </Typography>
         </Box>
-        <Grid
-          justifyContent={'center'}
-          alignItems={'center'}
-          display="flex"
-          flexGrow={1}
-        >
-          {children}
-        </Grid>
       </Grid>
-      <Grid item xs={5} overflow="hidden" height={'100vh'}>
-        <img
-          src="https://images.unsplash.com/photo-1607799013470-8a46c0db7eb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
-          alt="coss"
-          width={'100%'}
-        />
+      <Grid
+        container
+        justifyContent={'center'}
+        alignItems={'center'}
+        display="flex"
+        flexGrow={1}
+        xs={12}
+        md={7}
+        pt={{ xs: 12 }}
+        pl={{ xs: 2 }}
+        pr={{ xs: 2 }}
+      >
+        {children}
+      </Grid>
+      <Grid
+        item
+        md={5}
+        xs={12}
+        overflow="hidden"
+        maxHeight={{ xs: '30vh', md: '100vh' }}
+        width={'100%'}
+        sx={{
+          backgroundImage:
+            'url(https://images.unsplash.com/photo-1607799013470-8a46c0db7eb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80)',
+          backgroundSize: 'calc(100vh - 16vh)',
+        }}
+      >
+        <Box display={{ md: 'none' }}>
+          <img
+            src="https://images.unsplash.com/photo-1607799013470-8a46c0db7eb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
+            alt="hospital"
+            width={'100%'}
+          />
+        </Box>
       </Grid>
     </Grid>
   );
