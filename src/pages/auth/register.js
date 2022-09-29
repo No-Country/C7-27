@@ -16,20 +16,18 @@ import {
   OutlinedInput,
   VisibilityOff,
   Visibility,
+  Grid
 } from '../../components/auth';
 import Link from '@mui/material/Link';
 
 import { Layout } from '../../Layouts';
-import { Grid } from '@mui/material';
 
 export default function registerPage() {
   const [values, setValues] = useState({
     showPassword: false,
   });
 
-  const handleChange = (event) => {
-    setName(event.target.value);
-  };
+  
 
   const handleClickShowPassword = () => {
     setValues({
