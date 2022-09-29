@@ -20,6 +20,7 @@ import {
 import Link from '@mui/material/Link';
 
 import { Layout } from '../../Layouts';
+import { Grid } from '@mui/material';
 
 export default function registerPage() {
   const [values, setValues] = useState({
@@ -57,24 +58,57 @@ export default function registerPage() {
             <InputLabel htmlFor="component-outlined">Email Address</InputLabel>
             <OutlinedInput id="component-outlined" type="email" label="email" />
           </FormControl>
-          <FormControl>
-            <InputLabel htmlFor="component-outlined">First Name</InputLabel>
-            <OutlinedInput id="component-outlined" type="email" label="email" />
-          </FormControl>
-          <FormControl>
-            <InputLabel htmlFor="component-outlined">Last Name</InputLabel>
-            <OutlinedInput id="component-outlined" type="email" label="email" />
-          </FormControl>
-          <FormControl>
-            <InputLabel htmlFor="component-outlined">
-              Medical Insurance
-            </InputLabel>
-            <OutlinedInput id="component-outlined" type="email" label="email" />
-          </FormControl>
-          <FormControl>
-            <InputLabel htmlFor="component-outlined">Blood Type</InputLabel>
-            <OutlinedInput id="component-outlined" type="email" label="email" />
-          </FormControl>
+          <Grid
+            container
+            width={'100%'}
+            justifyContent={'space-between'}
+            gap={2}
+            display="flex"
+          >
+            <Grid item sx={{ flexGrow: 1 }}>
+              <FormControl sx={{ width: '100%' }}>
+                <InputLabel htmlFor="component-outlined">First Name</InputLabel>
+                <OutlinedInput
+                  id="component-outlined"
+                  type="email"
+                  label="email"
+                />
+              </FormControl>
+            </Grid>
+            <Grid item sx={{ flexGrow: 1 }}>
+              <FormControl sx={{ width: '100%' }}>
+                <InputLabel htmlFor="component-outlined">Last Name</InputLabel>
+                <OutlinedInput
+                  id="component-outlined"
+                  type="email"
+                  label="email"
+                />
+              </FormControl>
+            </Grid>
+            <Grid item sx={{ flexGrow: 1 }}>
+              <FormControl sx={{ width: '100%' }}>
+                <InputLabel htmlFor="component-outlined">
+                  Medical Insurance
+                </InputLabel>
+                <OutlinedInput
+                  id="component-outlined"
+                  type="email"
+                  label="email"
+                />
+              </FormControl>
+            </Grid>
+            <Grid item sx={{ flexGrow: 1 }}>
+              <FormControl sx={{ width: '100%' }}>
+                <InputLabel htmlFor="component-outlined">Blood Type</InputLabel>
+                <OutlinedInput
+                  id="component-outlined"
+                  type="email"
+                  label="email"
+                />
+              </FormControl>
+            </Grid>
+          </Grid>
+
           <FormControl>
             <InputLabel htmlFor="component-outlined">Phone Number</InputLabel>
             <OutlinedInput id="component-outlined" type="email" label="email" />
