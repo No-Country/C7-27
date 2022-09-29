@@ -7,11 +7,11 @@ import AppFooter from '../components/Footer';
 
 export default function Home() {
   return (
-    <Container>
+    <>
         <NavBar/>
         <Hero/>
         <Data/>
         <AppFooter/>
-    </Container>
+    </>
   );
 }

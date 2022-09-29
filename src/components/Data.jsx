@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -26,7 +26,7 @@ export default function Data() {
     ]
 
   return (
-    <Box>
+    <Container>
         <Grid container sx={{ padding: 5 }} spacing={10}>
             {
                 dataArray.map((data, index) => (
@@ -54,6 +54,6 @@ export default function Data() {
                 ))
             }
         </Grid>
-    </Box>
+    </Container>
   );
 }

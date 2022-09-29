@@ -4,11 +4,12 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack'
+import Container from '@mui/material/Container'
 import Image from 'next/image';
 
 export default function NavBar() {
   return (
-    <Box >
+    <Container >
         <Grid container sx={{ padding: 5 }}>
             <Grid item xs={6} sx={{ display:'flex', flexDirection:"column", justifyContent:'center', padding: 5 }}>
                 <Typography variant="h3">
@@ -28,6 +29,6 @@ export default function NavBar() {
                 </Box>
             </Grid>
         </Grid>
-    </Box>
+    </Container>
   );
 }
