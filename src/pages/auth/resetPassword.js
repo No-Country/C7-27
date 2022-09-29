@@ -1,14 +1,14 @@
 import {
   Button,
   FormControl,
-  FormHelperText,
   FormLabel,
   InputLabel,
   OutlinedInput,
   Stack,
   Typography,
-} from '@mui/material';
-import { Box } from '@mui/system';
+  Box,
+} from '../../components/auth';
+
 import { Layout } from '../../Layouts';
 
 export default function restPasswordPage() {
@@ -18,7 +18,8 @@ export default function restPasswordPage() {
         component="form"
         sx={{
           '& > :not(style)': { m: 6 },
-          width: '70%',
+          width: '100%',
+          maxWidth: '800px',
         }}
         noValidate
         autoComplete="off"

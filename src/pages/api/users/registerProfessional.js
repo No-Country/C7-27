@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     const newUser = new User({
       email: body.email,
       password: body.password,
-      isProfessional: body.isProfessional,
+      isProfessional: true,
     });
 
     // creo el registro de profesioanl

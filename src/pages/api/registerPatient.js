@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     const newUser = new User({
       email: body.email,
       password: body.password,
-      isProfessional: body.isProfessional,
+      isProfessional: false,
     });
 
     // Creo el registro de historia clinia
