@@ -1,17 +1,17 @@
-import { Link as MUILink } from "@mui/material";
-import Link from "next/link";
+import { Box, Container, Link as MUILink, Stack } from '@mui/material';
+import Link from 'next/link';
+import NavBar from '../components/navbar';
+import Hero from '../components/Hero'
+import Data from '../components/Data'
+import AppFooter from '../components/Footer';
 
 export default function Home() {
   return (
-    <div>
-      <h1>APP</h1>
-      <Link href="/auth/login">
-        <MUILink>login</MUILink>
-      </Link>
-      <br />
-      <Link href="/auth/register">
-        <MUILink>register</MUILink>
-      </Link>
-    </div>
+    <Container>
+        <NavBar/>
+        <Hero/>
+        <Data/>
+        <AppFooter/>
+    </Container>
   );
 }
