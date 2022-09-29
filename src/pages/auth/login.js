@@ -63,7 +63,7 @@ export default function loginPage() {
         autoComplete="off"
         onSubmit={handleSubmit(submit)}
       >
-        <Stack spacing={2}>
+        <Stack spacing={5} alignContent="center" justifyContent="center">
           <FormLabel component="legend">Login</FormLabel>
           <FormControl>
             <InputLabel htmlFor="component-outlined">Email Address</InputLabel>
