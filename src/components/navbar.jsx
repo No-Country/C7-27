@@ -18,7 +18,7 @@ export default function NavBar() {
         <Toolbar sx={{ justifyContent: 'space-between' }}>
                 <ApartmentIcon/>
                 <Typography variant="h6" component="div">
-                    Clinic Stuff
+                    MediApp
                 </Typography>
                 <Tabs sx={{marginRight: 'auto'}} textColor="inherit">
                     <Tab label="section 1"/>
