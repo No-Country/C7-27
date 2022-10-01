@@ -12,7 +12,7 @@ export default async function sendEmail(to, subject, content) {
     })
 
     const mailOptions = {
-        from: `"Clinic app No Country C7-27" <${process.env.MAIN_EMAIL_ADDRESS}>`,
+        from: `"MediApp - No Country C7-27" <${process.env.MAIN_EMAIL_ADDRESS}>`,
         to: to,
         subject: subject,
         html: content
