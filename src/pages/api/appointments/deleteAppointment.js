@@ -2,6 +2,7 @@ import { dbConnect } from "../../../config/dbConnect"
 import { model } from 'mongoose'
 import { Appointment } from '../../../models/Appointment'
 
+
 dbConnect();
 
 export default async function handler(req, res) {
