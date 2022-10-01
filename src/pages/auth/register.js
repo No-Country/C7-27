@@ -44,12 +44,12 @@ export default function registerPage() {
 
   const submit = async (values) => {
     try {
-      const url = 'http://localhost:3000/api/registerPatient';
+      const url = `${NEXT_PUBLIC_API_URL}/api/registerPatient`
       const { data } = await axios.post(url, values);
       console.log(data);
       reset();
     } catch (e) {
-      console.log(e);
+      console.log(e.message)
     }
   };
 

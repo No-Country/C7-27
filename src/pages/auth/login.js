@@ -33,10 +33,10 @@ export default function loginPage() {
     reset,
     control,
     formState: { errors },
-  } = useForm();
+  } = useForm()
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [check, setCheck] = useState(false);
+  const [showPassword, setShowPassword] = useState(false)
+  const [check, setCheck] = useState(false)
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -48,13 +48,13 @@ export default function loginPage() {
 
   const submit = async (values) => {
     try {
-      const url = "http://localhost:3000/api/loginUser";
-      const { data } = await axios.post(url, values);
-      console.log(data);
-      localStorage.setItem("token", data.token);
-      reset();
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/api/loginUser`
+      const { data } = await axios.post(url, values)
+      localStorage.setItem("token", data.token)
+      console.log(data)
+      reset()
     } catch (e) {
-      console.log(e);
+      console.log(e.message)
     }
   };
 

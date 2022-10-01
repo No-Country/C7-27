@@ -2,6 +2,9 @@ import { dbConnect } from "../../config/dbConnect";
 import User from "../../models/User";
 import Patient from "../../models/Patient";
 import ClinicHistory from "../../models/ClinicHistory";
+import Token from "../../models/Token";
+import sendEmail from "../../utils/sendEmail"
+import { v4 as uuidv4 } from 'uuid';
 
 dbConnect();
 
@@ -26,7 +29,19 @@ export default async function handler(req, res) {
       email: body.email,
       password: body.password,
       isProfessional: false,
+      verified: false
     });
+
+    //creacion del token temporal para verificar la cuenta
+    const token = await new Token({
+      userID: newUser._id,
+      token: uuidv4()
+    }).save()
+
+    //envio del email de activacion
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/users/${newUser._id}/verify/${token.token}`
+    const emailContent = `<p>Click the link below to verify your account</p><a href="${url}">LINK</a>`
+    await sendEmail(newUser.email, "Verify your email", emailContent)
 
     // Creo el registro de historia clinia
     const newClinicHistory = new ClinicHistory();
