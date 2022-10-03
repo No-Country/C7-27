@@ -1,11 +1,16 @@
 import { Schema, model, models } from "mongoose";
 
-const medicalInsurance = new Schema(
+const medicalInsuranceSchema = new Schema(
   {
     name: {
       type: String,
       required: true,
       unique: true,
+      trim: true,
+    },
+    initials: {
+      type: String,
+      required: true,
       trim: true,
     },
   },
@@ -16,4 +21,4 @@ const medicalInsurance = new Schema(
 );
 
 export default models.MedicalInsurance ||
-  model("MedicalInsurance", medicalInsurance).create();
+  model("MedicalInsurance", medicalInsuranceSchema).create();

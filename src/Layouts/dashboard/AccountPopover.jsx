@@ -12,7 +12,9 @@ export const AccountPopover = (props) => {
   const handleSignOut = async () => {
     dispatch(actionUserLogout());
     localStorage.removeItem("token");
-    router.push("/");
+    setTimeout(() => {
+      router.push("/");
+    }, 500);
   };
 
   return (
@@ -53,7 +55,7 @@ export const AccountPopover = (props) => {
           },
         }}
       >
-        <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
+        <MenuItem onClick={() => handleSignOut()}>Sign out</MenuItem>
       </MenuList>
     </Popover>
   );

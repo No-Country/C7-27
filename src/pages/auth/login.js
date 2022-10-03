@@ -33,6 +33,7 @@ export default function loginPage() {
     control,
     formState: { errors },
   } = useForm();
+
   const router = useRouter();
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
@@ -49,7 +50,7 @@ export default function loginPage() {
       reset();
       router.push("/dashboard");
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
   };
 

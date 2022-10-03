@@ -4,6 +4,7 @@ import Professional from "../../models/Professional";
 import User from "../../models/User";
 import jwtGenerate from "../../utils/jwtGenerate";
 import { serialize } from "cookie";
+import verificationEmail from "../../utils/verificationEmail";
 
 dbConnect();
 
@@ -16,6 +17,14 @@ export default async function handler(req, res) {
 
     if (!user || !(await user.checkPassword(password))) {
       const error = new Error("Email or password are Incorrect");
+      return res.status(400).json({ msg: error.message });
+    }
+
+    if (user.verified == false) {
+      verificationEmail(user._id, user.email);
+      const error = new Error(
+        "Cuenta no verificada, se ha enviado un nuevo correo para verificar la misma."
+      );
       return res.status(400).json({ msg: error.message });
     }
 

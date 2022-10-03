@@ -14,8 +14,7 @@ export const Layout = ({ children }) => {
     if (token) {
       try {
         dispatch(actionAuthenticateUser(token));
-        console.log("asd");
-        router.push("/dashboard");
+        // router.push("/dashboard");
       } catch (e) {
         console.log(e);
       }

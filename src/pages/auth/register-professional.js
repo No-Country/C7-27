@@ -1,4 +1,4 @@
-import NextLink from 'next/link';
+
 import { useState } from 'react';
 import {
   Checkbox,
@@ -20,7 +20,7 @@ import {
   MenuItem,
   TextField,
 } from '../../components/auth';
-import Link from '@mui/material/Link';
+
 import { useForm } from 'react-hook-form';
 import { Layout } from '../../Layouts';
 import axios from 'axios';
@@ -32,7 +32,6 @@ export default function registerPage() {
     register,
     handleSubmit,
     reset,
-    control,
     formState: { errors },
   } = useForm();
 
@@ -45,6 +44,9 @@ export default function registerPage() {
   const submit = async (values) => {
     try {
       const url = `${NEXT_PUBLIC_API_URL}/api/registerPatient`
+
+      // TODO: Change the url
+
       const { data } = await axios.post(url, values);
       console.log(data);
       reset();
@@ -202,29 +204,29 @@ export default function registerPage() {
             <Grid item sx={{ flexGrow: 1 }} xs={12} sm={6}>
               <FormControl sx={{ width: '100%' }}>
                 <InputLabel id="demo-simple-select-autowidth-label">
-                  Blood Type
+                  Speciality
                 </InputLabel>
                 <Select
                   label="Age"
-                  {...register('bloodType', {
+                  {...register('speciality', {
                     required: {
                       value: true,
                       message: 'This field is required',
                     },
                   })}
-                  error={errors.bloodType ? true : false}
+                  error={errors.speciality ? true : false}
                 >
                   <MenuItem value="">
                     <em>Select</em>
                   </MenuItem>
-                  <MenuItem value="A">A</MenuItem>
-                  <MenuItem value="B">B</MenuItem>
-                  <MenuItem value="AB">AB</MenuItem>
-                  <MenuItem value="O">O</MenuItem>
+                  <MenuItem value="A">Nurse</MenuItem>
+                  <MenuItem value="B">Dentist</MenuItem>
+                  <MenuItem value="AB">Radiologist</MenuItem>
+                  <MenuItem value="O">psychologist</MenuItem>
                 </Select>
-                {errors.bloodType && (
+                {errors.speciality && (
                   <Typography variant="body2" component="p" color="error">
-                    {errors.bloodType.message}
+                    {errors.speciality.message}
                   </Typography>
                 )}
               </FormControl>
@@ -255,29 +257,19 @@ export default function registerPage() {
             <FormControlLabel
               control={
                 <Checkbox
-                  {...register('check', {
-                    required: { value: true, message: 'Accept' },
-                  })}
+                  {...register('check')}
                   defaultChecked={false}
                 />
               }
-              label="I accept the Terms or Conditions"
+              label="Is Admin"
             />
-            {errors.check && (
-              <Typography variant="body2" component="p" color="error">
-                {errors.check.message}
-              </Typography>
-            )}
+            
           </FormGroup>
 
           <Button type="submit" variant="contained">
             Sign in
           </Button>
-          <Stack direction="row-reverse" spacing={2}>
-            <NextLink href="/auth/login" passHref>
-              <Link>I've account</Link>
-            </NextLink>
-          </Stack>
+        
         </Stack>
       </Box>
     </Layout>

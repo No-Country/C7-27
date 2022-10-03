@@ -32,6 +32,11 @@ const userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Professional",
     },
+    verified: {
+      type: Boolean,
+      default: false,
+      require: true,
+    },
   },
   {
     timestamps: true,

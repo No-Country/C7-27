@@ -28,6 +28,7 @@ export const actionUserLogin = (user) => {
     const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/loginUser`;
     try {
       const { data } = await axios.post(URL, user, config);
+      console.log(data);
       dispatch(login(data));
       return data.token;
     } catch (e) {
@@ -50,6 +51,24 @@ export const actionUserLogout = () => {
       dispatch(logout());
     } catch (e) {
       console.log(e);
+    }
+  };
+};
+
+export const userRegister = (user) => {
+  return async function () {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/users/registerProfessional`;
+    try {
+      const { data } = await axios.post(URL, user, config);
+      console.log(data);
+      return;
+    } catch (e) {
+      return e.message;
     }
   };
 };

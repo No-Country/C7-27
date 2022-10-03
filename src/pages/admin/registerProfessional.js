@@ -1,5 +1,4 @@
-import NextLink from 'next/link';
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Checkbox,
   FormControlLabel,
@@ -19,38 +18,74 @@ import {
   Select,
   MenuItem,
   TextField,
-} from '../../components/auth';
-import Link from '@mui/material/Link';
-import { useForm } from 'react-hook-form';
-import { Layout } from '../../Layouts';
-import axios from 'axios';
+} from "../../components/auth";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import Chip from "@mui/material/Chip";
 
-const medicalinsurances = ['Name 1', 'Name 2', 'Name 3', 'Name 4', 'Name 5'];
+import { useForm } from "react-hook-form";
+import { Layout } from "../../Layouts";
+import { useDispatch } from "react-redux";
+import { userRegister } from "../../store/slices/user";
+import { useRouter } from "next/router";
 
-export default function registerPage() {
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const medicalinsurances = ["Name 1", "Name 2", "Name 3", "Name 4", "Name 5"];
+
+// function getStyles(name, personName, theme) {
+//   return {
+//     fontWeight:
+//       personName.indexOf(name) === -1
+//         ? theme.typography.fontWeightRegular
+//         : theme.typography.fontWeightMedium,
+//   };
+// }
+
+export default function registerProfessional() {
   const {
     register,
     handleSubmit,
     reset,
-    control,
+    values,
     formState: { errors },
   } = useForm();
-
+  const dispatch = useDispatch();
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [medicalInsurancesList, setMedicalInsurancesList] = useState([]);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
   const submit = async (values) => {
+    console.log(values);
     try {
-      const url = `${NEXT_PUBLIC_API_URL}/api/registerPatient`
-      const { data } = await axios.post(url, values);
-      console.log(data);
+      dispatch(userRegister(values));
       reset();
+      router.push("/dashboard");
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
     }
+  };
+
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setMedicalInsurancesList(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
   };
 
   return (
@@ -58,25 +93,25 @@ export default function registerPage() {
       <Box
         component="form"
         sx={{
-          '& > :not(style)': { m: 1 },
-          width: '100%',
-          maxWidth: '500px',
+          "& > :not(style)": { m: 1 },
+          width: "100%",
+          maxWidth: "500px",
         }}
         noValidate
         autoComplete="off"
         onSubmit={handleSubmit(submit)}
       >
         <Stack spacing={2}>
-          <FormLabel component="legend">Register Patient</FormLabel>
+          <FormLabel component="legend">Register Professional</FormLabel>
 
           <FormControl>
             <TextField
-              {...register('email', {
-                required: { value: true, message: 'This field is required' },
+              {...register("email", {
+                required: { value: true, message: "This field is required" },
                 pattern: {
                   value:
                     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: 'Invalid format',
+                  message: "Invalid format",
                 },
               })}
               type="email"
@@ -92,11 +127,11 @@ export default function registerPage() {
 
           <FormControl>
             <TextField
-              {...register('password', {
-                required: { value: true, message: 'This field is required' },
-                minLength: { value: 6, message: 'At least 6 characters' },
+              {...register("password", {
+                required: { value: true, message: "This field is required" },
+                minLength: { value: 6, message: "At least 6 characters" },
               })}
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               label="Password"
               InputProps={{
                 endAdornment: (
@@ -122,19 +157,19 @@ export default function registerPage() {
           </FormControl>
           <Grid
             container
-            width={'100%'}
-            justifyContent={'space-between'}
+            width={"100%"}
+            justifyContent={"space-between"}
             gap={2}
             display="flex"
           >
             <Grid item sx={{ flexGrow: 5 }} xs={12}>
-              <FormControl sx={{ width: '100%' }}>
+              <FormControl sx={{ width: "100%" }}>
                 <TextField
                   // id="component-outlined"
-                  {...register('firstName', {
+                  {...register("firstName", {
                     required: {
                       value: true,
-                      message: 'This field is required',
+                      message: "This field is required",
                     },
                   })}
                   type="text"
@@ -149,13 +184,13 @@ export default function registerPage() {
               </FormControl>
             </Grid>
             <Grid item sx={{ flexGrow: 1 }} xs={12}>
-              <FormControl sx={{ width: '100%' }}>
+              <FormControl sx={{ width: "100%" }}>
                 <TextField
                   // id="component-outlined"
-                  {...register('lastName', {
+                  {...register("lastName", {
                     required: {
                       value: true,
-                      message: 'This field is required',
+                      message: "This field is required",
                     },
                   })}
                   type="text"
@@ -169,62 +204,75 @@ export default function registerPage() {
                 )}
               </FormControl>
             </Grid>
-            <Grid item sx={{ flexGrow: 1 }}>
-              <FormControl sx={{ width: '100%' }} xs={12} sm={6}>
-                <InputLabel id="demo-simple-select-autowidth-label">
-                  Medical Insurance
+
+            <Grid item xs={12}>
+              <FormControl sx={{ width: "100%" }}>
+                <InputLabel id="demo-multiple-chip-label">
+                  Medical Insurances
                 </InputLabel>
                 <Select
-                  label="Age"
-                  {...register('medicalInsurance', {
+                  labelId="Medical Insurances"
+                  id="demo-multiple-chip"
+                  multiple
+                  {...register("medicalInsuranceList", {
                     required: {
                       value: true,
-                      message: 'This field is required',
+                      message: "This field is required",
                     },
                   })}
-                  error={errors.medicalInsurance ? true : false}
+                  value={medicalInsurancesList}
+                  onChange={handleChange}
+                  input={
+                    <OutlinedInput id="select-multiple-chip" label="Chip" />
+                  }
+                  renderValue={(selected) => (
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                      {selected.map((value) => (
+                        <Chip key={value} label={value} />
+                      ))}
+                    </Box>
+                  )}
+                  MenuProps={MenuProps}
                 >
-                  <MenuItem value="">
-                    <em>Select</em>
-                  </MenuItem>
-                  {medicalinsurances.map((m) => (
-                    <MenuItem value={m}>{m}</MenuItem>
+                  {medicalinsurances.map((name) => (
+                    <MenuItem
+                      key={name}
+                      value={name}
+                      // style={getStyles(name, theme)}
+                    >
+                      {name}
+                    </MenuItem>
                   ))}
-                  <MenuItem value="Other">Other</MenuItem>
                 </Select>
-                {errors.medicalInsurance && (
-                  <Typography variant="body2" component="p" color="error">
-                    {errors.medicalInsurance.message}
-                  </Typography>
-                )}
               </FormControl>
             </Grid>
-            <Grid item sx={{ flexGrow: 1 }} xs={12} sm={6}>
-              <FormControl sx={{ width: '100%' }}>
+
+            <Grid item xs={12}>
+              <FormControl sx={{ width: "100%" }}>
                 <InputLabel id="demo-simple-select-autowidth-label">
-                  Blood Type
+                  Speciality
                 </InputLabel>
                 <Select
                   label="Age"
-                  {...register('bloodType', {
+                  {...register("specialities", {
                     required: {
                       value: true,
-                      message: 'This field is required',
+                      message: "This field is required",
                     },
                   })}
-                  error={errors.bloodType ? true : false}
+                  error={errors.speciality ? true : false}
                 >
                   <MenuItem value="">
                     <em>Select</em>
                   </MenuItem>
-                  <MenuItem value="A">A</MenuItem>
-                  <MenuItem value="B">B</MenuItem>
-                  <MenuItem value="AB">AB</MenuItem>
-                  <MenuItem value="O">O</MenuItem>
+                  <MenuItem value="Nurse">Nurse</MenuItem>
+                  <MenuItem value="Dentist">Dentist</MenuItem>
+                  <MenuItem value="Radiologist">Radiologist</MenuItem>
+                  <MenuItem value="Psychologist">Psychologist</MenuItem>
                 </Select>
-                {errors.bloodType && (
+                {errors.speciality && (
                   <Typography variant="body2" component="p" color="error">
-                    {errors.bloodType.message}
+                    {errors.speciality.message}
                   </Typography>
                 )}
               </FormControl>
@@ -234,10 +282,10 @@ export default function registerPage() {
           <FormControl xs={12}>
             <TextField
               // id="component-outlined"
-              {...register('phoneNumber', {
+              {...register("phoneNumber", {
                 required: {
                   value: true,
-                  message: 'This field is required',
+                  message: "This field is required",
                 },
               })}
               type="text"
@@ -255,13 +303,13 @@ export default function registerPage() {
             <FormControlLabel
               control={
                 <Checkbox
-                  {...register('check', {
-                    required: { value: true, message: 'Accept' },
+                  {...register("check", {
+                    required: { value: true, message: "Accept" },
                   })}
                   defaultChecked={false}
                 />
               }
-              label="I accept the Terms or Conditions"
+              label="Is Admin"
             />
             {errors.check && (
               <Typography variant="body2" component="p" color="error">
@@ -273,11 +321,6 @@ export default function registerPage() {
           <Button type="submit" variant="contained">
             Sign in
           </Button>
-          <Stack direction="row-reverse" spacing={2}>
-            <NextLink href="/auth/login" passHref>
-              <Link>I've account</Link>
-            </NextLink>
-          </Stack>
         </Stack>
       </Box>
     </Layout>
