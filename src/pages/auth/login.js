@@ -1,7 +1,5 @@
 import { useState } from "react";
-
 import NextLink from "next/link";
-import axios from "axios";
 
 import {
   Checkbox,
@@ -14,8 +12,6 @@ import {
   FormLabel,
   Box,
   FormControl,
-  InputLabel,
-  OutlinedInput,
   VisibilityOff,
   Visibility,
   Typography,
@@ -25,6 +21,9 @@ import Link from "@mui/material/Link";
 
 import { useForm } from "react-hook-form";
 import { Layout } from "../../Layouts";
+import { useDispatch } from "react-redux";
+import { actionUserLogin } from "../../store/slices/user";
+import { useRouter } from "next/router";
 
 export default function loginPage() {
   const {
@@ -34,7 +33,8 @@ export default function loginPage() {
     control,
     formState: { errors },
   } = useForm();
-
+  const router = useRouter();
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [check, setCheck] = useState(false);
 
@@ -42,17 +42,13 @@ export default function loginPage() {
     setShowPassword(!showPassword);
   };
 
-  // const handleMouseDownPassword = (event) => {
-  //   event.preventDefault(formatState);
-  // };
-
   const submit = async (values) => {
     try {
-      const url = "http://localhost:3000/api/loginUser";
-      const { data } = await axios.post(url, values);
-      console.log(data);
-      localStorage.setItem("token", data.token);
+      const user = await dispatch(actionUserLogin(values));
+      // console.log(user);
+      // localStorage.setItem("token", token);
       reset();
+      router.push("/");
     } catch (e) {
       console.log(e);
     }

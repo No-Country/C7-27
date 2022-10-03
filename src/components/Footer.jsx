@@ -1,48 +1,48 @@
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import TwitterIcon from "@mui/icons-material/Twitter";
 
 function Copyright() {
   return (
     <>
-      {'© '}
+      {"© "}
       <Link color="inherit" href="https://mui.com/">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
     </>
   );
 }
 
 const iconStyle = {
-  width: 48,
-  height: 48,
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
+  width: 50,
+  height: 50,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
 };
 
 const LANGUAGES = [
   {
-    code: 'en-US',
-    name: 'English',
+    code: "en-US",
+    name: "English",
   },
   {
-    code: 'es-AR',
-    name: 'Español',
+    code: "es-AR",
+    name: "Español",
   },
 ];
 
 export default function AppFooter() {
   return (
-    <Box
-      component="footer"
-      sx={{ display: 'flex' }}
-    >
-      <Container sx={{ my: 8, display: 'flex' }}>
+    <Box component="footer" sx={{ display: "flex" }}>
+      <Container sx={{ my: 8, display: "flex" }}>
         <Grid container spacing={5}>
           <Grid item xs={6} sm={4} md={3}>
             <Grid
@@ -52,30 +52,37 @@ export default function AppFooter() {
               spacing={2}
               sx={{ height: 120 }}
             >
-              <Grid item sx={{ display: 'flex' }}>
-                <Box component="a" href="https://mui.com/" sx={iconStyle}>
-                  <img
-                    src="/static/themes/onepirate/appFooterFacebook.png"
-                    alt="Facebook"
-                  />
+              <Grid sx={{ display: "flex", justifyContent: "center" }}>
+                <Box item component="a" href="https://mui.com/" sx={iconStyle}>
+                  <FacebookIcon />
                 </Box>
-                <Box component="a" href="https://twitter.com/MUI_hq" sx={iconStyle}>
-                  <img
-                    src="/static/themes/onepirate/appFooterTwitter.png"
-                    alt="Twitter"
-                  />
+                <Box
+                  component="a"
+                  href="https://twitter.com/MUI_hq"
+                  sx={iconStyle}
+                >
+                  <TwitterIcon />
+                </Box>
+                <Box
+                  component="a"
+                  href="https://twitter.com/MUI_hq"
+                  sx={iconStyle}
+                >
+                  <InstagramIcon />
                 </Box>
               </Grid>
-              <Grid item>
+
+              <Grid item textAlign="center">
                 <Copyright />
               </Grid>
             </Grid>
           </Grid>
+
           <Grid item xs={6} sm={4} md={2}>
             <Typography variant="h6" marked="left" gutterBottom>
               Legal
             </Typography>
-            <Box component="ul" sx={{ m: 0, listStyle: 'none', p: 0 }}>
+            <Box component="ul" sx={{ m: 0, listStyle: "none", p: 0 }}>
               <Box component="li" sx={{ py: 0.5 }}>
                 <Link href="/premium-themes/onepirate/terms/">Terms</Link>
               </Box>
@@ -84,6 +91,7 @@ export default function AppFooter() {
               </Box>
             </Box>
           </Grid>
+
           <Grid item xs={6} sm={8} md={4}>
             <Typography variant="h6" marked="left" gutterBottom>
               Language
@@ -104,17 +112,26 @@ export default function AppFooter() {
               ))}
             </TextField>
           </Grid>
+
           <Grid item>
             <Typography variant="caption">
-              {'Icons made by '}
-              <Link href="https://www.freepik.com" rel="sponsored" title="Freepik">
+              {"Icons made by "}
+              <Link
+                href="https://www.freepik.com"
+                rel="sponsored"
+                title="Freepik"
+              >
                 Freepik
               </Link>
-              {' from '}
-              <Link href="https://www.flaticon.com" rel="sponsored" title="Flaticon">
+              {" from "}
+              <Link
+                href="https://www.flaticon.com"
+                rel="sponsored"
+                title="Flaticon"
+              >
                 www.flaticon.com
               </Link>
-              {' is licensed by '}
+              {" is licensed by "}
               <Link
                 href="https://creativecommons.org/licenses/by/3.0/"
                 title="Creative Commons BY 3.0"

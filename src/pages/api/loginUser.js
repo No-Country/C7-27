@@ -3,6 +3,7 @@ import Patient from "../../models/Patient";
 import Professional from "../../models/Professional";
 import User from "../../models/User";
 import jwtGenerate from "../../utils/jwtGenerate";
+import { serialize } from "cookie";
 
 dbConnect();
 
@@ -31,9 +32,20 @@ export default async function handler(req, res) {
         return res.status(400).json({ msg: error.message });
       }
 
+      const token = jwtGenerate(user._doc._id);
+
+      const serialized = serialize("token", token, {
+        httpOnly: true,
+        //   secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 1000 * 60 * 60 * 24 * 30,
+        path: "/",
+      });
+      console.log(serialized);
+      res.setHeader("Set-Cookie", serialized);
+
       return res.status(200).json({
         ...user._doc,
-        token: jwtGenerate(user._doc._id),
         ...professionalUser._doc,
       });
     } else {
@@ -53,9 +65,6 @@ export default async function handler(req, res) {
         const error = new Error("Patient not found");
         return res.status(400).json({ msg: error.message });
       }
-
-      const serialized = jwtGenerate(user._doc._id);
-      res.setHeader("Set-Cookie", serialized);
 
       return res.status(200).json({
         ...user._doc,

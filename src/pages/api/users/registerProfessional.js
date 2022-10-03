@@ -1,4 +1,4 @@
-import { dbConnect } from "../../../utils/dbConnect";
+import { dbConnect } from "../../../config/dbConnect";
 import User from "../../../models/User";
 import Professional from "../../../models/Professional";
 
