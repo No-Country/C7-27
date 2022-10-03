@@ -37,8 +37,20 @@ export const actionUserLogin = (user) => {
 };
 
 export const actionUserLogout = () => {
-  return function (dispatch) {
-    dispatch(logout());
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/users/logout`;
+    try {
+      console.log(URL);
+      await axios.get(URL, config);
+      dispatch(logout());
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 

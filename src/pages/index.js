@@ -5,21 +5,24 @@ import Hero from "../components/Hero";
 import Data from "../components/Data";
 import AppFooter from "../components/Footer";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { actionAuthenticateUser } from "../store/slices/user";
 import { useRouter } from "next/router";
-import axios from "axios";
 
-export default function Home({ token }) {
+export default function Home() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { user } = useSelector((state) => state.users);
 
   useEffect(() => {
-    try {
-      dispatch(actionAuthenticateUser(token));
-      // router.push("/user/page1");
-    } catch (e) {}
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        dispatch(actionAuthenticateUser(token));
+        // router.push("/dashboard");
+      } catch (e) {
+        console.log(e);
+      }
+    }
   }, []);
 
   return (
@@ -32,23 +35,17 @@ export default function Home({ token }) {
   );
 }
 
-export const getServerSideProps = async ({ req, res }) => {
-  const { token } = req.cookies;
-  if (token) {
-    try {
-      const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/users/profile`;
-      const { data } = await axios.post(URL, { token });
-      return {
-        props: {
-          user: data,
-        },
-      };
-    } catch (e) {
-      // console.log(e)
-    }
-  }
-
-  return {
-    props: {},
-  };
-};
+// export const getServerSideProps = async ({ req, res }) => {
+//   const { token } = req.cookies;
+//   if (token) {
+//     return {
+//       props: {
+//         token,
+//       },
+//     };
+//   } else {
+//     return {
+//       props: {},
+//     };
+//   }
+// };

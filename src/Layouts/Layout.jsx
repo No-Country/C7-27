@@ -1,7 +1,27 @@
 import { Box, Grid, Typography } from "@mui/material";
 import AccessibleForwardIcon from "@mui/icons-material/AccessibleForward";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { actionAuthenticateUser } from "../store/slices/user";
 
 export const Layout = ({ children }) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        dispatch(actionAuthenticateUser(token));
+        console.log("asd");
+        router.push("/dashboard");
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }, []);
+
   return (
     <Grid
       container
@@ -22,7 +42,11 @@ export const Layout = ({ children }) => {
       >
         <Box>
           <Typography variant="h3" component="h2">
-            <AccessibleForwardIcon sx={{ fontSize: 40 }} color="primary" />
+            <AccessibleForwardIcon
+              onClick={() => router.push("/")}
+              sx={{ fontSize: 40 }}
+              color="primary"
+            />
             Hospital Name
           </Typography>
         </Box>

@@ -41,11 +41,12 @@ export default async function handler(req, res) {
         maxAge: 1000 * 60 * 60 * 24 * 30,
         path: "/",
       });
-      console.log(serialized);
+      // console.log(serialized);
       res.setHeader("Set-Cookie", serialized);
 
       return res.status(200).json({
         ...user._doc,
+        token: jwtGenerate(user._doc._id),
         ...professionalUser._doc,
       });
     } else {

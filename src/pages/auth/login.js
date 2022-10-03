@@ -44,11 +44,10 @@ export default function loginPage() {
 
   const submit = async (values) => {
     try {
-      const user = await dispatch(actionUserLogin(values));
-      // console.log(user);
-      // localStorage.setItem("token", token);
+      const token = await dispatch(actionUserLogin(values));
+      localStorage.setItem("token", token);
       reset();
-      router.push("/");
+      router.push("/dashboard");
     } catch (e) {
       console.log(e);
     }
