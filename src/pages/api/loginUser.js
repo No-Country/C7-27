@@ -3,8 +3,8 @@ import Patient from "../../models/Patient";
 import Professional from "../../models/Professional";
 import User from "../../models/User";
 import jwtGenerate from "../../utils/jwtGenerate";
-import verificationEmail from "../../utils/verificationEmail"
-
+import { serialize } from "cookie";
+import verificationEmail from "../../utils/verificationEmail";
 
 dbConnect();
 
@@ -21,8 +21,10 @@ export default async function handler(req, res) {
     }
 
     if (user.verified == false) {
-      verificationEmail(user._id, user.email)
-      const error = new Error("Cuenta no verificada, se ha enviado un nuevo correo para verificar la misma.");
+      verificationEmail(user._id, user.email);
+      const error = new Error(
+        "Cuenta no verificada, se ha enviado un nuevo correo para verificar la misma."
+      );
       return res.status(400).json({ msg: error.message });
     }
 
@@ -38,6 +40,18 @@ export default async function handler(req, res) {
         const error = new Error("Professional not found");
         return res.status(400).json({ msg: error.message });
       }
+
+      const token = jwtGenerate(user._doc._id);
+
+      const serialized = serialize("token", token, {
+        httpOnly: true,
+        //   secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 1000 * 60 * 60 * 24 * 30,
+        path: "/",
+      });
+      // console.log(serialized);
+      res.setHeader("Set-Cookie", serialized);
 
       return res.status(200).json({
         ...user._doc,
@@ -61,9 +75,6 @@ export default async function handler(req, res) {
         const error = new Error("Patient not found");
         return res.status(400).json({ msg: error.message });
       }
-
-      const serialized = jwtGenerate(user._doc._id);
-      res.setHeader("Set-Cookie", serialized);
 
       return res.status(200).json({
         ...user._doc,

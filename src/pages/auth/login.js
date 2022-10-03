@@ -1,7 +1,5 @@
 import { useState } from "react";
-
 import NextLink from "next/link";
-import axios from "axios";
 
 import {
   Checkbox,
@@ -14,8 +12,6 @@ import {
   FormLabel,
   Box,
   FormControl,
-  InputLabel,
-  OutlinedInput,
   VisibilityOff,
   Visibility,
   Typography,
@@ -25,6 +21,9 @@ import Link from "@mui/material/Link";
 
 import { useForm } from "react-hook-form";
 import { Layout } from "../../Layouts";
+import { useDispatch } from "react-redux";
+import { actionUserLogin } from "../../store/slices/user";
+import { useRouter } from "next/router";
 
 export default function loginPage() {
   const {
@@ -33,28 +32,25 @@ export default function loginPage() {
     reset,
     control,
     formState: { errors },
-  } = useForm()
+  } = useForm();
 
-  const [showPassword, setShowPassword] = useState(false)
-  const [check, setCheck] = useState(false)
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
+  const [check, setCheck] = useState(false);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
-  // const handleMouseDownPassword = (event) => {
-  //   event.preventDefault(formatState);
-  // };
-
   const submit = async (values) => {
     try {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/api/loginUser`
-      const { data } = await axios.post(url, values)
-      localStorage.setItem("token", data.token)
-      console.log(data)
-      reset()
+      const token = await dispatch(actionUserLogin(values));
+      localStorage.setItem("token", token);
+      reset();
+      router.push("/dashboard");
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
     }
   };
 
