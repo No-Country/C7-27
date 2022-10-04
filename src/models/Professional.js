@@ -5,7 +5,10 @@ const daySchema = new Schema(
     day: {
       type: String,
     },
-    availability: {
+    from: {
+      type: String,
+    },
+    to: {
       type: String,
     },
   },
