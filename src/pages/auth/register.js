@@ -27,7 +27,7 @@ import axios from 'axios';
 
 const medicalinsurances = ['Name 1', 'Name 2', 'Name 3', 'Name 4', 'Name 5'];
 
-export default function registerPage() {
+export default function RegisterPage() {
   const {
     register,
     handleSubmit,
@@ -188,7 +188,9 @@ export default function registerPage() {
                     <em>Select</em>
                   </MenuItem>
                   {medicalinsurances.map((m) => (
-                    <MenuItem value={m}>{m}</MenuItem>
+                    <MenuItem key={m} value={m}>
+                      {m}
+                    </MenuItem>
                   ))}
                   <MenuItem value="Other">Other</MenuItem>
                 </Select>
@@ -275,7 +277,7 @@ export default function registerPage() {
           </Button>
           <Stack direction="row-reverse" spacing={2}>
             <NextLink href="/auth/login" passHref>
-              <Link>I've account</Link>
+              <Link>I&apos;ve account</Link>
             </NextLink>
           </Stack>
         </Stack>

@@ -1,8 +1,8 @@
-import Head from "next/head";
-import { Box, Container, Grid } from "@mui/material";
-import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
+import Head from 'next/head';
+import { Box, Container, Grid } from '@mui/material';
+import { DashboardLayout } from '../../Layouts/dashboard/DashboardLayout';
 
-export default function ({ token }) {
+export default function DashboardPage({ token }) {
   return (
     <DashboardLayout>
       <Head>

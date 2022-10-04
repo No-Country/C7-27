@@ -19,7 +19,7 @@ export const Layout = ({ children }) => {
         console.log(e);
       }
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <Grid
