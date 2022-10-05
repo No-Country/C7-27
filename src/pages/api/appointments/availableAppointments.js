@@ -1,5 +1,7 @@
-import { dbConnect } from "../../../config/dbConnect";
+import { dbConnect } from "../../../config/dbConnect"
 import Appointment from '../../../models/Appointment'
+import Patient from '../../../models/Patient'
+import Professional from '../../../models/Professional'
 
 dbConnect();
 
@@ -13,9 +15,13 @@ export default async function handler(req, res) {
 
     try {
 
-        const appointmentById = await Appointment.findById(body.id).select('date confirmed patientRef professionalRef')
+        const { days } = await Professional.findById(body.professionalRef)
 
-        return res.status(201).json(appointmentById);
+        const takenAppointments = await Appointment.find({ professionalRef: body.professionalRef })
+
+
+
+        return res.status(201).json(date);
 
     } catch (e) {
         return res.status(400).json({ msg: e.message });
