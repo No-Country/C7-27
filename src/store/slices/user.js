@@ -28,7 +28,6 @@ export const actionUserLogin = (user) => {
     const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/loginUser`;
     try {
       const { data } = await axios.post(URL, user, config);
-      console.log(data);
       dispatch(login(data));
       return data.token;
     } catch (e) {

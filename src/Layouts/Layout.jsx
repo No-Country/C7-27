@@ -50,7 +50,9 @@ export const Layout = ({ children }) => {
           </Typography>
         </Box>
       </Grid>
+
       <Grid
+        item
         container
         justifyContent={"center"}
         alignItems={"center"}
@@ -74,7 +76,9 @@ export const Layout = ({ children }) => {
         sx={{
           backgroundImage:
             "url(https://images.unsplash.com/photo-1607799013470-8a46c0db7eb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80)",
-          backgroundSize: "calc(100vh - 16vh)",
+          // backgroundSize: "calc(100vh - 16vh)",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
         }}
       >
         <Box display={{ md: "none" }}>

@@ -20,8 +20,16 @@ export default async function handler(req, res) {
         professionalUser = await Professional.findById(
           user.professionalRef.toString()
         )
-          .populate("appointmentsRef")
+          .populate({
+            path: "appointmentsRef",
+            select: "-_id -createdAt -updatedAt -professionalRef",
+            populate: {
+              path: "patientRef",
+              select: "_id firstName lastName",
+            },
+          })
           .select("-createdAt -updatedAt");
+
         if (!professionalUser) {
           const error = new Error("Professional not found");
           return res.status(400).json({ msg: error.message });
@@ -36,6 +44,10 @@ export default async function handler(req, res) {
           .populate({
             path: "appointmentsRef",
             select: "-_id -createdAt -updatedAt -patientRef",
+            populate: {
+              path: "professionalRef",
+              select: "_id firstName lastName",
+            },
           })
           .populate({
             path: "clinicHistoryRef",
