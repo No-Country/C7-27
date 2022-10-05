@@ -76,9 +76,21 @@ export default async function handler(req, res) {
         return res.status(400).json({ msg: error.message });
       }
 
+      const token = jwtGenerate(user._doc._id);
+
+      const serialized = serialize("token", token, {
+        httpOnly: true,
+        //   secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 1000 * 60 * 60 * 24 * 30,
+        path: "/",
+      });
+      // console.log(serialized);
+      res.setHeader("Set-Cookie", serialized);
+
       return res.status(200).json({
         ...user._doc,
-        token: jwtGenerate(user._doc._id),
+        token,
         ...patientUser._doc,
       });
     }
