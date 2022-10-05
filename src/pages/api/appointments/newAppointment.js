@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     try {
         const newAppointment = new Appointment({
             date: body.date,
-            state: 'Confirmado',
+            confirmed: true,
             patientRef: body.patientRef,
             professionalRef: body.professionalRef,
         });
@@ -34,7 +34,7 @@ export default async function handler(req, res) {
         await professional.save()
 
         //envio de email de notificacion
-        const emailContent = `<p>Usted solicitó un nuevo turno con el profesional ${body.professionalName} para el día ${body.date}.</p>
+        const emailContent = `<p>Usted solicitó un nuevo turno para el día ${body.date}.</p>
                               <p>Recuerde presentarse 10 minutos antes del horario de la consulta, muchas gracias.</p>`
         await sendEmail(body.patientEmail, "Nuevo turno confirmado", emailContent)
 

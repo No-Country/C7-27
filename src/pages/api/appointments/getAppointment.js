@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
     try {
 
-        const appointmentById = await Appointment.findById(body.id).select('date state patientRef professionalRef')
+        const appointmentById = await Appointment.findById(body.id).select('date confirmed patientRef professionalRef')
 
         return res.status(201).json(appointmentById);
 

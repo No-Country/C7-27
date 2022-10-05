@@ -7,8 +7,8 @@ const appointmentSchema = new Schema(
       required: true,
       trim: true,
     },
-    state: {
-      type: String,
+    confirmed: {
+      type: Boolean,
       required: true,
       trim: true,
     },

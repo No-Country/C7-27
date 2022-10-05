@@ -104,6 +104,7 @@ export default async function handler(req, res) {
         token,
         ...patientUser._doc,
       });
+
     }
   } else {
     return res.status(400).json({ msg: "Wrong HTTP Method" });

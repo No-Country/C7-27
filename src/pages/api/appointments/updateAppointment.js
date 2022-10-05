@@ -17,13 +17,13 @@ export default async function handler(req, res) {
     try {
         const collectionModel = model('Appointment', Appointment)
 
-        const result = await collectionModel.findOneAndUpdate({ _id: body.id }, { state: body.state }, {
+        const result = await collectionModel.findOneAndUpdate({ _id: body.id }, { confirmed: body.confirmed }, {
             new: true
         });
 
         //envio de email de notificacion
-        const emailContent = `<p>El turno que usted solicitó con el profesional ${body.professionalName} para el día ${body.date} fué ${body.state}.</p>`
-        await sendEmail(body.patientEmail, `Su turno fué ${body.state}`, emailContent)
+        const emailContent = `<p>El turno que usted solicitó para el día ${body.date} fué ${body.confirmed ? "Actualizado" : "Cancelado"}.</p>`
+        await sendEmail(body.patientEmail, `Su turno fué ${body.confirmed ? "Actualizado" : "Cancelado"}`, emailContent)
 
         return res.status(201).json(result);
 
