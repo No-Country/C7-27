@@ -1,15 +1,15 @@
 import { dbConnect } from "../../../config/dbConnect";
-import Appointment from '../../../models/Appointment'
+import Appointment from "../../../models/Appointment";
 
 dbConnect();
 
 export default async function handler(req, res) {
-    const { method, body } = req;
+  const { method, body } = req;
 
-    if (method !== "GET") {
-        const error = new Error(`${method} method not supported`);
-        return res.status(400).json({ msg: error.message });
-    }
+  if (method !== "GET") {
+    const error = new Error(`${method} method not supported`);
+    return res.status(400).json({ msg: error.message });
+  }
 
     try {
 
@@ -21,3 +21,4 @@ export default async function handler(req, res) {
         return res.status(400).json({ msg: e.message });
     }
 }
+

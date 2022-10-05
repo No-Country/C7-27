@@ -50,7 +50,9 @@ export const Layout = ({ children }) => {
           </Typography>
         </Box>
       </Grid>
+
       <Grid
+        item
         container
         justifyContent={'center'}
         alignItems={'center'}
@@ -64,20 +66,29 @@ export const Layout = ({ children }) => {
       >
         {children}
       </Grid>
-      <Grid
+        <Grid
         item
         md={5}
         xs={12}
         overflow="hidden"
-        maxHeight={{ xs: '30vh', md: '100vh' }}
-        width={'100%'}
-        display={{ xs: 'none', md: 'block' }}
+        maxHeight={{ xs: "30vh", md: "100vh" }}
+        width={"100%"}
         sx={{
           backgroundImage:
-            'url(https://images.unsplash.com/photo-1607799013470-8a46c0db7eb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80)',
-          backgroundSize: 'calc(100vh - 16vh)',
+            "url(https://images.unsplash.com/photo-1607799013470-8a46c0db7eb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80)",
+          // backgroundSize: "calc(100vh - 16vh)",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
         }}
-      ></Grid>
+      >
+        <Box display={{ md: "none" }}>
+          <img
+            src="https://images.unsplash.com/photo-1607799013470-8a46c0db7eb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
+            alt="hospital"
+            width={"100%"}
+          />
+        </Box>
+      </Grid>
     </Grid>
   );
 };

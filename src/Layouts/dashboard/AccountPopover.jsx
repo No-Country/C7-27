@@ -14,7 +14,7 @@ export const AccountPopover = (props) => {
     localStorage.removeItem("token");
     setTimeout(() => {
       router.push("/");
-    }, 500);
+    }, 100);
   };
 
   return (

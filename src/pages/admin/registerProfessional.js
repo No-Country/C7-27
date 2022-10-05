@@ -1,4 +1,6 @@
-import { useState } from 'react';
+
+import { useState, useEffect } from "react";
+
 import {
   Checkbox,
   FormControlLabel,
@@ -18,15 +20,18 @@ import {
   Select,
   MenuItem,
   TextField,
-} from '../../components/auth';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Chip from '@mui/material/Chip';
+} from "../../components/auth";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import Chip from "@mui/material/Chip";
+import Modal from "@mui/material/Modal";
 
-import { useForm } from 'react-hook-form';
-import { Layout } from '../../Layouts';
-import { useDispatch } from 'react-redux';
-import { userRegister } from '../../store/slices/user';
-import { useRouter } from 'next/router';
+import { useForm } from "react-hook-form";
+import { Layout } from "../../Layouts";
+import { useDispatch } from "react-redux";
+import { userRegister } from "../../store/slices/user";
+import { useRouter } from "next/router";
+import { capitalize } from "@mui/material";
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -39,23 +44,40 @@ const MenuProps = {
   },
 };
 
-const medicalinsurances = ['Name 1', 'Name 2', 'Name 3', 'Name 4', 'Name 5'];
 
-// function getStyles(name, personName, theme) {
-//   return {
-//     fontWeight:
-//       personName.indexOf(name) === -1
-//         ? theme.typography.fontWeightRegular
-//         : theme.typography.fontWeightMedium,
-//   };
-// }
+const medicalinsurances = ["Name 1", "Name 2", "Name 3", "Name 4", "Name 5"];
+let avaliableDays = [
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
+];
+
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "80vw",
+  maxWidth: "600px",
+  maxHeight: "500px",
+  bgcolor: "background.paper",
+  border: "1px solid #000",
+  borderRadius: "15px",
+  boxShadow: 24,
+  overflow: "auto",
+  padding: "10px",
+};
 
 export default function RegisterProfessional() {
   const {
     register,
     handleSubmit,
     reset,
-    values,
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
@@ -63,12 +85,67 @@ export default function RegisterProfessional() {
   const [showPassword, setShowPassword] = useState(false);
   const [medicalInsurancesList, setMedicalInsurancesList] = useState([]);
 
+  const [days, setDays] = useState([{ day: "", availability: "" }]);
+  const [dayErrors, setDayErrors] = useState([]);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    let error = "";
+    let arr = [];
+    // verifico que los campos dias y horario no esten vacios
+    for (let i = 0; i < days.length; i++) {
+      if (Object.values(days[i]).includes("")) {
+        error = "both values are required";
+      }
+      arr = [...arr, days[i].day];
+    }
+    if (error === "") {
+      // verifico que no haya dias repetidos
+      arr = arr.sort((a, b) => {
+        if (a == b) {
+          return 0;
+        }
+        if (a < b) {
+          return -1;
+        }
+        return 1;
+      });
+      for (let i = 1; i < arr.length; i++) {
+        if (arr[i] === arr[i - 1]) {
+          error = "Days must be different";
+        }
+      }
+      if (error === "") {
+        setDayErrors([]);
+        setOpen(false);
+        return;
+      }
+    }
+    setDayErrors(error);
+  };
+
+  const addDay = () => {
+    setDays([...days, { day: "", availability: "" }]);
+  };
+
+  const removeDay = (index) => {
+    setDays(days.filter((day, i) => i !== index && day));
+  };
+
+  const handleChangeDay = (e, index) => {
+    setDays(
+      days.map((day, i) =>
+        i === index ? { ...day, [e.target.name]: e.target.value } : day
+      )
+    );
+  };
+
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
   const submit = async (values) => {
-    console.log(values);
+    values = { ...values, days };
     try {
       dispatch(userRegister(values));
       reset();
@@ -155,64 +232,55 @@ export default function RegisterProfessional() {
               </Typography>
             )}
           </FormControl>
-          <Grid
-            container
-            width={'100%'}
-            justifyContent={'space-between'}
-            gap={2}
-            display="flex"
-          >
-            <Grid item sx={{ flexGrow: 5 }} xs={12}>
-              <FormControl sx={{ width: '100%' }}>
-                <TextField
-                  // id="component-outlined"
-                  {...register('firstName', {
-                    required: {
-                      value: true,
-                      message: 'This field is required',
-                    },
-                  })}
-                  type="text"
-                  label="First Name"
-                  error={errors.firstName ? true : false}
-                />
-                {errors.firstName && (
-                  <Typography variant="body2" component="p" color="error">
-                    {errors.firstName.message}
-                  </Typography>
-                )}
-              </FormControl>
-            </Grid>
-            <Grid item sx={{ flexGrow: 1 }} xs={12}>
-              <FormControl sx={{ width: '100%' }}>
-                <TextField
-                  // id="component-outlined"
-                  {...register('lastName', {
-                    required: {
-                      value: true,
-                      message: 'This field is required',
-                    },
-                  })}
-                  type="text"
-                  label="Last Name"
-                  error={errors.lastName ? true : false}
-                />
-                {errors.lastName && (
-                  <Typography variant="body2" component="p" color="error">
-                    {errors.lastName.message}
-                  </Typography>
-                )}
-              </FormControl>
-            </Grid>
 
-            <Grid item xs={12}>
-              <FormControl sx={{ width: '100%' }}>
+          <FormControl sx={{ width: "100%" }}>
+            <TextField
+              // id="component-outlined"
+              {...register("firstName", {
+                required: {
+                  value: true,
+                  message: "This field is required",
+                },
+              })}
+              type="text"
+              label="First Name"
+              error={errors.firstName ? true : false}
+            />
+            {errors.firstName && (
+              <Typography variant="body2" component="p" color="error">
+                {errors.firstName.message}
+              </Typography>
+            )}
+          </FormControl>
+
+          <FormControl sx={{ width: "100%" }}>
+            <TextField
+              // id="component-outlined"
+              {...register("lastName", {
+                required: {
+                  value: true,
+                  message: "This field is required",
+                },
+              })}
+              type="text"
+              label="Last Name"
+              error={errors.lastName ? true : false}
+            />
+            {errors.lastName && (
+              <Typography variant="body2" component="p" color="error">
+                {errors.lastName.message}
+              </Typography>
+            )}
+          </FormControl>
+
+          <Grid container gap={2}>
+            <Grid item xs={12} sm={6}>
+              <FormControl sx={{ width: "100%" }} xs={12} sm={6}>
+
                 <InputLabel id="demo-multiple-chip-label">
                   Medical Insurances
                 </InputLabel>
                 <Select
-                  labelId="Medical Insurances"
-                  id="demo-multiple-chip"
                   multiple
                   {...register('medicalInsuranceList', {
                     required: {
@@ -220,6 +288,7 @@ export default function RegisterProfessional() {
                       message: 'This field is required',
                     },
                   })}
+                  error={errors.medicalInsuranceList ? true : false}
                   value={medicalInsurancesList}
                   onChange={handleChange}
                   input={
@@ -244,11 +313,18 @@ export default function RegisterProfessional() {
                     </MenuItem>
                   ))}
                 </Select>
+                {errors.medicalInsuranceList && (
+                  <Typography variant="body2" component="p" color="error">
+                    {errors.medicalInsuranceList.message}
+                  </Typography>
+                )}
               </FormControl>
             </Grid>
 
-            <Grid item xs={12}>
-              <FormControl sx={{ width: '100%' }}>
+
+            <Grid item sx={{ flexGrow: 1 }}>
+              <FormControl sx={{ width: "100%" }} xs={12} sm={6}>
+
                 <InputLabel id="demo-simple-select-autowidth-label">
                   Speciality
                 </InputLabel>
@@ -260,7 +336,7 @@ export default function RegisterProfessional() {
                       message: 'This field is required',
                     },
                   })}
-                  error={errors.speciality ? true : false}
+                  error={errors.specialities ? true : false}
                 >
                   <MenuItem value="">
                     <em>Select</em>
@@ -270,9 +346,9 @@ export default function RegisterProfessional() {
                   <MenuItem value="Radiologist">Radiologist</MenuItem>
                   <MenuItem value="Psychologist">Psychologist</MenuItem>
                 </Select>
-                {errors.speciality && (
+                {errors.specialities && (
                   <Typography variant="body2" component="p" color="error">
-                    {errors.speciality.message}
+                    {errors.specialities.message}
                   </Typography>
                 )}
               </FormControl>
@@ -299,28 +375,126 @@ export default function RegisterProfessional() {
             )}
           </FormControl>
 
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  {...register('check', {
-                    required: { value: true, message: 'Accept' },
-                  })}
-                  defaultChecked={false}
-                />
-              }
-              label="Is Admin"
-            />
-            {errors.check && (
-              <Typography variant="body2" component="p" color="error">
-                {errors.check.message}
-              </Typography>
-            )}
-          </FormGroup>
+          <Grid container alignItems="center" gap={1}>
+            <Grid item>
+              <Button
+                variant="outlined"
+                sx={{ width: "100px" }}
+                onClick={handleOpen}
+              >
+                days
+              </Button>
+            </Grid>
+            <Grid item>
+              {Object.values(days[0]).includes("") && (
+                <Typography variant="body2" component="p" color="error">
+                  One day is required
+                </Typography>
+              )}
+            </Grid>
+          </Grid>
+
 
           <Button type="submit" variant="contained">
             Sign in
           </Button>
+
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography variant="body1" component="h2">
+                Select Day and Availability
+              </Typography>
+              {dayErrors && (
+                <Grid item xs={12}>
+                  <Typography
+                    variant="body2"
+                    component="p"
+                    color="error"
+                    sx={{ marginBottom: "20px" }}
+                  >
+                    {dayErrors}
+                  </Typography>
+                </Grid>
+              )}
+              <Grid container gap={2}>
+                {days.map((day, index) => (
+                  <Grid
+                    container
+                    sx={{ width: "100%" }}
+                    gap={1}
+                    alignItems="center"
+                  >
+                    <Grid item xs={12} sm={4}>
+                      <TextField
+                        sx={{ width: "100%" }}
+                        variant="outlined"
+                        label="day"
+                        select
+                        name="day"
+                        value={day.day}
+                        onChange={(e) => handleChangeDay(e, index, day.day)}
+                      >
+                        <MenuItem value="">
+                          <em>Select</em>
+                        </MenuItem>
+
+                        {avaliableDays.map((d) => (
+                          <MenuItem value={d}>{d}</MenuItem>
+                        ))}
+                      </TextField>
+                    </Grid>
+
+                    <Grid item xs={12} sm={4}>
+                      <TextField
+                        sx={{ width: "100%" }}
+                        variant="outlined"
+                        label="availability"
+                        select
+                        name="availability"
+                        value={day.availability}
+                        onChange={(e) => handleChangeDay(e, index)}
+                      >
+                        <MenuItem value="">
+                          <em>Select</em>
+                        </MenuItem>
+
+                        <MenuItem value="morning">Morning</MenuItem>
+                        <MenuItem value="evening">Evening</MenuItem>
+                        <MenuItem value="fullday">Fullday</MenuItem>
+                      </TextField>
+                    </Grid>
+                    {index !== 0 && (
+                      <Grid item sm={2}>
+                        <Button
+                          sm={2}
+                          variant="contained"
+                          color="error"
+                          sx={{ width: "30px", height: "30px" }}
+                          onClick={() => removeDay(index)}
+                        >
+                          Remove
+                        </Button>
+                      </Grid>
+                    )}
+                  </Grid>
+                ))}
+              </Grid>
+
+              <Button
+                sx={{ marginTop: "20px" }}
+                xs={12}
+                variant="contained"
+                onClick={() => addDay()}
+              >
+                Add
+              </Button>
+            </Box>
+          </Modal>
         </Stack>
       </Box>
     </Layout>
