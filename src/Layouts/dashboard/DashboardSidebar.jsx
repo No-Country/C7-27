@@ -8,14 +8,14 @@ import { NavItem } from './NavItem';
 
 const items = [
   {
-    href: '/',
+    href: '/dashboard',
     icon: (<Logo fontSize="small" />),
-    title: 'Dashboard'
+    title: 'Dashboard (patient)'
   },
   {
-    href: '/test1',
+    href: '/dashboard/appointments',
     icon: (<Logo fontSize="small" />),
-    title: 'Test 1'
+    title: 'Appointments'
   },
   {
     href: '/test2',

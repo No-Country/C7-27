@@ -1,8 +1,12 @@
-import Head from 'next/head';
-import { Box, Container, Grid } from '@mui/material';
-import { DashboardLayout } from '../../Layouts/dashboard/DashboardLayout';
+import Head from "next/head";
+import { Box, Container, Grid } from "@mui/material";
+import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
+import { LatestAppointments } from "../../components/dashboard/LatestAppointments";
+import { NextAppointment } from "../../components/dashboard/NextAppointment";
+import { WelcomeDashboard } from "../../components/dashboard/WelcomeDashboard";
+import { NewAppointment } from "../../components/dashboard/NewAppointment";
 
-export default function DashboardPage({ token }) {
+export default function dashboardMainPage ({ token }) {
   return (
     <DashboardLayout>
       <Head>
@@ -17,17 +21,17 @@ export default function DashboardPage({ token }) {
       >
         <Container maxWidth={false}>
           <Grid container spacing={3}>
-            <Grid item lg={3} sm={6} xl={3} xs={12}>
-              Componente 1
+            <Grid item xl={4} lg={4} sm={6} xs={12}>
+                <WelcomeDashboard  />
             </Grid>
-            <Grid item xl={3} lg={3} sm={6} xs={12}>
-              Componente 2
+            <Grid item xl={4} lg={4} sm={6} xs={12}>
+                <NextAppointment />
             </Grid>
-            <Grid item xl={3} lg={3} sm={6} xs={12}>
-              Componente 3
+            <Grid item xl={4} lg={4} sm={6} xs={12}>
+                <NewAppointment />
             </Grid>
-            <Grid item xl={3} lg={3} sm={6} xs={12}>
-              Componente 4
+            <Grid item lg={12} md={12} xl={12} xs={12}>
+              <LatestAppointments />
             </Grid>
             <Grid item lg={8} md={12} xl={9} xs={12}>
               Componente 5
