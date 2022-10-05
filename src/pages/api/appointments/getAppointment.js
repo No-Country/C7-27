@@ -11,12 +11,14 @@ export default async function handler(req, res) {
     return res.status(400).json({ msg: error.message });
   }
 
-  try {
-    const appointmentById = await Appointment.findOne({ _id: body.id }).select(
-      "date state patientRef professionalRef"
-    );
-    return res.status(201).json(appointmentById);
-  } catch (e) {
-    return res.status(400).json({ msg: e.message });
-  }
+    try {
+
+        const appointmentById = await Appointment.findById(body.id).select('date state patientRef professionalRef')
+
+        return res.status(201).json(appointmentById);
+
+    } catch (e) {
+        return res.status(400).json({ msg: e.message });
+    }
 }
+

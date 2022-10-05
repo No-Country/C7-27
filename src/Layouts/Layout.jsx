@@ -1,16 +1,16 @@
-import { Box, Grid, Typography } from "@mui/material";
-import AccessibleForwardIcon from "@mui/icons-material/AccessibleForward";
-import { useDispatch } from "react-redux";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { actionAuthenticateUser } from "../store/slices/user";
+import { Box, Grid, Typography } from '@mui/material';
+import AccessibleForwardIcon from '@mui/icons-material/AccessibleForward';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { actionAuthenticateUser } from '../store/slices/user';
 
 export const Layout = ({ children }) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (token) {
       try {
         dispatch(actionAuthenticateUser(token));
@@ -19,16 +19,16 @@ export const Layout = ({ children }) => {
         console.log(e);
       }
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <Grid
       container
       justifyContent="space-between"
-      flexDirection={{ xs: "column-reverse", md: "row" }}
+      flexDirection={{ xs: 'column-reverse', md: 'row' }}
       spacing={0}
-      width={"100%"}
-      height={{ md: "100vh" }}
+      width={'100%'}
+      height={{ xs: '100vh' }}
     >
       <Grid
         item
@@ -36,13 +36,13 @@ export const Layout = ({ children }) => {
         md={7}
         display="flex"
         padding={3}
-        sx={{ position: "absolute" }}
+        sx={{ position: 'absolute' }}
         top={0}
       >
         <Box>
           <Typography variant="h3" component="h2">
             <AccessibleForwardIcon
-              onClick={() => router.push("/")}
+              onClick={() => router.push('/')}
               sx={{ fontSize: 40 }}
               color="primary"
             />
@@ -54,8 +54,8 @@ export const Layout = ({ children }) => {
       <Grid
         item
         container
-        justifyContent={"center"}
-        alignItems={"center"}
+        justifyContent={'center'}
+        alignItems={'center'}
         display="flex"
         flexGrow={1}
         xs={12}
@@ -66,7 +66,7 @@ export const Layout = ({ children }) => {
       >
         {children}
       </Grid>
-      <Grid
+        <Grid
         item
         md={5}
         xs={12}
