@@ -1,5 +1,7 @@
 import { dbConnect } from "../../../config/dbConnect";
 import Appointment from '../../../models/Appointment'
+import Patient from '../../../models/Patient'
+import Professional from '../../../models/Professional'
 import sendEmail from "../../../utils/sendEmail"
 
 dbConnect();
@@ -20,7 +22,16 @@ export default async function handler(req, res) {
             professionalRef: body.professionalRef,
         });
 
+        const patient = await Patient.findById(body.patientRef)
+        const professional = await Professional.findById(body.professionalRef)
+
+        //referencias de los turnos al paciente y profesional
+        patient.appointmentsRef.push(newAppointment._id)
+        professional.appointmentsRef.push(newAppointment._id)
+
         await newAppointment.save()
+        await patient.save()
+        await professional.save()
 
         //envio de email de notificacion
         const emailContent = `<p>Usted solicitó un nuevo turno con el profesional ${body.professionalName} para el día ${body.date}.</p>
