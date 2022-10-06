@@ -38,11 +38,11 @@ export default function NewAppointment() {
 
   const { user } = useSelector((state) => state.users);
 
-  const submit = async ({ patientEmail, professionalRef }) => {
+  const submit = async ({ professionalRef }) => {
     try {
       const inputValues = {
         date: '30/09/2022 17:30hs',
-        patientEmail,
+        patientEmail: user.email,
         professionalRef,
         patientRef: user.patientRef,
       };
@@ -68,30 +68,21 @@ export default function NewAppointment() {
         noValidate
         autoComplete="off"
         onSubmit={handleSubmit(submit)}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="calc(100vh - 64px)"
       >
-        <Stack spacing={2} sx={{ minHeight: '100vh - 100px', height: '500px' }}>
+        <Stack
+          spacing={2}
+          sx={{
+            display: 'flex',
+            width: '100%',
+            maxWidth: '600px',
+            justifyContent: 'center',
+          }}
+        >
           <FormLabel component="legend">New Appointment</FormLabel>
-
-          <FormControl sx={{ minHeight: '100vh - 100px' }}>
-            <TextField
-              {...register('patientEmail', {
-                required: { value: true, message: 'This field is required' },
-                pattern: {
-                  value:
-                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: 'Invalid format',
-                },
-              })}
-              type="patientEmail"
-              label="Email Address"
-              error={errors.patientEmail ? true : false}
-            />
-            {errors.patientEmail && (
-              <Typography variant="body2" component="p" color="error">
-                {errors.patientEmail.message}
-              </Typography>
-            )}
-          </FormControl>
 
           <FormControl sx={{ width: '100%' }}>
             <InputLabel id="demo-simple-select-autowidth-label">

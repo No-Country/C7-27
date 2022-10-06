@@ -14,13 +14,13 @@ export default async function handler(req, res) {
     return res.status(400).json({ msg: error.message });
   }
 
-    try {
-        const newAppointment = new Appointment({
-            date: body.date,
-            state: 'Confirmado',
-            patientRef: body.patientRef,
-            professionalRef: body.professionalRef,
-        });
+  try {
+    const newAppointment = new Appointment({
+      date: body.date,
+      state: 'Confirmado',
+      patientRef: body.patientRef,
+      professionalRef: body.professionalRef,
+    });
 
     console.log(body);
 
@@ -31,20 +31,11 @@ export default async function handler(req, res) {
     patient.appointmentsRef.push(newAppointment._id);
     professional.appointmentsRef.push(newAppointment._id);
 
-<<<<<<< Updated upstream
-        //envio de email de notificacion
-        const emailContent = `<p>Usted solicitó un nuevo turno con el profesional ${body.professionalName} para el día ${body.date}.</p>
-                              <p>Recuerde presentarse 10 minutos antes del horario de la consulta, muchas gracias.</p>`
-        await sendEmail(body.patientEmail, "Nuevo turno confirmado", emailContent)
-=======
-    await newAppointment.save();
-    await patient.save();
-    await professional.save();
->>>>>>> Stashed changes
-
     //envio de email de notificacion
-    const emailContent = `<p>Usted solicitó un nuevo turno para el día ${body.date}.</p>
+    const emailContent = `<p>Usted solicitó un nuevo turno con el profesional ${body.professionalName} para el día ${body.date}.</p>
                               <p>Recuerde presentarse 10 minutos antes del horario de la consulta, muchas gracias.</p>`;
+    await sendEmail(body.patientEmail, 'Nuevo turno confirmado', emailContent);
+
     await sendEmail(body.patientEmail, 'Nuevo turno confirmado', emailContent);
 
     return res.status(201).json(newAppointment);
