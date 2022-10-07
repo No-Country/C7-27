@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container, Grid } from "../../components/auth";
 import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
 import { LatestAppointments } from "../../components/dashboard/LatestAppointments";
 import { NextAppointment } from "../../components/dashboard/NextAppointment";

@@ -1,9 +1,11 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import ApartmentIcon from "@mui/icons-material/Apartment";
+import React from "react";
+import {
+  Box,
+  Grid,
+  Stack,
+  Typography,
+  ApartmentIcon,
+} from "../components/auth";
 
 export default function Data() {
   const dataArray = [

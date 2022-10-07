@@ -1,5 +1,12 @@
-import { Button, Card, CardContent, Grid, Typography } from "@mui/material";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
+import {
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+  AddCircleOutlineRoundedIcon,
+} from "../../components/auth";
+
 import Link from "next/link";
 
 export const NewProfessional = (props) => {

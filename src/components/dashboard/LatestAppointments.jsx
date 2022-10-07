@@ -1,7 +1,12 @@
 // import { format } from 'date-fns';
 import Link from "next/link";
-import { Box, Button, Card, CardHeader } from "@mui/material";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import {
+  Box,
+  Button,
+  Card,
+  CardHeader,
+  ArrowRightIcon,
+} from "../../components/auth";
 import { useSelector } from "react-redux";
 import { ProfessionalAppointmentsTable } from "./ProfessionalAppointmentsTable";
 import { PatientAppointmentsTable } from "./PatientAppointmentsTable";

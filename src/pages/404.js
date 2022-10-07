@@ -1,6 +1,6 @@
 import Head from "next/head";
 import NextLink from "next/link";
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "../components/auth";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Image from "next/image";
 

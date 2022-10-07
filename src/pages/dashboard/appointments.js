@@ -12,7 +12,7 @@ import {
   TableBody,
   Card,
   CardHeader,
-} from "@mui/material";
+} from "../../components/auth";
 import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
 import { SeverityPill } from "../../components/dashboard";
 import { useSelector } from "react-redux";

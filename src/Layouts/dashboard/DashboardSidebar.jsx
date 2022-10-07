@@ -10,7 +10,7 @@ import {
   Drawer,
   Typography,
   useMediaQuery,
-} from "@mui/material";
+} from "../../components/auth";
 import Logo from "@mui/icons-material/Apartment";
 import { NavItem } from "./NavItem";
 

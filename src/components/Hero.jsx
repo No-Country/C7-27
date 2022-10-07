@@ -1,9 +1,5 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
+import React from "react";
+import { Box, Grid, Button, Typography, Stack } from "../components/auth";
 
 import Image from "next/image";
 import Link from "next/link";

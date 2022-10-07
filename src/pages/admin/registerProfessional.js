@@ -1,9 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
   Button,
   Stack,
   IconButton,
@@ -19,10 +16,10 @@ import {
   Select,
   MenuItem,
   TextField,
+  OutlinedInput,
+  Chip,
+  Modal,
 } from "../../components/auth";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import Chip from "@mui/material/Chip";
-import Modal from "@mui/material/Modal";
 
 import { useForm } from "react-hook-form";
 import { Layout } from "../../Layouts";
@@ -43,13 +40,13 @@ const MenuProps = {
 
 const medicalinsurances = ["Name 1", "Name 2", "Name 3", "Name 4", "Name 5"];
 let avaliableDays = [
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-  "sunday",
+  { value: 1, name: "monday" },
+  { value: 2, name: "tuesday" },
+  { value: 3, name: "wednesday" },
+  { value: 4, name: "thursday" },
+  { value: 5, name: "friday" },
+  { value: 6, name: "saturday" },
+  { value: 0, name: "sunday" },
 ];
 
 const style = {
@@ -422,7 +419,7 @@ export default function RegisterProfessional() {
                         </MenuItem>
                         {avaliableDays.map((day) =>
                           !selectedDays.includes(day) ? (
-                            <MenuItem value={day}>{day}</MenuItem>
+                            <MenuItem value={day.value}>{day.name}</MenuItem>
                           ) : (
                             <MenuItem sx={{ display: "none" }} value={day}>
                               {day}
