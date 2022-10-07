@@ -1,9 +1,5 @@
 import React from "react";
 import {
-  Box,
-  Button,
-  Card,
-  CardHeader,
   Table,
   TableBody,
   TableCell,
@@ -11,7 +7,7 @@ import {
   TableRow,
   TableSortLabel,
   Tooltip,
-} from "@mui/material";
+} from "../../components/auth";
 import { SeverityPill } from "./SeverityPill";
 
 export function ProfessionalAppointmentsTable({ appointments }) {

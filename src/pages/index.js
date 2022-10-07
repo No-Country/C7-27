@@ -1,5 +1,4 @@
-import { Box, Container, Link as MUILink, Stack } from "@mui/material";
-import Link from "next/link";
+import { Box } from "../components/auth";
 import NavBar from "../components/navbar";
 import Hero from "../components/Hero";
 import Data from "../components/Data";
@@ -34,18 +33,3 @@ export default function Home() {
     </Box>
   );
 }
-
-// export const getServerSideProps = async ({ req, res }) => {
-//   const { token } = req.cookies;
-//   if (token) {
-//     return {
-//       props: {
-//         token,
-//       },
-//     };
-//   } else {
-//     return {
-//       props: {},
-//     };
-//   }
-// };

@@ -1,11 +1,15 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import ApartmentIcon from "@mui/icons-material/Apartment";
+import React from "react";
+
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Typography,
+  Tab,
+  Tabs,
+  ApartmentIcon,
+} from "../components/auth";
+
 import Link from "next/link";
 
 export default function NavBar() {

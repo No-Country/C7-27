@@ -1,5 +1,12 @@
 import PropTypes from "prop-types";
-import { Box, MenuItem, MenuList, Popover, Typography } from "@mui/material";
+import {
+  Box,
+  MenuItem,
+  MenuList,
+  Popover,
+  Typography,
+} from "../../components/auth";
+
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { actionUserLogout } from "../../store/slices/user";
@@ -10,11 +17,9 @@ export const AccountPopover = (props) => {
   const router = useRouter();
 
   const handleSignOut = async () => {
-    dispatch(actionUserLogout());
+    await dispatch(actionUserLogout());
     localStorage.removeItem("token");
-    setTimeout(() => {
-      router.push("/");
-    }, 100);
+    router.push("/");
   };
 
   return (
