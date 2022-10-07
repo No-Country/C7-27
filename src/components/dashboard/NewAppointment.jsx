@@ -5,13 +5,13 @@ import {
   Grid,
   Typography,
   AddCircleOutlineRoundedIcon,
-} from "../../components/auth";
+} from '../../components/auth';
 
 export const NewAppointment = (props) => {
   return (
     <Card {...props}>
       <CardContent sx={{ minHeight: 200 }}>
-        <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
+        <Grid container spacing={3} sx={{ justifyContent: 'space-between' }}>
           <Grid item xs={12}>
             <Typography color="textSecondary" gutterBottom variant="overline">
               New appointment

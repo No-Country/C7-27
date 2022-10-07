@@ -1,41 +1,33 @@
-import { useEffect } from "react";
-import NextLink from "next/link";
-import Link from "next/Link";
-import { useRouter } from "next/router";
-import PropTypes from "prop-types";
-import {
-  Box,
-  Button,
-  Divider,
-  Drawer,
-  Typography,
-  useMediaQuery,
-} from "../../components/auth";
-import Logo from "@mui/icons-material/Apartment";
-import { NavItem } from "./NavItem";
+import { useEffect } from 'react';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
+import { Box, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
+import Logo from '@mui/icons-material/Apartment';
+import { NavItem } from './NavItem';
 
 const items = [
   {
-    href: "/dashboard",
+    href: '/dashboard',
     icon: <Logo fontSize="small" />,
-    title: "Dashboard (patient)",
+    title: 'Dashboard (patient)',
   },
   {
-    href: "/dashboard/appointments",
+    href: '/dashboard/appointments',
     icon: <Logo fontSize="small" />,
-    title: "Appointments",
+    title: 'Appointments',
   },
   {
-    href: "/test2",
+    href: '/dashboard/createAppointment',
     icon: <Logo fontSize="small" />,
-    title: "Test 2",
+    title: 'Create Appointment',
   },
 ];
 
 export const DashboardSidebar = (props) => {
   const { open, onClose } = props;
   const router = useRouter();
-  const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
+  const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
     noSsr: false,
   });
@@ -58,9 +50,9 @@ export const DashboardSidebar = (props) => {
     <>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100%",
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
         }}
       >
         <div>
@@ -79,13 +71,13 @@ export const DashboardSidebar = (props) => {
           <Box sx={{ px: 2 }}>
             <Box
               sx={{
-                alignItems: "center",
-                backgroundColor: "rgba(255, 255, 255, 0.04)",
-                cursor: "pointer",
-                display: "flex",
-                justifyContent: "space-between",
+                alignItems: 'center',
+                backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                cursor: 'pointer',
+                display: 'flex',
+                justifyContent: 'space-between',
                 px: 3,
-                py: "11px",
+                py: '11px',
                 borderRadius: 1,
               }}
             >
@@ -109,7 +101,7 @@ export const DashboardSidebar = (props) => {
         </div>
         <Divider
           sx={{
-            borderColor: "#2D3748",
+            borderColor: '#2D3748',
             my: 3,
           }}
         />
@@ -134,8 +126,8 @@ export const DashboardSidebar = (props) => {
         open
         PaperProps={{
           sx: {
-            backgroundColor: "neutral.900",
-            color: "#FFFFFF",
+            backgroundColor: 'neutral.900',
+            color: '#FFFFFF',
             width: 280,
           },
         }}
@@ -153,8 +145,8 @@ export const DashboardSidebar = (props) => {
       open={open}
       PaperProps={{
         sx: {
-          backgroundColor: "neutral.900",
-          color: "#FFFFFF",
+          backgroundColor: 'neutral.900',
+          color: '#FFFFFF',
           width: 280,
         },
       }}

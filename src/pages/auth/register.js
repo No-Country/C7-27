@@ -44,7 +44,7 @@ export default function RegisterPage() {
 
   const submit = async (values) => {
     try {
-      const url = `${NEXT_PUBLIC_API_URL}/api/registerPatient`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/api/registerPatient`;
       const { data } = await axios.post(url, values);
       console.log(data);
       reset();

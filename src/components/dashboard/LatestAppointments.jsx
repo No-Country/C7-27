@@ -1,15 +1,15 @@
 // import { format } from 'date-fns';
-import Link from "next/link";
+import Link from 'next/link';
 import {
   Box,
   Button,
   Card,
   CardHeader,
   ArrowRightIcon,
-} from "../../components/auth";
-import { useSelector } from "react-redux";
-import { ProfessionalAppointmentsTable } from "./ProfessionalAppointmentsTable";
-import { PatientAppointmentsTable } from "./PatientAppointmentsTable";
+} from '../../components/auth';
+import { useSelector } from 'react-redux';
+import { ProfessionalAppointmentsTable } from './ProfessionalAppointmentsTable';
+import { PatientAppointmentsTable } from './PatientAppointmentsTable';
 
 export const LatestAppointments = (props) => {
   const { user } = useSelector((state) => state.users);
@@ -29,12 +29,12 @@ export const LatestAppointments = (props) => {
       </Box>
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "flex-end",
+          display: 'flex',
+          justifyContent: 'flex-end',
           p: 2,
         }}
       >
-        <Link passHref href={"/dashboard/appointments"}>
+        <Link passHref href={'/dashboard/appointments'}>
           <Button
             color="secondary"
             endIcon={<ArrowRightIcon fontSize="small" />}

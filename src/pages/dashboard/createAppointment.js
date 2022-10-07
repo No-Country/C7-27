@@ -1,16 +1,10 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import NextLink from "next/link";
-import Link from "@mui/material/Link";
-import axios from "axios";
+import { useForm } from 'react-hook-form';
+
+import axios from 'axios';
+
 import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
   Button,
   Stack,
-  IconButton,
-  InputAdornment,
   FormLabel,
   Box,
   FormControl,
@@ -18,9 +12,10 @@ import {
   Typography,
   Select,
   MenuItem,
-  TextField,
-} from "../../components/auth";
-import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
+} from '../../components/auth';
+
+import { DashboardLayout } from '../../Layouts/dashboard/DashboardLayout';
+import { useSelector } from 'react-redux';
 
 export default function NewAppointment() {
   const {
@@ -31,13 +26,22 @@ export default function NewAppointment() {
     formState: { errors },
   } = useForm();
 
-  const submit = async (values) => {
+  const { user } = useSelector((state) => state.users);
+
+  const submit = async ({ professionalRef }) => {
     try {
-      console.log(values);
-      // const url = `${NEXT_PUBLIC_API_URL}/api/appointments/newAppointment`
-      // const { data } = await axios.post(url, values);
-      // console.log(data);
-      // reset();
+      const inputValues = {
+        date: '30/09/2022 17:30hs',
+        patientEmail: user.email,
+        professionalRef,
+        patientRef: user.patientRef,
+      };
+
+      console.log(inputValues);
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/api/appointments/newAppointment`;
+      const { data } = await axios.post(url, inputValues);
+      console.log(data);
+      reset();
     } catch (e) {
       console.log(e.message);
     }
@@ -48,47 +52,37 @@ export default function NewAppointment() {
       <Box
         component="form"
         sx={{
-          "& > :not(style)": { m: 1 },
-          width: "100%",
-          maxWidth: "500px",
+          '& > :not(style)': { m: 1 },
+          width: '100%',
         }}
         noValidate
         autoComplete="off"
         onSubmit={handleSubmit(submit)}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="calc(100vh - 64px)"
       >
-        <Stack spacing={2}>
+        <Stack
+          spacing={2}
+          sx={{
+            display: 'flex',
+            width: '100%',
+            maxWidth: '600px',
+            justifyContent: 'center',
+          }}
+        >
           <FormLabel component="legend">New Appointment</FormLabel>
 
-          <FormControl>
-            <TextField
-              {...register("patientEmail", {
-                required: { value: true, message: "This field is required" },
-                pattern: {
-                  value:
-                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: "Invalid format",
-                },
-              })}
-              type="patientEmail"
-              label="Email Address"
-              error={errors.patientEmail ? true : false}
-            />
-            {errors.patientEmail && (
-              <Typography variant="body2" component="p" color="error">
-                {errors.patientEmail.message}
-              </Typography>
-            )}
-          </FormControl>
-
-          <FormControl sx={{ width: "100%" }}>
+          <FormControl sx={{ width: '100%' }}>
             <InputLabel id="demo-simple-select-autowidth-label">
               Professional Reference
             </InputLabel>
             <Select
-              {...register("professionalRef", {
+              {...register('professionalRef', {
                 required: {
                   value: true,
-                  message: "This field is required",
+                  message: 'This field is required',
                 },
               })}
               error={errors.professionalRef ? true : false}
@@ -96,7 +90,7 @@ export default function NewAppointment() {
               <MenuItem value="">
                 <em>Select</em>
               </MenuItem>
-              <MenuItem value="A">6331e64d1199842596e9d29c</MenuItem>
+              <MenuItem value="6331e6781199842596e9d2a2">Jose Perez</MenuItem>
             </Select>
             {errors.professionalRef && (
               <Typography variant="body2" component="p" color="error">
