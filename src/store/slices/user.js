@@ -64,7 +64,6 @@ export const userRegister = (user) => {
     const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/users/registerProfessional`;
     try {
       const { data } = await axios.post(URL, user, config);
-      console.log(data);
       return;
     } catch (e) {
       return e.message;
