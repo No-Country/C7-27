@@ -38,7 +38,6 @@ export default function Calendar() {
                     professionalRef: professionalRefference
                 })
 
-                //setAvailableDays(result.data[0].map((day) => Number(day.day)))
                 setAvailability(result.data[0])
                 setAppointmentsList(result.data[1])
             }
@@ -117,15 +116,12 @@ export default function Calendar() {
         }
     }
 
-
     //Time FormControl handler 
     const handleHourSelect = (event) => {
-        setSelectedHour(event.target.value);
+        setSelectedHour(event.target.value)
+        //Hora seleccionada en formato string
+        console.log(event.target.value)
     };
-
-    //console.log(appointmentsList)
-    //console.log(selectedDate.toLocaleDateString('es-ES'))
-
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -144,6 +140,8 @@ export default function Calendar() {
                             setSelectedDate(newValue)
                             const result = availability.find((day) => day.day === newValue.getDay())
                             setWorkHoursRange(result.availability)
+                            //Fecha seleccionada en formato string
+                            console.log(newValue.toLocaleDateString('es-ES'))
                         }}
                     />
                     <FormControl fullWidth>
