@@ -3,12 +3,9 @@ import { Schema, model, models } from "mongoose";
 const daySchema = new Schema(
   {
     day: {
-      type: String,
+      type: Number,
     },
-    from: {
-      type: String,
-    },
-    to: {
+    availability: {
       type: String,
     },
   },
