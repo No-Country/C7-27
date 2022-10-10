@@ -10,12 +10,23 @@ export default async function sendEmail(to, subject, content) {
     },
   });
 
+
   const mailOptions = {
     from: `"MediApp - No Country C7-27" <${process.env.MAIN_EMAIL_ADDRESS}>`,
     to: to,
     subject: subject,
     html: content,
   };
+
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.ethereal.email',
+        port: 587,
+        auth: {
+            user: process.env.MAIN_EMAIL_ADDRESS,
+            pass: process.env.MAIN_EMAIL_PASSWORD
+        }
+    })
+
 
   try {
     await transporter.sendMail(mailOptions);

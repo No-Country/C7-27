@@ -5,12 +5,13 @@ import PropTypes from 'prop-types';
 import { Box, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
 import Logo from '@mui/icons-material/Apartment';
 import { NavItem } from './NavItem';
+import { useSelector } from 'react-redux';
 
-const items = [
+const Patientitems = [
   {
     href: '/dashboard',
     icon: <Logo fontSize="small" />,
-    title: 'Dashboard (patient)',
+    title: 'Dashboard',
   },
   {
     href: '/dashboard/appointments',
@@ -24,7 +25,34 @@ const items = [
   },
 ];
 
+const Professionalitems = [
+    {
+        href: '/dashboard',
+        icon: <Logo fontSize="small" />,
+        title: 'Dashboard',
+    },
+    {
+        href: '/dashboard/appointments',
+        icon: <Logo fontSize="small" />,
+        title: 'Appointments',
+    },
+    {
+        href: '/dashboard/clinicalHistory',
+        icon: <Logo fontSize="small" />,
+        title: 'Clinical History',
+    },
+]
+
+const adminItems = [
+    {
+        href: '/dashboard',
+        icon: <Logo fontSize="small" />,
+        title: 'Dashboard',
+    },
+]
+
 export const DashboardSidebar = (props) => {
+  const { user } = useSelector((state) => state.users);
   const { open, onClose } = props;
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
@@ -45,6 +73,18 @@ export const DashboardSidebar = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [router.asPath]
   );
+
+  const itemsArray = () => {
+    if (user) {
+        if (user.isAdmin) {
+            return adminItems
+        } else {
+            return user.isProfessional ? Professionalitems : Patientitems   
+        }
+    } else {
+        return []
+    }
+  }
 
   const content = (
     <>
@@ -106,7 +146,7 @@ export const DashboardSidebar = (props) => {
           }}
         />
         <Box sx={{ flexGrow: 1 }}>
-          {items.map((item) => (
+          {itemsArray().map((item) => (
             <NavItem
               key={item.title}
               //   icon={item.icon}
