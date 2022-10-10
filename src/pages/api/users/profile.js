@@ -22,7 +22,7 @@ export default async function handler(req, res) {
         )
           .populate({
             path: "appointmentsRef",
-            select: "-_id -createdAt -updatedAt -professionalRef",
+            select: "-createdAt -updatedAt -professionalRef",
             populate: {
               path: "patientRef",
               select: "_id firstName lastName",
@@ -43,10 +43,10 @@ export default async function handler(req, res) {
         patientUser = await Patient.findById(user.patientRef.toString())
           .populate({
             path: "appointmentsRef",
-            select: "-_id -createdAt -updatedAt -patientRef",
+            select: "-createdAt -updatedAt -patientRef",
             populate: {
               path: "professionalRef",
-              select: "_id firstName lastName",
+              select: "_id firstName lastName specialities",
             },
           })
           .populate({

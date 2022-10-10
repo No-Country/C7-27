@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import NextLink from 'next/link';
+import { useState } from "react";
+import NextLink from "next/link";
 
 import {
   Checkbox,
@@ -16,14 +16,14 @@ import {
   Visibility,
   Typography,
   TextField,
-} from '../../components/auth';
-import Link from '@mui/material/Link';
+  Link,
+} from "../../components/auth";
 
-import { useForm } from 'react-hook-form';
-import { Layout } from '../../Layouts';
-import { useDispatch } from 'react-redux';
-import { actionUserLogin } from '../../store/slices/user';
-import { useRouter } from 'next/router';
+import { useForm } from "react-hook-form";
+import { Layout } from "../../Layouts";
+import { useDispatch } from "react-redux";
+import { actionUserLogin } from "../../store/slices/user";
+import { useRouter } from "next/router";
 
 export default function LoginPage() {
   const {
@@ -46,9 +46,9 @@ export default function LoginPage() {
   const submit = async (values) => {
     try {
       const token = await dispatch(actionUserLogin(values));
-      localStorage.setItem('token', token);
+      localStorage.setItem("token", token);
       reset();
-      router.push('/dashboard');
+      router.push("/dashboard");
     } catch (e) {
       console.log(e.message);
     }
@@ -59,9 +59,9 @@ export default function LoginPage() {
       <Box
         component="form"
         sx={{
-          '& > :not(style)': { m: 1 },
-          width: '100%',
-          maxWidth: '500px',
+          "& > :not(style)": { m: 1 },
+          width: "100%",
+          maxWidth: "500px",
         }}
         noValidate
         autoComplete="off"
@@ -72,12 +72,12 @@ export default function LoginPage() {
 
           <FormControl>
             <TextField
-              {...register('email', {
-                required: { value: true, message: 'This field is required' },
+              {...register("email", {
+                required: { value: true, message: "This field is required" },
                 pattern: {
                   value:
                     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: 'Invalid format',
+                  message: "Invalid format",
                 },
               })}
               type="email"
@@ -93,11 +93,11 @@ export default function LoginPage() {
 
           <FormControl>
             <TextField
-              {...register('password', {
-                required: { value: true, message: 'This field is required' },
-                minLength: { value: 6, message: 'At least 6 characters' },
+              {...register("password", {
+                required: { value: true, message: "This field is required" },
+                minLength: { value: 6, message: "At least 6 characters" },
               })}
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               label="password"
               InputProps={{
                 endAdornment: (
@@ -126,8 +126,8 @@ export default function LoginPage() {
             <FormControlLabel
               control={
                 <Checkbox
-                  {...register('check', {
-                    required: { value: true, message: 'Accept' },
+                  {...register("check", {
+                    required: { value: true, message: "Accept" },
                   })}
                 />
               }
@@ -147,10 +147,10 @@ export default function LoginPage() {
             Sign in
           </Button>
           <Stack direction="row" spacing={2} justifyContent="space-between">
-            <NextLink passHref href={'/auth/register'}>
+            <NextLink passHref href={"/auth/register"}>
               <Link>Are you new in Hospital Name?</Link>
             </NextLink>
-            <NextLink passHref href={'/auth/resetPassword'}>
+            <NextLink passHref href={"/auth/resetPassword"}>
               <Link>Forgot password?</Link>
             </NextLink>
           </Stack>

@@ -1,10 +1,6 @@
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
   Button,
   Stack,
   IconButton,
@@ -20,18 +16,16 @@ import {
   Select,
   MenuItem,
   TextField,
+  OutlinedInput,
+  Chip,
+  Modal,
 } from "../../components/auth";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import Chip from "@mui/material/Chip";
-import Modal from "@mui/material/Modal";
 
 import { useForm } from "react-hook-form";
 import { Layout } from "../../Layouts";
 import { useDispatch } from "react-redux";
 import { userRegister } from "../../store/slices/user";
 import { useRouter } from "next/router";
-import { capitalize } from "@mui/material";
-
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -44,18 +38,16 @@ const MenuProps = {
   },
 };
 
-
 const medicalinsurances = ["Name 1", "Name 2", "Name 3", "Name 4", "Name 5"];
 let avaliableDays = [
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-  "sunday",
+  { value: 1, name: "monday" },
+  { value: 2, name: "tuesday" },
+  { value: 3, name: "wednesday" },
+  { value: 4, name: "thursday" },
+  { value: 5, name: "friday" },
+  { value: 6, name: "saturday" },
+  { value: 0, name: "sunday" },
 ];
-
 
 const style = {
   position: "absolute",
@@ -86,42 +78,24 @@ export default function RegisterProfessional() {
   const [medicalInsurancesList, setMedicalInsurancesList] = useState([]);
 
   const [days, setDays] = useState([{ day: "", availability: "" }]);
+  const [selectedDays, setSelectedDays] = useState([]);
   const [dayErrors, setDayErrors] = useState([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    let error = "";
-    let arr = [];
+    let error = [];
     // verifico que los campos dias y horario no esten vacios
     for (let i = 0; i < days.length; i++) {
       if (Object.values(days[i]).includes("")) {
-        error = "both values are required";
-      }
-      arr = [...arr, days[i].day];
-    }
-    if (error === "") {
-      // verifico que no haya dias repetidos
-      arr = arr.sort((a, b) => {
-        if (a == b) {
-          return 0;
-        }
-        if (a < b) {
-          return -1;
-        }
-        return 1;
-      });
-      for (let i = 1; i < arr.length; i++) {
-        if (arr[i] === arr[i - 1]) {
-          error = "Days must be different";
-        }
-      }
-      if (error === "") {
-        setDayErrors([]);
-        setOpen(false);
-        return;
+        error[i] = "both values are required";
       }
     }
-    setDayErrors(error);
+    console.log(error);
+    if (error.length > 0) setDayErrors(error);
+    else {
+      setDayErrors([]);
+      setOpen(false);
+    }
   };
 
   const addDay = () => {
@@ -130,6 +104,9 @@ export default function RegisterProfessional() {
 
   const removeDay = (index) => {
     setDays(days.filter((day, i) => i !== index && day));
+    let arr = selectedDays;
+    arr.splice(index, 1);
+    setSelectedDays(arr);
   };
 
   const handleChangeDay = (e, index) => {
@@ -138,6 +115,15 @@ export default function RegisterProfessional() {
         i === index ? { ...day, [e.target.name]: e.target.value } : day
       )
     );
+    if (e.target.name === "day") {
+      if (selectedDays[index]) {
+        let arr = selectedDays;
+        arr[index] = e.target.value;
+        setSelectedDays(arr);
+      } else {
+        setSelectedDays([...selectedDays, e.target.value]);
+      }
+    }
   };
 
   const handleClickShowPassword = () => {
@@ -149,7 +135,7 @@ export default function RegisterProfessional() {
     try {
       dispatch(userRegister(values));
       reset();
-      router.push('/dashboard');
+      router.push("/dashboard");
     } catch (e) {
       console.log(e.message);
     }
@@ -161,7 +147,7 @@ export default function RegisterProfessional() {
     } = event;
     setMedicalInsurancesList(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value
+      typeof value === "string" ? value.split(",") : value
     );
   };
 
@@ -170,9 +156,9 @@ export default function RegisterProfessional() {
       <Box
         component="form"
         sx={{
-          '& > :not(style)': { m: 1 },
-          width: '100%',
-          maxWidth: '500px',
+          "& > :not(style)": { m: 1 },
+          width: "100%",
+          maxWidth: "500px",
         }}
         noValidate
         autoComplete="off"
@@ -183,12 +169,12 @@ export default function RegisterProfessional() {
 
           <FormControl>
             <TextField
-              {...register('email', {
-                required: { value: true, message: 'This field is required' },
+              {...register("email", {
+                required: { value: true, message: "This field is required" },
                 pattern: {
                   value:
                     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: 'Invalid format',
+                  message: "Invalid format",
                 },
               })}
               type="email"
@@ -204,11 +190,11 @@ export default function RegisterProfessional() {
 
           <FormControl>
             <TextField
-              {...register('password', {
-                required: { value: true, message: 'This field is required' },
-                minLength: { value: 6, message: 'At least 6 characters' },
+              {...register("password", {
+                required: { value: true, message: "This field is required" },
+                minLength: { value: 6, message: "At least 6 characters" },
               })}
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               label="Password"
               InputProps={{
                 endAdornment: (
@@ -276,16 +262,15 @@ export default function RegisterProfessional() {
           <Grid container gap={2}>
             <Grid item xs={12} sm={6}>
               <FormControl sx={{ width: "100%" }} xs={12} sm={6}>
-
                 <InputLabel id="demo-multiple-chip-label">
                   Medical Insurances
                 </InputLabel>
                 <Select
                   multiple
-                  {...register('medicalInsuranceList', {
+                  {...register("medicalInsuranceList", {
                     required: {
                       value: true,
-                      message: 'This field is required',
+                      message: "This field is required",
                     },
                   })}
                   error={errors.medicalInsuranceList ? true : false}
@@ -295,7 +280,7 @@ export default function RegisterProfessional() {
                     <OutlinedInput id="select-multiple-chip" label="Chip" />
                   }
                   renderValue={(selected) => (
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                       {selected.map((value) => (
                         <Chip key={value} label={value} />
                       ))}
@@ -321,19 +306,17 @@ export default function RegisterProfessional() {
               </FormControl>
             </Grid>
 
-
             <Grid item sx={{ flexGrow: 1 }}>
               <FormControl sx={{ width: "100%" }} xs={12} sm={6}>
-
                 <InputLabel id="demo-simple-select-autowidth-label">
                   Speciality
                 </InputLabel>
                 <Select
                   label="Age"
-                  {...register('specialities', {
+                  {...register("specialities", {
                     required: {
                       value: true,
-                      message: 'This field is required',
+                      message: "This field is required",
                     },
                   })}
                   error={errors.specialities ? true : false}
@@ -358,10 +341,10 @@ export default function RegisterProfessional() {
           <FormControl xs={12}>
             <TextField
               // id="component-outlined"
-              {...register('phoneNumber', {
+              {...register("phoneNumber", {
                 required: {
                   value: true,
-                  message: 'This field is required',
+                  message: "This field is required",
                 },
               })}
               type="text"
@@ -394,7 +377,6 @@ export default function RegisterProfessional() {
             </Grid>
           </Grid>
 
-
           <Button type="submit" variant="contained">
             Sign in
           </Button>
@@ -406,21 +388,14 @@ export default function RegisterProfessional() {
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-              <Typography variant="body1" component="h2">
+              <Typography
+                sx={{ marginBottom: "20px" }}
+                variant="body1"
+                component="h2"
+              >
                 Select Day and Availability
               </Typography>
-              {dayErrors && (
-                <Grid item xs={12}>
-                  <Typography
-                    variant="body2"
-                    component="p"
-                    color="error"
-                    sx={{ marginBottom: "20px" }}
-                  >
-                    {dayErrors}
-                  </Typography>
-                </Grid>
-              )}
+
               <Grid container gap={2}>
                 {days.map((day, index) => (
                   <Grid
@@ -442,10 +417,15 @@ export default function RegisterProfessional() {
                         <MenuItem value="">
                           <em>Select</em>
                         </MenuItem>
-
-                        {avaliableDays.map((d) => (
-                          <MenuItem value={d}>{d}</MenuItem>
-                        ))}
+                        {avaliableDays.map((day) =>
+                          !selectedDays.includes(day) ? (
+                            <MenuItem value={day.value}>{day.name}</MenuItem>
+                          ) : (
+                            <MenuItem sx={{ display: "none" }} value={day}>
+                              {day}
+                            </MenuItem>
+                          )
+                        )}
                       </TextField>
                     </Grid>
 
@@ -479,6 +459,13 @@ export default function RegisterProfessional() {
                         >
                           Remove
                         </Button>
+                      </Grid>
+                    )}
+                    {dayErrors[index] && (
+                      <Grid item xs={12}>
+                        <Typography variant="body2" component="p" color="error">
+                          {dayErrors[index]}
+                        </Typography>
                       </Grid>
                     )}
                   </Grid>

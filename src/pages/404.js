@@ -1,8 +1,8 @@
-import Head from 'next/head';
-import NextLink from 'next/link';
-import { Box, Button, Container, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Image from 'next/image';
+import Head from "next/head";
+import NextLink from "next/link";
+import { Box, Button, Container, Typography } from "../components/auth";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Image from "next/image";
 
 const MyCustom404Page = (props) => {
   return (
@@ -13,18 +13,18 @@ const MyCustom404Page = (props) => {
       <Box
         component="main"
         sx={{
-          alignItems: 'center',
-          display: 'flex',
+          alignItems: "center",
+          display: "flex",
           flexGrow: 1,
-          minHeight: '100%',
+          minHeight: "100%",
         }}
       >
         <Container maxWidth="md">
           <Box
             sx={{
-              alignItems: 'center',
-              display: 'flex',
-              flexDirection: 'column',
+              alignItems: "center",
+              display: "flex",
+              flexDirection: "column",
             }}
           >
             <Typography align="center" color="textPrimary" variant="h1">
@@ -34,9 +34,10 @@ const MyCustom404Page = (props) => {
               You either tried some shady route or you came here by mistake.
               Whichever it is, try using the navigation
             </Typography>
-            <Box sx={{ textAlign: 'center' }}>
+            {/* <Box sx={{ textAlign: "center" }}>
               <Image
                 alt="Under development"
+                layout="fill"
                 src="/static/images/undraw_page_not_found_su7k.svg"
                 style={{
                   marginTop: 50,
@@ -45,7 +46,7 @@ const MyCustom404Page = (props) => {
                   width: 560,
                 }}
               />
-            </Box>
+            </Box> */}
             <NextLink href="/dashboard" passHref>
               <Button
                 component="a"

@@ -1,12 +1,15 @@
 import Head from "next/head";
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container, Grid } from "../../components/auth";
 import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
 import { LatestAppointments } from "../../components/dashboard/LatestAppointments";
 import { NextAppointment } from "../../components/dashboard/NextAppointment";
+import { NewProfessional } from "../../components/dashboard/NewProfessional";
 import { WelcomeDashboard } from "../../components/dashboard/WelcomeDashboard";
 import { NewAppointment } from "../../components/dashboard/NewAppointment";
+import { useSelector } from "react-redux";
 
-export default function dashboardMainPage ({ token }) {
+export default function dashboardMainPage({ token }) {
+  const { user } = useSelector((state) => state.users);
   return (
     <DashboardLayout>
       <Head>
@@ -21,15 +24,35 @@ export default function dashboardMainPage ({ token }) {
       >
         <Container maxWidth={false}>
           <Grid container spacing={3}>
-            <Grid item xl={4} lg={4} sm={6} xs={12}>
-                <WelcomeDashboard  />
-            </Grid>
-            <Grid item xl={4} lg={4} sm={6} xs={12}>
-                <NextAppointment />
-            </Grid>
-            <Grid item xl={4} lg={4} sm={6} xs={12}>
-                <NewAppointment />
-            </Grid>
+            {user && user.isAdmin ? (
+              <>
+                <Grid item xl={3} lg={3} sm={6} xs={12}>
+                  <WelcomeDashboard />
+                </Grid>
+                <Grid item xl={3} lg={3} sm={6} xs={12}>
+                  <NextAppointment />
+                </Grid>
+                <Grid item xl={3} lg={3} sm={6} xs={12}>
+                  <NewAppointment />
+                </Grid>
+                <Grid item xl={3} lg={3} sm={6} xs={12}>
+                  <NewProfessional />
+                </Grid>
+              </>
+            ) : (
+              <>
+                <Grid item xl={4} lg={4} sm={6} xs={12}>
+                  <WelcomeDashboard />
+                </Grid>
+                <Grid item xl={4} lg={4} sm={6} xs={12}>
+                  <NextAppointment />
+                </Grid>
+                <Grid item xl={4} lg={4} sm={6} xs={12}>
+                  <NewAppointment />
+                </Grid>
+              </>
+            )}
+
             <Grid item lg={12} md={12} xl={12} xs={12}>
               <LatestAppointments />
             </Grid>

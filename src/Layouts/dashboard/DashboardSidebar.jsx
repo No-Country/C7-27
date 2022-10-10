@@ -2,25 +2,25 @@ import { useEffect } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { Box, Button, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
+import { Box, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
 import Logo from '@mui/icons-material/Apartment';
 import { NavItem } from './NavItem';
 
 const items = [
   {
     href: '/dashboard',
-    icon: (<Logo fontSize="small" />),
-    title: 'Dashboard (patient)'
+    icon: <Logo fontSize="small" />,
+    title: 'Dashboard (patient)',
   },
   {
     href: '/dashboard/appointments',
-    icon: (<Logo fontSize="small" />),
-    title: 'Appointments'
+    icon: <Logo fontSize="small" />,
+    title: 'Appointments',
   },
   {
-    href: '/test2',
-    icon: (<Logo fontSize="small" />),
-    title: 'Test 2'
+    href: '/dashboard/createAppointment',
+    icon: <Logo fontSize="small" />,
+    title: 'Create Appointment',
   },
 ];
 
@@ -29,7 +29,7 @@ export const DashboardSidebar = (props) => {
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
-    noSsr: false
+    noSsr: false,
   });
 
   useEffect(
@@ -52,20 +52,17 @@ export const DashboardSidebar = (props) => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          height: '100%'
+          height: '100%',
         }}
       >
         <div>
           <Box sx={{ p: 3 }}>
-            <NextLink
-              href="/"
-              passHref
-            >
+            <NextLink href="/" passHref>
               <a>
                 <Logo
                   sx={{
                     height: 42,
-                    width: 42
+                    width: 42,
                   }}
                 />
               </a>
@@ -81,20 +78,14 @@ export const DashboardSidebar = (props) => {
                 justifyContent: 'space-between',
                 px: 3,
                 py: '11px',
-                borderRadius: 1
+                borderRadius: 1,
               }}
             >
               <div>
-                <Typography
-                  color="inherit"
-                  variant="subtitle1"
-                >
+                <Typography color="inherit" variant="subtitle1">
                   MediApp
                 </Typography>
-                <Typography
-                  color="neutral.400"
-                  variant="body2"
-                >
+                <Typography color="neutral.400" variant="body2">
                   Medical Appointments
                 </Typography>
               </div>
@@ -111,14 +102,14 @@ export const DashboardSidebar = (props) => {
         <Divider
           sx={{
             borderColor: '#2D3748',
-            my: 3
+            my: 3,
           }}
         />
         <Box sx={{ flexGrow: 1 }}>
           {items.map((item) => (
             <NavItem
               key={item.title}
-            //   icon={item.icon}
+              //   icon={item.icon}
               href={item.href}
               title={item.title}
             />
@@ -137,8 +128,8 @@ export const DashboardSidebar = (props) => {
           sx: {
             backgroundColor: 'neutral.900',
             color: '#FFFFFF',
-            width: 280
-          }
+            width: 280,
+          },
         }}
         variant="permanent"
       >
@@ -156,8 +147,8 @@ export const DashboardSidebar = (props) => {
         sx: {
           backgroundColor: 'neutral.900',
           color: '#FFFFFF',
-          width: 280
-        }
+          width: 280,
+        },
       }}
       sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
       variant="temporary"
@@ -169,5 +160,5 @@ export const DashboardSidebar = (props) => {
 
 DashboardSidebar.propTypes = {
   onClose: PropTypes.func,
-  open: PropTypes.bool
+  open: PropTypes.bool,
 };

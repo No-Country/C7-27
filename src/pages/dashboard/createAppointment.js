@@ -1,19 +1,10 @@
-import {useState} from 'react'
-import {useForm} from 'react-hook-form'
+import { useForm } from 'react-hook-form';
 
-import NextLink from 'next/link';
-import Link from '@mui/material/Link';
-
-import axios from 'axios'
+import axios from 'axios';
 
 import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
   Button,
   Stack,
-  IconButton,
-  InputAdornment,
   FormLabel,
   Box,
   FormControl,
@@ -21,13 +12,13 @@ import {
   Typography,
   Select,
   MenuItem,
-  TextField,
 } from '../../components/auth';
 
-import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
+import { DashboardLayout } from '../../Layouts/dashboard/DashboardLayout';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 export default function NewAppointment() {
-
   const {
     register,
     handleSubmit,
@@ -36,94 +27,146 @@ export default function NewAppointment() {
     formState: { errors },
   } = useForm();
 
+  const { user } = useSelector((state) => state.users);
 
+  const [professionals, setProfessionals] = useState([]);
+  const [specialities, setSpecialities] = useState([]);
 
-  const submit = async (values) => {
+  const [specility, setSpecility] = useState('');
+
+  useEffect(() => {
+    getData(specility);
+  }, [specility]);
+
+  useEffect(() => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
+      )
+      .then(({ data }) => setSpecialities(data));
+  });
+
+  const getData = async (speciality = '') => {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/professionals/allProfessionals`
+    );
+    data = data.filter(
+      (professional) =>
+        professional.professionalRef.specialities.toLowerCase() ===
+        speciality.toLowerCase()
+    );
+    setProfessionals(data);
+  };
+
+  const submit = async ({ professionalRef }) => {
     try {
-      console.log(values)
-      // const url = `${NEXT_PUBLIC_API_URL}/api/appointments/newAppointment`
-      // const { data } = await axios.post(url, values);
-      // console.log(data);
-      // reset();
+      const inputValues = {
+        date: Date.now(),
+        patientEmail: user.email,
+        professionalRef,
+        patientRef: user.patientRef,
+      };
+
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/api/appointments/newAppointment`;
+      await axios.post(url, inputValues);
+      reset();
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
     }
   };
 
-
-  return(
+  return (
     <DashboardLayout>
       <Box
         component="form"
         sx={{
           '& > :not(style)': { m: 1 },
           width: '100%',
-          maxWidth: '500px',
         }}
         noValidate
         autoComplete="off"
         onSubmit={handleSubmit(submit)}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="calc(100vh - 64px)"
       >
-        <Stack spacing={2}>
+        <Stack
+          spacing={2}
+          sx={{
+            display: 'flex',
+            width: '100%',
+            maxWidth: '600px',
+            justifyContent: 'center',
+          }}
+        >
           <FormLabel component="legend">New Appointment</FormLabel>
 
-          <FormControl>
-            <TextField
-              {...register('patientEmail', {
-                required: { value: true, message: 'This field is required' },
-                pattern: {
-                  value:
-                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: 'Invalid format',
+          <FormControl sx={{ width: '100%' }}>
+            <InputLabel id="demo-simple-select-autowidth-label">
+              Speciality
+            </InputLabel>
+            <Select
+              {...register('specialityInput', {
+                required: {
+                  value: true,
+                  message: 'This field is required',
                 },
               })}
-              type="patientEmail"
-              label="Email Address"
-              error={errors.patientEmail ? true : false}
-            />
-            {errors.patientEmail && (
+              error={errors.specialityInput ? true : false}
+              onChange={(e) => setSpecility(e.target.value)}
+            >
+              <MenuItem value="">
+                <em>Select</em>
+              </MenuItem>
+              {specialities.map((speciality) => (
+                <MenuItem key={speciality._id} value={speciality.name}>
+                  {speciality.name}
+                </MenuItem>
+              ))}
+            </Select>
+            {errors.specialityInput && (
               <Typography variant="body2" component="p" color="error">
-                {errors.patientEmail.message}
+                {errors.specialityInput.message}
               </Typography>
             )}
           </FormControl>
 
-          
-          
-            
-              <FormControl sx={{ width: '100%' }}>
-                <InputLabel id="demo-simple-select-autowidth-label">
-                  Professional Reference
-                </InputLabel>
-                <Select
-                  
-                  {...register('professionalRef', {
-                    required: {
-                      value: true,
-                      message: 'This field is required',
-                    },
-                  })}
-                  error={errors.professionalRef ? true : false}
-                  >
-                  <MenuItem value="">
-                    <em>Select</em>
-                  </MenuItem>
-                  <MenuItem value="A">6331e64d1199842596e9d29c</MenuItem>
-                  
-                </Select>
-                {errors.professionalRef && (
-                  <Typography variant="body2" component="p" color="error">
-                    {errors.professionalRef.message}
-                  </Typography>
-                )}
-              </FormControl>
-     
+          <FormControl sx={{ width: '100%' }}>
+            <InputLabel id="demo-simple-select-autowidth-label">
+              Professional Reference
+            </InputLabel>
+            <Select
+              {...register('professionalRef', {
+                required: {
+                  value: true,
+                  message: 'This field is required',
+                },
+              })}
+              error={errors.professionalRef ? true : false}
+            >
+              <MenuItem value="">
+                <em>Select</em>
+              </MenuItem>
+              {professionals?.map(({ professionalRef }) => (
+                <MenuItem
+                  key={professionalRef?._id}
+                  value={`${professionalRef?._id}`}
+                >{`${professionalRef?.firstName} ${professionalRef?.lastName}`}</MenuItem>
+              ))}
+            </Select>
+            {errors.professionalRef && (
+              <Typography variant="body2" component="p" color="error">
+                {errors.professionalRef.message}
+              </Typography>
+            )}
+          </FormControl>
 
           <Button type="submit" variant="contained">
             Create
           </Button>
-          
         </Stack>
       </Box>
-    </DashboardLayout>)
+    </DashboardLayout>
+  );
 }

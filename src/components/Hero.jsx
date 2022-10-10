@@ -1,12 +1,8 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
+import React from "react";
+import { Box, Grid, Button, Typography, Stack } from "../components/auth";
 
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 export default function NavBar() {
   return (
@@ -16,9 +12,9 @@ export default function NavBar() {
           item
           xs={6}
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
             padding: 5,
           }}
         >
@@ -39,7 +35,7 @@ export default function NavBar() {
           </Stack>
         </Grid>
         <Grid item xs={6}>
-          <Box sx={{ position: 'relative', width: 500, height: 300 }}>
+          <Box sx={{ position: "relative", width: "500px", height: "300px" }}>
             <Image
               layout="fill"
               src="https://images.unsplash.com/photo-1607799013470-8a46c0db7eb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
