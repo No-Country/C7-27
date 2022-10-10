@@ -16,6 +16,7 @@ import {
 
 import { DashboardLayout } from '../../Layouts/dashboard/DashboardLayout';
 import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 export default function NewAppointment() {
   const {
@@ -28,19 +29,46 @@ export default function NewAppointment() {
 
   const { user } = useSelector((state) => state.users);
 
+  const [professionals, setProfessionals] = useState([]);
+  const [specialities, setSpecialities] = useState([]);
+
+  const [specility, setSpecility] = useState('');
+
+  useEffect(() => {
+    getData(specility);
+  }, [specility]);
+
+  useEffect(() => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
+      )
+      .then(({ data }) => setSpecialities(data));
+  });
+
+  const getData = async (speciality = '') => {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/professionals/allProfessionals`
+    );
+    data = data.filter(
+      (professional) =>
+        professional.professionalRef.specialities.toLowerCase() ===
+        speciality.toLowerCase()
+    );
+    setProfessionals(data);
+  };
+
   const submit = async ({ professionalRef }) => {
     try {
       const inputValues = {
-        date: '30/09/2022 17:30hs',
+        date: Date.now(),
         patientEmail: user.email,
         professionalRef,
         patientRef: user.patientRef,
       };
 
-      console.log(inputValues);
       const url = `${process.env.NEXT_PUBLIC_API_URL}/api/appointments/newAppointment`;
-      const { data } = await axios.post(url, inputValues);
-      console.log(data);
+      await axios.post(url, inputValues);
       reset();
     } catch (e) {
       console.log(e.message);
@@ -76,6 +104,36 @@ export default function NewAppointment() {
 
           <FormControl sx={{ width: '100%' }}>
             <InputLabel id="demo-simple-select-autowidth-label">
+              Speciality
+            </InputLabel>
+            <Select
+              {...register('specialityInput', {
+                required: {
+                  value: true,
+                  message: 'This field is required',
+                },
+              })}
+              error={errors.specialityInput ? true : false}
+              onChange={(e) => setSpecility(e.target.value)}
+            >
+              <MenuItem value="">
+                <em>Select</em>
+              </MenuItem>
+              {specialities.map((speciality) => (
+                <MenuItem key={speciality._id} value={speciality.name}>
+                  {speciality.name}
+                </MenuItem>
+              ))}
+            </Select>
+            {errors.specialityInput && (
+              <Typography variant="body2" component="p" color="error">
+                {errors.specialityInput.message}
+              </Typography>
+            )}
+          </FormControl>
+
+          <FormControl sx={{ width: '100%' }}>
+            <InputLabel id="demo-simple-select-autowidth-label">
               Professional Reference
             </InputLabel>
             <Select
@@ -90,7 +148,12 @@ export default function NewAppointment() {
               <MenuItem value="">
                 <em>Select</em>
               </MenuItem>
-              <MenuItem value="6331e6781199842596e9d2a2">Jose Perez</MenuItem>
+              {professionals?.map(({ professionalRef }) => (
+                <MenuItem
+                  key={professionalRef?._id}
+                  value={`${professionalRef?._id}`}
+                >{`${professionalRef?.firstName} ${professionalRef?.lastName}`}</MenuItem>
+              ))}
             </Select>
             {errors.professionalRef && (
               <Typography variant="body2" component="p" color="error">
