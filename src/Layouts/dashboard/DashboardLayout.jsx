@@ -29,7 +29,7 @@ export const DashboardLayout = (props) => {
     } catch (e) {
       // router.push("/");
     }
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
