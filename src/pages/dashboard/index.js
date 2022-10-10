@@ -10,6 +10,60 @@ import { useSelector } from "react-redux";
 
 export default function dashboardMainPage({ token }) {
   const { user } = useSelector((state) => state.users);
+
+  const patientDashboard = (
+    <>
+        <Grid item xl={4} lg={4} sm={6} xs={12}>
+            <WelcomeDashboard />
+        </Grid>
+        <Grid item xl={4} lg={4} sm={6} xs={12}>
+            <NextAppointment />
+        </Grid>
+        <Grid item xl={4} lg={4} sm={6} xs={12}>
+            <NewAppointment />
+        </Grid>
+        <Grid item lg={12} md={12} xl={12} xs={12}>
+            <LatestAppointments />
+        </Grid>
+    </>
+  )
+
+  const professionalDashboard = (
+    <>
+        <Grid item xl={4} lg={4} sm={6} xs={12}>
+            <WelcomeDashboard />
+        </Grid>
+        <Grid item xl={4} lg={4} sm={6} xs={12}>
+            <NextAppointment />
+        </Grid>
+        <Grid item lg={12} md={12} xl={12} xs={12}>
+            <LatestAppointments />
+        </Grid>
+    </>
+  )
+
+  const adminDashboard = (
+    <>
+        <Grid item xl={4} lg={4} sm={6} xs={12}>
+            <WelcomeDashboard />
+        </Grid>
+    </>
+  )
+
+  const renderDashboard = () => {
+    if (user) {
+        if (user.isAdmin) {
+            return adminDashboard
+        } else if (user.isProfessional) {
+            return professionalDashboard
+        } else {
+            return patientDashboard
+        }
+    } else {
+        return null
+    }
+  }
+
   return (
     <DashboardLayout>
       <Head>
@@ -24,50 +78,9 @@ export default function dashboardMainPage({ token }) {
       >
         <Container maxWidth={false}>
           <Grid container spacing={3}>
-            {user && user.isAdmin ? (
-              <>
-                <Grid item xl={3} lg={3} sm={6} xs={12}>
-                  <WelcomeDashboard />
-                </Grid>
-                <Grid item xl={3} lg={3} sm={6} xs={12}>
-                  <NextAppointment />
-                </Grid>
-                <Grid item xl={3} lg={3} sm={6} xs={12}>
-                  <NewAppointment />
-                </Grid>
-                <Grid item xl={3} lg={3} sm={6} xs={12}>
-                  <NewProfessional />
-                </Grid>
-              </>
-            ) : (
-              <>
-                <Grid item xl={4} lg={4} sm={6} xs={12}>
-                  <WelcomeDashboard />
-                </Grid>
-                <Grid item xl={4} lg={4} sm={6} xs={12}>
-                  <NextAppointment />
-                </Grid>
-                <Grid item xl={4} lg={4} sm={6} xs={12}>
-                  <NewAppointment />
-                </Grid>
-              </>
-            )}
-
-            <Grid item lg={12} md={12} xl={12} xs={12}>
-              <LatestAppointments />
-            </Grid>
-            <Grid item lg={8} md={12} xl={9} xs={12}>
-              Componente 5
-            </Grid>
-            <Grid item lg={4} md={6} xl={3} xs={12}>
-              Componente 6
-            </Grid>
-            <Grid item lg={4} md={6} xl={3} xs={12}>
-              Componente 7
-            </Grid>
-            <Grid item lg={8} md={12} xl={9} xs={12}>
-              Componente 8
-            </Grid>
+            {
+                renderDashboard()
+            }
           </Grid>
         </Container>
       </Box>
