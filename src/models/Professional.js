@@ -40,7 +40,7 @@ const professionalSchema = new Schema(
       require: true,
       trim: true,
     },
-    specialities: {
+    speciality: {
       type: String,
       require: true,
     },
