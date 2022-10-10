@@ -26,6 +26,8 @@ export default async function handler(req, res) {
       isProfessional: true,
     });
 
+    verificationEmail(newUser._id, newUser.email)
+
     // creo el registro de profesioanl
     const newProfessional = new Professional({
       email: body.email,
