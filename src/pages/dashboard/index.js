@@ -13,56 +13,59 @@ export default function dashboardMainPage({ token }) {
 
   const patientDashboard = (
     <>
-        <Grid item xl={4} lg={4} sm={6} xs={12}>
-            <WelcomeDashboard />
-        </Grid>
-        <Grid item xl={4} lg={4} sm={6} xs={12}>
-            <NextAppointment />
-        </Grid>
-        <Grid item xl={4} lg={4} sm={6} xs={12}>
-            <NewAppointment />
-        </Grid>
-        <Grid item lg={12} md={12} xl={12} xs={12}>
-            <LatestAppointments />
-        </Grid>
+      <Grid item xl={4} lg={4} sm={6} xs={12}>
+        <WelcomeDashboard />
+      </Grid>
+      <Grid item xl={4} lg={4} sm={6} xs={12}>
+        <NextAppointment />
+      </Grid>
+      <Grid item xl={4} lg={4} sm={6} xs={12}>
+        <NewAppointment />
+      </Grid>
+      <Grid item lg={12} md={12} xl={12} xs={12}>
+        <LatestAppointments />
+      </Grid>
     </>
-  )
+  );
 
   const professionalDashboard = (
     <>
-        <Grid item xl={4} lg={4} sm={6} xs={12}>
-            <WelcomeDashboard />
-        </Grid>
-        <Grid item xl={4} lg={4} sm={6} xs={12}>
-            <NextAppointment />
-        </Grid>
-        <Grid item lg={12} md={12} xl={12} xs={12}>
-            <LatestAppointments />
-        </Grid>
+      <Grid item xl={4} lg={4} sm={6} xs={12}>
+        <WelcomeDashboard />
+      </Grid>
+      <Grid item xl={4} lg={4} sm={6} xs={12}>
+        <NextAppointment />
+      </Grid>
+      <Grid item lg={12} md={12} xl={12} xs={12}>
+        <LatestAppointments />
+      </Grid>
     </>
-  )
+  );
 
   const adminDashboard = (
     <>
-        <Grid item xl={4} lg={4} sm={6} xs={12}>
-            <WelcomeDashboard />
-        </Grid>
+      <Grid item xl={4} lg={4} sm={6} xs={12}>
+        <WelcomeDashboard />
+      </Grid>
+      <Grid item xl={4} lg={4} sm={6} xs={12}>
+        <NewProfessional />
+      </Grid>
     </>
-  )
+  );
 
   const renderDashboard = () => {
     if (user) {
-        if (user.isAdmin) {
-            return adminDashboard
-        } else if (user.isProfessional) {
-            return professionalDashboard
-        } else {
-            return patientDashboard
-        }
+      if (user.isAdmin) {
+        return adminDashboard;
+      } else if (user.isProfessional) {
+        return professionalDashboard;
+      } else {
+        return patientDashboard;
+      }
     } else {
-        return null
+      return null;
     }
-  }
+  };
 
   return (
     <DashboardLayout>
@@ -78,9 +81,7 @@ export default function dashboardMainPage({ token }) {
       >
         <Container maxWidth={false}>
           <Grid container spacing={3}>
-            {
-                renderDashboard()
-            }
+            {renderDashboard()}
           </Grid>
         </Container>
       </Box>
