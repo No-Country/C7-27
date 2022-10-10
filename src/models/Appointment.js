@@ -7,6 +7,11 @@ const appointmentSchema = new Schema(
       required: true,
       trim: true,
     },
+    hour: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     confirmed: {
       type: Boolean,
       required: true,
