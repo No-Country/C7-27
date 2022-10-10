@@ -18,7 +18,7 @@ import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-export default function NewAppointment() {
+export default function NewAppointment({ specialities }) {
   const {
     register,
     handleSubmit,
@@ -28,28 +28,27 @@ export default function NewAppointment() {
   } = useForm();
 
   const { user } = useSelector((state) => state.users);
-
+  console.log(user);
   const [professionals, setProfessionals] = useState([]);
-  const [specialities, setSpecialities] = useState([]);
-
-  const [specility, setSpecility] = useState("");
+  const [speciality, setSpeciality] = useState("");
 
   useEffect(() => {
-    getData(specility);
-  }, [specility]);
+    getData(speciality);
+  }, [speciality]);
 
-  useEffect(() => {
-    axios
-      .get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
-      )
-      .then(({ data }) => setSpecialities(data));
-  });
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
+  //     )
+  //     .then(({ data }) => setSpecialities(data));
+  // }, []);
 
   const getData = async (speciality = "") => {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/api/professionals/allProfessionals`
     );
+
     data = data.filter(
       (professional) =>
         professional.professionalRef.speciality.toLowerCase() ===
@@ -114,7 +113,7 @@ export default function NewAppointment() {
                 },
               })}
               error={errors.specialityInput ? true : false}
-              onChange={(e) => setSpecility(e.target.value)}
+              onChange={(e) => setSpeciality(e.target.value)}
               MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
             >
               <MenuItem value="">
@@ -170,4 +169,19 @@ export default function NewAppointment() {
       </Box>
     </DashboardLayout>
   );
+}
+
+export async function getStaticProps(context) {
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
+  );
+
+  const specialities = data;
+  console.log(specialities);
+
+  return {
+    props: {
+      specialities,
+    },
+  };
 }

@@ -313,7 +313,7 @@ export default function RegisterProfessional({ insurances, specialities }) {
                 </InputLabel>
                 <Select
                   label="Age"
-                  {...register("specialities", {
+                  {...register("speciality", {
                     required: {
                       value: true,
                       message: "This field is required",
