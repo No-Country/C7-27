@@ -17,7 +17,6 @@ import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
 import { SeverityPill } from "../../components/dashboard";
 import { useSelector } from "react-redux";
 
-
 export default function AppointmentsPage({ token }) {
   const { user } = useSelector((state) => state.users);
 
@@ -58,18 +57,22 @@ export default function AppointmentsPage({ token }) {
                       <TableBody>
                         {user?.appointmentsRef?.map((appointment) => (
                           <TableRow hover key={appointment._id}>
-                            <TableCell>{appointment.professionalRef}</TableCell>
-                            <TableCell>{appointment.patientRef}</TableCell>
+                            <TableCell>
+                              {appointment.professionalRef.firstName}
+                            </TableCell>
+                            <TableCell>
+                              {appointment.professionalRef.speciality}
+                            </TableCell>
                             <TableCell>{appointment.date}</TableCell>
                             <TableCell>
                               <SeverityPill
                                 color={
-                                  appointment.confirmed ? 'success' : 'error'
+                                  appointment.confirmed ? "success" : "error"
                                 }
                               >
                                 {appointment.confirmed
-                                  ? 'Confirmed'
-                                  : 'Cancelled'}
+                                  ? "Confirmed"
+                                  : "Cancelled"}
                               </SeverityPill>
                             </TableCell>
                           </TableRow>

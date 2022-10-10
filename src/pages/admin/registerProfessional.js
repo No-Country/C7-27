@@ -419,12 +419,15 @@ export default function RegisterProfessional({ insurances, specialities }) {
                         <MenuItem value="">
                           <em>Select</em>
                         </MenuItem>
-                        {avaliableDays.map((day) =>
-                          !selectedDays.includes(day) ? (
-                            <MenuItem value={day.value}>{day.name}</MenuItem>
+                        {avaliableDays.map((aDay) =>
+                          !selectedDays.includes(aDay.value) ? (
+                            <MenuItem value={aDay.value}>{aDay.name}</MenuItem>
                           ) : (
-                            <MenuItem sx={{ display: "none" }} value={day}>
-                              {day}
+                            <MenuItem
+                              sx={{ display: "none" }}
+                              value={aDay.value}
+                            >
+                              {aDay.name}
                             </MenuItem>
                           )
                         )}

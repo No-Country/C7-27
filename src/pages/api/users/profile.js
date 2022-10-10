@@ -46,7 +46,7 @@ export default async function handler(req, res) {
             select: "-createdAt -updatedAt -patientRef",
             populate: {
               path: "professionalRef",
-              select: "_id firstName lastName specialities",
+              select: "_id firstName lastName speciality",
             },
           })
           .populate({

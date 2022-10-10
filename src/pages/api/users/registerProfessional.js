@@ -33,7 +33,7 @@ export default async function handler(req, res) {
       lastName: body.lastName,
       birthday: body.birthday,
       phoneNumber: body.phoneNumber,
-      specialities: body.specialities,
+      speciality: body.speciality,
       medicalInsuranceList: body.medicalInsuranceList,
       days: body.days,
     });
