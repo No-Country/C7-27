@@ -25,9 +25,7 @@ import { useForm } from "react-hook-form";
 import { Layout } from "../../Layouts";
 import axios from "axios";
 
-const medicalinsurances = ["Name 1", "Name 2", "Name 3", "Name 4", "Name 5"];
-
-export default function RegisterPage() {
+export default function RegisterPage({ insurances }) {
   const {
     register,
     handleSubmit,
@@ -187,9 +185,9 @@ export default function RegisterPage() {
                   <MenuItem value="">
                     <em>Select</em>
                   </MenuItem>
-                  {medicalinsurances.map((m) => (
-                    <MenuItem key={m} value={m}>
-                      {m}
+                  {insurances.map((insurance) => (
+                    <MenuItem key={insurance._id} value={insurance.initials}>
+                      {insurance.initials}
                     </MenuItem>
                   ))}
                   <MenuItem value="Other">Other</MenuItem>
@@ -284,4 +282,16 @@ export default function RegisterPage() {
       </Box>
     </Layout>
   );
+}
+
+export async function getStaticProps(context) {
+  const { data: insurances } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getMedicalInsuranceList`
+  );
+
+  return {
+    props: {
+      insurances,
+    },
+  };
 }

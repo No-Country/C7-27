@@ -26,6 +26,7 @@ import { Layout } from "../../Layouts";
 import { useDispatch } from "react-redux";
 import { userRegister } from "../../store/slices/user";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -38,7 +39,6 @@ const MenuProps = {
   },
 };
 
-const medicalinsurances = ["Name 1", "Name 2", "Name 3", "Name 4", "Name 5"];
 let avaliableDays = [
   { value: 1, name: "monday" },
   { value: 2, name: "tuesday" },
@@ -65,7 +65,7 @@ const style = {
   padding: "10px",
 };
 
-export default function RegisterProfessional() {
+export default function RegisterProfessional({ insurances, specialities }) {
   const {
     register,
     handleSubmit,
@@ -260,8 +260,8 @@ export default function RegisterProfessional() {
           </FormControl>
 
           <Grid container gap={2}>
-            <Grid item xs={12} sm={6}>
-              <FormControl sx={{ width: "100%" }} xs={12} sm={6}>
+            <Grid item xs={12}>
+              <FormControl sx={{ width: "100%" }}>
                 <InputLabel id="demo-multiple-chip-label">
                   Medical Insurances
                 </InputLabel>
@@ -288,13 +288,13 @@ export default function RegisterProfessional() {
                   )}
                   MenuProps={MenuProps}
                 >
-                  {medicalinsurances.map((name) => (
+                  {insurances.map((insurance) => (
                     <MenuItem
-                      key={name}
-                      value={name}
+                      key={insurance._id}
+                      value={insurance.initials}
                       // style={getStyles(name, theme)}
                     >
-                      {name}
+                      {insurance.initials}
                     </MenuItem>
                   ))}
                 </Select>
@@ -307,7 +307,7 @@ export default function RegisterProfessional() {
             </Grid>
 
             <Grid item sx={{ flexGrow: 1 }}>
-              <FormControl sx={{ width: "100%" }} xs={12} sm={6}>
+              <FormControl sx={{ width: "100%" }} xs={12}>
                 <InputLabel id="demo-simple-select-autowidth-label">
                   Speciality
                 </InputLabel>
@@ -320,14 +320,16 @@ export default function RegisterProfessional() {
                     },
                   })}
                   error={errors.specialities ? true : false}
+                  MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
                 >
                   <MenuItem value="">
                     <em>Select</em>
                   </MenuItem>
-                  <MenuItem value="Nurse">Nurse</MenuItem>
-                  <MenuItem value="Dentist">Dentist</MenuItem>
-                  <MenuItem value="Radiologist">Radiologist</MenuItem>
-                  <MenuItem value="Psychologist">Psychologist</MenuItem>
+                  {specialities.map((speciality) => (
+                    <MenuItem key={speciality._id} value={speciality.name}>
+                      {speciality.name}
+                    </MenuItem>
+                  ))}
                 </Select>
                 {errors.specialities && (
                   <Typography variant="body2" component="p" color="error">
@@ -486,4 +488,20 @@ export default function RegisterProfessional() {
       </Box>
     </Layout>
   );
+}
+
+export async function getStaticProps(context) {
+  const { data: insurances } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getMedicalInsuranceList`
+  );
+
+  const { data: specialities } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
+  );
+  return {
+    props: {
+      insurances,
+      specialities,
+    },
+  };
 }
