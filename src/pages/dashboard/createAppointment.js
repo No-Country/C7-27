@@ -1,6 +1,6 @@
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 
-import axios from 'axios';
+import axios from "axios";
 
 import {
   Button,
@@ -12,11 +12,11 @@ import {
   Typography,
   Select,
   MenuItem,
-} from '../../components/auth';
+} from "../../components/auth";
 
-import { DashboardLayout } from '../../Layouts/dashboard/DashboardLayout';
-import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 export default function NewAppointment() {
   const {
@@ -32,7 +32,7 @@ export default function NewAppointment() {
   const [professionals, setProfessionals] = useState([]);
   const [specialities, setSpecialities] = useState([]);
 
-  const [specility, setSpecility] = useState('');
+  const [specility, setSpecility] = useState("");
 
   useEffect(() => {
     getData(specility);
@@ -46,13 +46,13 @@ export default function NewAppointment() {
       .then(({ data }) => setSpecialities(data));
   });
 
-  const getData = async (speciality = '') => {
+  const getData = async (speciality = "") => {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/api/professionals/allProfessionals`
     );
     data = data.filter(
       (professional) =>
-        professional.professionalRef.specialities.toLowerCase() ===
+        professional.professionalRef.speciality.toLowerCase() ===
         speciality.toLowerCase()
     );
     setProfessionals(data);
@@ -80,8 +80,8 @@ export default function NewAppointment() {
       <Box
         component="form"
         sx={{
-          '& > :not(style)': { m: 1 },
-          width: '100%',
+          "& > :not(style)": { m: 1 },
+          width: "100%",
         }}
         noValidate
         autoComplete="off"
@@ -94,27 +94,28 @@ export default function NewAppointment() {
         <Stack
           spacing={2}
           sx={{
-            display: 'flex',
-            width: '100%',
-            maxWidth: '600px',
-            justifyContent: 'center',
+            display: "flex",
+            width: "100%",
+            maxWidth: "600px",
+            justifyContent: "center",
           }}
         >
           <FormLabel component="legend">New Appointment</FormLabel>
 
-          <FormControl sx={{ width: '100%' }}>
+          <FormControl sx={{ width: "100%" }}>
             <InputLabel id="demo-simple-select-autowidth-label">
               Speciality
             </InputLabel>
             <Select
-              {...register('specialityInput', {
+              {...register("specialityInput", {
                 required: {
                   value: true,
-                  message: 'This field is required',
+                  message: "This field is required",
                 },
               })}
               error={errors.specialityInput ? true : false}
               onChange={(e) => setSpecility(e.target.value)}
+              MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
             >
               <MenuItem value="">
                 <em>Select</em>
@@ -132,15 +133,15 @@ export default function NewAppointment() {
             )}
           </FormControl>
 
-          <FormControl sx={{ width: '100%' }}>
+          <FormControl sx={{ width: "100%" }}>
             <InputLabel id="demo-simple-select-autowidth-label">
               Professional Reference
             </InputLabel>
             <Select
-              {...register('professionalRef', {
+              {...register("professionalRef", {
                 required: {
                   value: true,
-                  message: 'This field is required',
+                  message: "This field is required",
                 },
               })}
               error={errors.professionalRef ? true : false}

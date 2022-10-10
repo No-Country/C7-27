@@ -14,7 +14,7 @@ export default async function handler(req, res) {
       )
         .populate({
           path: "professionalRef",
-          select: "_id firstName lastName specialities",
+          select: "_id firstName lastName speciality",
         })
         .select("-_id");
 
