@@ -135,6 +135,7 @@ export default function NewAppointment({ specialities }) {
               Speciality
             </InputLabel>
             <Select
+              label="Speciality"
               {...register("speciality", {
                 required: {
                   value: true,
@@ -166,6 +167,7 @@ export default function NewAppointment({ specialities }) {
               Professional Reference
             </InputLabel>
             <Select
+              label="Professional Reference"
               {...register("professionalRef", {
                 required: {
                   value: true,
