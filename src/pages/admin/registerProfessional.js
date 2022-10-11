@@ -430,6 +430,7 @@ export default function RegisterProfessional({ insurances, specialities }) {
                           name="day"
                           value={day.day}
                           onChange={(e) => handleChangeDay(e, index, day.day)}
+
                         >
                           <MenuItem value="">
                             <em>Select</em>
@@ -498,18 +499,27 @@ export default function RegisterProfessional({ insurances, specialities }) {
                   ))}
                 </Grid>
 
-                <Button
-                  sx={{ marginTop: "20px" }}
-                  xs={12}
-                  variant="contained"
-                  onClick={() => addDay()}
-                >
-                  Add
-                </Button>
-              </Box>
-            </Modal>
-          </Stack>
-        )}
+
+              <Button
+                sx={{ marginTop: "20px" }}
+                xs={12}
+                variant="contained"
+                onClick={() => addDay()}
+              >
+                Add
+              </Button>
+              <Button
+                sx={{ marginTop: "20px", marginLeft: "10px" }}
+                xs={12}
+                variant="contained"
+                onClick={handleClose}
+              >
+                Close
+              </Button>
+            </Box>
+          </Modal>
+        </Stack>
+
       </Box>
     </Layout>
   );

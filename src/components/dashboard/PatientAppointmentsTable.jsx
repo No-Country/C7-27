@@ -1,4 +1,6 @@
-import React from "react";
+import React from 'react';
+
+import { capitalize } from '@mui/material';
 import {
   Table,
   TableBody,
@@ -7,8 +9,9 @@ import {
   TableRow,
   TableSortLabel,
   Tooltip,
-} from "../../components/auth";
-import { SeverityPill } from "./SeverityPill";
+} from '../../components/auth';
+
+import { SeverityPill } from './SeverityPill';
 
 export function PatientAppointmentsTable({ appointments }) {
   return (
@@ -31,19 +34,17 @@ export function PatientAppointmentsTable({ appointments }) {
         {appointments?.map((appointment) => (
           <TableRow hover key={appointment._id}>
             <TableCell>
-              {appointment.professionalRef.lastName}{" "}
-              {appointment.professionalRef.firstName}
+              {`
+              ${capitalize(appointment.professionalRef.lastName)}
+              ${capitalize(appointment.professionalRef.firstName)}`}
             </TableCell>
             <TableCell>{appointment.professionalRef.speciality}</TableCell>
             <TableCell>{appointment.date}</TableCell>
             <TableCell>
-              <SeverityPill
-                color={appointment.confirmed ? "success" : "error"}
-                style={{
-                  backgroundColor: appointment.confirmed ? "success" : "red",
-                }}
-              >
-                {appointment.confirmed ? "Confirmed" : "Cancelled"}
+
+              <SeverityPill color={appointment.confirmed ? 'success' : 'error'}>
+                {appointment.confirmed ? 'Confirmed' : 'Cancelled'}
+
               </SeverityPill>
             </TableCell>
           </TableRow>

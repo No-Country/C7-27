@@ -171,9 +171,9 @@ const theme = createTheme({
       contrastText: '#FFFFFF'
     },
     success: {
-      main: '#14B8A6',
-      light: '#43C6B7',
-      dark: '#0E8074',
+      main: '#10B981',
+      light: '#3FC79A',
+      dark: '#0B815A',
       contrastText: '#FFFFFF'
     },
     info: {
