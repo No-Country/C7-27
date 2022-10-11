@@ -2,11 +2,12 @@ import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 
 const SeverityPillRoot = styled("span")(({ theme, ownerState }) => {
+  const backgroundColor = theme.palette[ownerState.color].main;
   const color = theme.palette[ownerState.color].contrastText;
 
   return {
     alignItems: "center",
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor,
     borderRadius: 12,
     color,
     cursor: "default",
@@ -47,6 +48,6 @@ SeverityPill.propTypes = {
     "error",
     "info",
     "warning",
-    "success",
+    "success"
   ]),
 };

@@ -26,7 +26,7 @@ export default function Calendar() {
     //Rango maximo de dias futuros que se puede pedir turno (30)
     const dateRange = new Date();
     dateRange.setMonth(dateRange.getMonth() + 1);
-    
+
 
     //Referencia al profesional que habria que traer desde el estado global
     const professionalRefference = "6331e6781199842596e9d2a2"
@@ -90,7 +90,7 @@ export default function Calendar() {
 
         //Trae los appointments que coincidan con la fecha seleccionada
         if (selectedDate) {
-            takenAppointmentsHours = appointmentsList.filter((appointment) => appointment.date === selectedDate.toLocaleDateString('es-ES'))
+            takenAppointmentsHours = appointmentsList.filter((appointment) => appointment.date === selectedDate.toLocaleDateString('es-ES') && appointment.confirmed == true)
             takenAppointmentsHours.map(appointment => hoursToDelete.push(appointment.hour))
         }
 

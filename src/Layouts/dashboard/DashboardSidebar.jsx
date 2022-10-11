@@ -113,7 +113,7 @@ export const DashboardSidebar = (props) => {
               sx={{
                 alignItems: 'center',
                 backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                cursor: 'pointer',
+                cursor: 'default',
                 display: 'flex',
                 justifyContent: 'space-between',
                 px: 3,
@@ -121,7 +121,7 @@ export const DashboardSidebar = (props) => {
                 borderRadius: 1,
               }}
             >
-              <div>
+              <div >
                 <Typography color="inherit" variant="subtitle1">
                   MediApp
                 </Typography>

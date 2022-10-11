@@ -70,6 +70,7 @@ export default function AppointmentsPage({ token }) {
                             </TableCell>
                             <TableCell>{appointment.date}</TableCell>
                             <TableCell>
+
                               <SeverityPill
                                 color={
                                   appointment.confirmed ? 'success' : 'error'
