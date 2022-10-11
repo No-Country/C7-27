@@ -1,4 +1,4 @@
-// import { format } from 'date-fns';
+import { isBefore } from 'date-fns';
 import Link from 'next/link';
 import {
   Box,
@@ -10,9 +10,20 @@ import {
 import { useSelector } from 'react-redux';
 import { ProfessionalAppointmentsTable } from './ProfessionalAppointmentsTable';
 import { PatientAppointmentsTable } from './PatientAppointmentsTable';
+import { useEffect, useState } from 'react';
 
 export const LatestAppointments = (props) => {
   const { user } = useSelector((state) => state.users);
+  const [ latestAppointments, setlatestAppointments ] = useState([])
+
+  useEffect(() => {
+      const today = new Date()
+      const pastAppointments = user?.appointmentsRef?.filter((appointment) => {
+        const appDate = new Date(appointment.date)
+        return isBefore(appDate, today)
+      })
+      setlatestAppointments(pastAppointments)
+  },[])
 
   return (
     <Card {...props}>
@@ -21,10 +32,10 @@ export const LatestAppointments = (props) => {
         {user &&
           (user.isProfessional ? (
             <ProfessionalAppointmentsTable
-              appointments={user.appointmentsRef}
+              appointments={latestAppointments}
             />
           ) : (
-            <PatientAppointmentsTable appointments={user.appointmentsRef} />
+            <PatientAppointmentsTable appointments={latestAppointments} />
           ))}
       </Box>
       <Box
