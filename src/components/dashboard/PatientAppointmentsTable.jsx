@@ -41,8 +41,10 @@ export function PatientAppointmentsTable({ appointments }) {
             <TableCell>{appointment.professionalRef.speciality}</TableCell>
             <TableCell>{appointment.date}</TableCell>
             <TableCell>
+
               <SeverityPill color={appointment.confirmed ? 'success' : 'error'}>
                 {appointment.confirmed ? 'Confirmed' : 'Cancelled'}
+
               </SeverityPill>
             </TableCell>
           </TableRow>
