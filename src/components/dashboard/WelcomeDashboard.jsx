@@ -5,9 +5,11 @@ import {
   Grid,
   Typography,
   PeopleIcon,
-} from "../../components/auth";
+} from '../../components/auth';
 // import PeopleIcon from "@mui/icons-material/PeopleOutlined";
-import { useSelector } from "react-redux";
+import { capitalize } from '@mui/material';
+
+import { useSelector } from 'react-redux';
 
 export const WelcomeDashboard = (props) => {
   const { user } = useSelector((state) => state.users);
@@ -15,19 +17,22 @@ export const WelcomeDashboard = (props) => {
   return (
     <Card {...props}>
       <CardContent sx={{ minHeight: 200 }}>
-        <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
+        <Grid container spacing={3} sx={{ justifyContent: 'space-between' }}>
           <Grid item>
             <Typography color="textSecondary" gutterBottom variant="overline">
               Welcome 👋
             </Typography>
             <Typography color="textPrimary" variant="h4">
-              {user?.firstName && `${user.firstName} ${user.lastName}`}
+              {user?.firstName &&
+                `${capitalize(user.firstName || '')} ${capitalize(
+                  user.lastName || ''
+                )}`}
             </Typography>
           </Grid>
           <Grid item>
             <Avatar
               sx={{
-                backgroundColor: "success.main",
+                backgroundColor: 'success.main',
                 height: 56,
                 width: 56,
               }}
