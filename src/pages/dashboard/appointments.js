@@ -1,4 +1,4 @@
-import Head from "next/head";
+import Head from 'next/head';
 import {
   Box,
   Container,
@@ -12,10 +12,11 @@ import {
   TableBody,
   Card,
   CardHeader,
-} from "../../components/auth";
-import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
-import { SeverityPill } from "../../components/dashboard";
-import { useSelector } from "react-redux";
+} from '../../components/auth';
+import { DashboardLayout } from '../../Layouts/dashboard/DashboardLayout';
+import { SeverityPill } from '../../components/dashboard';
+import { useSelector } from 'react-redux';
+import { capitalize } from '@mui/material';
 
 export default function AppointmentsPage({ token }) {
   const { user } = useSelector((state) => state.users);
@@ -58,7 +59,11 @@ export default function AppointmentsPage({ token }) {
                         {user?.appointmentsRef?.map((appointment) => (
                           <TableRow hover key={appointment._id}>
                             <TableCell>
-                              {appointment.professionalRef.firstName}
+                              {`${capitalize(
+                                appointment.professionalRef.lastName
+                              )} ${capitalize(
+                                appointment.professionalRef.firstName
+                              )}`}
                             </TableCell>
                             <TableCell>
                               {appointment.professionalRef.speciality}
@@ -68,12 +73,12 @@ export default function AppointmentsPage({ token }) {
 
                               <SeverityPill
                                 color={
-                                  appointment.confirmed ? "success" : "error"
+                                  appointment.confirmed ? 'success' : 'error'
                                 }
                               >
                                 {appointment.confirmed
-                                  ? "Confirmed"
-                                  : "Cancelled"}
+                                  ? 'Confirmed'
+                                  : 'Cancelled'}
                               </SeverityPill>
                             </TableCell>
                           </TableRow>
