@@ -6,6 +6,7 @@ dbConnect();
 
 export default async function handler(req, res) {
   const { method, body } = req;
+
   if (method !== "POST") {
     const error = new Error(`${method} method not supported`);
     return res.status(400).json({ msg: error.message });
@@ -26,8 +27,6 @@ export default async function handler(req, res) {
       isProfessional: true,
     });
 
-    verificationEmail(newUser._id, newUser.email)
-
     // creo el registro de profesioanl
     const newProfessional = new Professional({
       email: body.email,
@@ -41,6 +40,7 @@ export default async function handler(req, res) {
     });
 
     newUser.professionalRef = newProfessional._id;
+
     const savedUser = await newUser.save();
     await newProfessional.save();
     return res.status(201).json(savedUser);

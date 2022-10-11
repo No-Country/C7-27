@@ -20,6 +20,12 @@ import { useSelector } from "react-redux";
 export default function AppointmentsPage({ token }) {
   const { user } = useSelector((state) => state.users);
 
+  const hourFormat = (hour) => {
+    const turn = hour.split(":")[0];
+    if (turn < 12) return "am";
+    else return "pm";
+  };
+
   return (
     <DashboardLayout>
       <Head>
@@ -51,6 +57,7 @@ export default function AppointmentsPage({ token }) {
                               </TableSortLabel>
                             </Tooltip>
                           </TableCell>
+                          <TableCell>schedule</TableCell>
                           <TableCell>Status</TableCell>
                         </TableRow>
                       </TableHead>
@@ -64,6 +71,9 @@ export default function AppointmentsPage({ token }) {
                               {appointment.professionalRef.speciality}
                             </TableCell>
                             <TableCell>{appointment.date}</TableCell>
+                            <TableCell>
+                              {appointment.hour} {hourFormat(appointment.hour)}
+                            </TableCell>
                             <TableCell>
                               <SeverityPill
                                 color={

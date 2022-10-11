@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Button,
@@ -23,7 +23,7 @@ import {
 
 import { useForm } from "react-hook-form";
 import { Layout } from "../../Layouts";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userRegister } from "../../store/slices/user";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -74,13 +74,24 @@ export default function RegisterProfessional({ insurances, specialities }) {
   } = useForm();
   const dispatch = useDispatch();
   const router = useRouter();
+  const { user } = useSelector((state) => state.users);
+
+  const [loading, setLoading] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [medicalInsurancesList, setMedicalInsurancesList] = useState([]);
-
   const [days, setDays] = useState([{ day: "", availability: "" }]);
   const [selectedDays, setSelectedDays] = useState([]);
   const [dayErrors, setDayErrors] = useState([]);
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!user?.isAdmin) {
+      router.push("/dashboard");
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     let error = [];
@@ -132,6 +143,7 @@ export default function RegisterProfessional({ insurances, specialities }) {
 
   const submit = async (values) => {
     values = { ...values, days };
+    console.log(values);
     try {
       dispatch(userRegister(values));
       reset();
@@ -164,330 +176,340 @@ export default function RegisterProfessional({ insurances, specialities }) {
         autoComplete="off"
         onSubmit={handleSubmit(submit)}
       >
-        <Stack spacing={2}>
-          <FormLabel component="legend">Register Professional</FormLabel>
+        {loading ? (
+          <p>cargando</p>
+        ) : (
+          <Stack spacing={2}>
+            <FormLabel component="legend">Register Professional</FormLabel>
 
-          <FormControl>
-            <TextField
-              {...register("email", {
-                required: { value: true, message: "This field is required" },
-                pattern: {
-                  value:
-                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: "Invalid format",
-                },
-              })}
-              type="email"
-              label="Email Address"
-              error={errors.email ? true : false}
-            />
-            {errors.email && (
-              <Typography variant="body2" component="p" color="error">
-                {errors.email.message}
-              </Typography>
-            )}
-          </FormControl>
-
-          <FormControl>
-            <TextField
-              {...register("password", {
-                required: { value: true, message: "This field is required" },
-                minLength: { value: 6, message: "At least 6 characters" },
-              })}
-              type={showPassword ? "text" : "password"}
-              label="Password"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleClickShowPassword}
-                      edge="end"
-                    >
-                      {!showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              error={errors.password ? true : false}
-            />
-            {errors.password && (
-              <Typography variant="body2" component="p" color="error">
-                {errors.password.message}
-              </Typography>
-            )}
-          </FormControl>
-
-          <FormControl sx={{ width: "100%" }}>
-            <TextField
-              // id="component-outlined"
-              {...register("firstName", {
-                required: {
-                  value: true,
-                  message: "This field is required",
-                },
-              })}
-              type="text"
-              label="First Name"
-              error={errors.firstName ? true : false}
-            />
-            {errors.firstName && (
-              <Typography variant="body2" component="p" color="error">
-                {errors.firstName.message}
-              </Typography>
-            )}
-          </FormControl>
-
-          <FormControl sx={{ width: "100%" }}>
-            <TextField
-              // id="component-outlined"
-              {...register("lastName", {
-                required: {
-                  value: true,
-                  message: "This field is required",
-                },
-              })}
-              type="text"
-              label="Last Name"
-              error={errors.lastName ? true : false}
-            />
-            {errors.lastName && (
-              <Typography variant="body2" component="p" color="error">
-                {errors.lastName.message}
-              </Typography>
-            )}
-          </FormControl>
-
-          <Grid container gap={2}>
-            <Grid item xs={12}>
-              <FormControl sx={{ width: "100%" }}>
-                <InputLabel id="demo-multiple-chip-label">
-                  Medical Insurances
-                </InputLabel>
-                <Select
-                  multiple
-                  {...register("medicalInsuranceList", {
-                    required: {
-                      value: true,
-                      message: "This field is required",
-                    },
-                  })}
-                  error={errors.medicalInsuranceList ? true : false}
-                  value={medicalInsurancesList}
-                  onChange={handleChange}
-                  input={
-                    <OutlinedInput id="select-multiple-chip" label="Chip" />
-                  }
-                  renderValue={(selected) => (
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                      {selected.map((value) => (
-                        <Chip key={value} label={value} />
-                      ))}
-                    </Box>
-                  )}
-                  MenuProps={MenuProps}
-                >
-                  {insurances.map((insurance) => (
-                    <MenuItem
-                      key={insurance._id}
-                      value={insurance.initials}
-                      // style={getStyles(name, theme)}
-                    >
-                      {insurance.initials}
-                    </MenuItem>
-                  ))}
-                </Select>
-                {errors.medicalInsuranceList && (
-                  <Typography variant="body2" component="p" color="error">
-                    {errors.medicalInsuranceList.message}
-                  </Typography>
-                )}
-              </FormControl>
-            </Grid>
-
-            <Grid item sx={{ flexGrow: 1 }}>
-              <FormControl sx={{ width: "100%" }} xs={12}>
-                <InputLabel id="demo-simple-select-autowidth-label">
-                  Speciality
-                </InputLabel>
-                <Select
-                  label="Age"
-                  {...register("speciality", {
-                    required: {
-                      value: true,
-                      message: "This field is required",
-                    },
-                  })}
-                  error={errors.specialities ? true : false}
-                  MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
-                >
-                  <MenuItem value="">
-                    <em>Select</em>
-                  </MenuItem>
-                  {specialities.map((speciality) => (
-                    <MenuItem key={speciality._id} value={speciality.name}>
-                      {speciality.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-                {errors.specialities && (
-                  <Typography variant="body2" component="p" color="error">
-                    {errors.specialities.message}
-                  </Typography>
-                )}
-              </FormControl>
-            </Grid>
-          </Grid>
-
-          <FormControl xs={12}>
-            <TextField
-              // id="component-outlined"
-              {...register("phoneNumber", {
-                required: {
-                  value: true,
-                  message: "This field is required",
-                },
-              })}
-              type="text"
-              label="Phone Number"
-              error={errors.phoneNumber ? true : false}
-            />
-            {errors.phoneNumber && (
-              <Typography variant="body2" component="p" color="error">
-                {errors.phoneNumber.message}
-              </Typography>
-            )}
-          </FormControl>
-
-          <Grid container alignItems="center" gap={1}>
-            <Grid item>
-              <Button
-                variant="outlined"
-                sx={{ width: "100px" }}
-                onClick={handleOpen}
-              >
-                days
-              </Button>
-            </Grid>
-            <Grid item>
-              {Object.values(days[0]).includes("") && (
+            <FormControl>
+              <TextField
+                {...register("email", {
+                  required: { value: true, message: "This field is required" },
+                  pattern: {
+                    value:
+                      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    message: "Invalid format",
+                  },
+                })}
+                type="email"
+                label="Email Address"
+                error={errors.email ? true : false}
+              />
+              {errors.email && (
                 <Typography variant="body2" component="p" color="error">
-                  One day is required
+                  {errors.email.message}
                 </Typography>
               )}
-            </Grid>
-          </Grid>
+            </FormControl>
 
-          <Button type="submit" variant="contained">
-            Sign in
-          </Button>
+            <FormControl>
+              <TextField
+                {...register("password", {
+                  required: { value: true, message: "This field is required" },
+                  minLength: { value: 6, message: "At least 6 characters" },
+                })}
+                type={showPassword ? "text" : "password"}
+                label="Password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {!showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                error={errors.password ? true : false}
+              />
+              {errors.password && (
+                <Typography variant="body2" component="p" color="error">
+                  {errors.password.message}
+                </Typography>
+              )}
+            </FormControl>
 
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Typography
-                sx={{ marginBottom: "20px" }}
-                variant="body1"
-                component="h2"
-              >
-                Select Day and Availability
-              </Typography>
+            <FormControl sx={{ width: "100%" }}>
+              <TextField
+                // id="component-outlined"
+                {...register("firstName", {
+                  required: {
+                    value: true,
+                    message: "This field is required",
+                  },
+                })}
+                type="text"
+                label="First Name"
+                error={errors.firstName ? true : false}
+              />
+              {errors.firstName && (
+                <Typography variant="body2" component="p" color="error">
+                  {errors.firstName.message}
+                </Typography>
+              )}
+            </FormControl>
 
-              <Grid container gap={2}>
-                {days.map((day, index) => (
-                  <Grid
-                    container
-                    sx={{ width: "100%" }}
-                    gap={1}
-                    alignItems="center"
+            <FormControl sx={{ width: "100%" }}>
+              <TextField
+                // id="component-outlined"
+                {...register("lastName", {
+                  required: {
+                    value: true,
+                    message: "This field is required",
+                  },
+                })}
+                type="text"
+                label="Last Name"
+                error={errors.lastName ? true : false}
+              />
+              {errors.lastName && (
+                <Typography variant="body2" component="p" color="error">
+                  {errors.lastName.message}
+                </Typography>
+              )}
+            </FormControl>
+
+            <Grid container gap={2}>
+              <Grid item xs={12}>
+                <FormControl sx={{ width: "100%" }}>
+                  <InputLabel id="demo-multiple-chip-label">
+                    Medical Insurances
+                  </InputLabel>
+                  <Select
+                    multiple
+                    {...register("medicalInsuranceList", {
+                      required: {
+                        value: true,
+                        message: "This field is required",
+                      },
+                    })}
+                    error={errors.medicalInsuranceList ? true : false}
+                    value={medicalInsurancesList}
+                    onChange={handleChange}
+                    input={
+                      <OutlinedInput id="select-multiple-chip" label="Chip" />
+                    }
+                    renderValue={(selected) => (
+                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                        {selected.map((value) => (
+                          <Chip key={value} label={value} />
+                        ))}
+                      </Box>
+                    )}
+                    MenuProps={MenuProps}
                   >
-                    <Grid item xs={12} sm={4}>
-                      <TextField
-                        sx={{ width: "100%" }}
-                        variant="outlined"
-                        label="day"
-                        select
-                        name="day"
-                        value={day.day}
-                        onChange={(e) => handleChangeDay(e, index, day.day)}
+                    {insurances.map((insurance) => (
+                      <MenuItem
+                        key={insurance._id}
+                        value={insurance.initials}
+                        // style={getStyles(name, theme)}
                       >
-                        <MenuItem value="">
-                          <em>Select</em>
-                        </MenuItem>
-                        {avaliableDays.map((aDay) =>
-                          !selectedDays.includes(aDay.value) ? (
-                            <MenuItem value={aDay.value}>{aDay.name}</MenuItem>
-                          ) : (
-                            <MenuItem
-                              sx={{ display: "none" }}
-                              value={aDay.value}
-                            >
-                              {aDay.name}
-                            </MenuItem>
-                          )
-                        )}
-                      </TextField>
-                    </Grid>
-
-                    <Grid item xs={12} sm={4}>
-                      <TextField
-                        sx={{ width: "100%" }}
-                        variant="outlined"
-                        label="availability"
-                        select
-                        name="availability"
-                        value={day.availability}
-                        onChange={(e) => handleChangeDay(e, index)}
-                      >
-                        <MenuItem value="">
-                          <em>Select</em>
-                        </MenuItem>
-
-                        <MenuItem value="morning">Morning</MenuItem>
-                        <MenuItem value="evening">Evening</MenuItem>
-                        <MenuItem value="fullday">Fullday</MenuItem>
-                      </TextField>
-                    </Grid>
-                    {index !== 0 && (
-                      <Grid item sm={2}>
-                        <Button
-                          sm={2}
-                          variant="contained"
-                          color="error"
-                          sx={{ width: "30px", height: "30px" }}
-                          onClick={() => removeDay(index)}
-                        >
-                          Remove
-                        </Button>
-                      </Grid>
-                    )}
-                    {dayErrors[index] && (
-                      <Grid item xs={12}>
-                        <Typography variant="body2" component="p" color="error">
-                          {dayErrors[index]}
-                        </Typography>
-                      </Grid>
-                    )}
-                  </Grid>
-                ))}
+                        {insurance.initials}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  {errors.medicalInsuranceList && (
+                    <Typography variant="body2" component="p" color="error">
+                      {errors.medicalInsuranceList.message}
+                    </Typography>
+                  )}
+                </FormControl>
               </Grid>
 
-              <Button
-                sx={{ marginTop: "20px" }}
-                xs={12}
-                variant="contained"
-                onClick={() => addDay()}
-              >
-                Add
-              </Button>
-            </Box>
-          </Modal>
-        </Stack>
+              <Grid item sx={{ flexGrow: 1 }}>
+                <FormControl sx={{ width: "100%" }} xs={12}>
+                  <InputLabel id="demo-simple-select-autowidth-label">
+                    Speciality
+                  </InputLabel>
+                  <Select
+                    label="Age"
+                    {...register("speciality", {
+                      required: {
+                        value: true,
+                        message: "This field is required",
+                      },
+                    })}
+                    error={errors.specialities ? true : false}
+                    MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
+                  >
+                    <MenuItem value="">
+                      <em>Select</em>
+                    </MenuItem>
+                    {specialities.map((speciality) => (
+                      <MenuItem key={speciality._id} value={speciality.name}>
+                        {speciality.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  {errors.specialities && (
+                    <Typography variant="body2" component="p" color="error">
+                      {errors.specialities.message}
+                    </Typography>
+                  )}
+                </FormControl>
+              </Grid>
+            </Grid>
+
+            <FormControl xs={12}>
+              <TextField
+                // id="component-outlined"
+                {...register("phoneNumber", {
+                  required: {
+                    value: true,
+                    message: "This field is required",
+                  },
+                })}
+                type="text"
+                label="Phone Number"
+                error={errors.phoneNumber ? true : false}
+              />
+              {errors.phoneNumber && (
+                <Typography variant="body2" component="p" color="error">
+                  {errors.phoneNumber.message}
+                </Typography>
+              )}
+            </FormControl>
+
+            <Grid container alignItems="center" gap={1}>
+              <Grid item>
+                <Button
+                  variant="outlined"
+                  sx={{ width: "100px" }}
+                  onClick={handleOpen}
+                >
+                  days
+                </Button>
+              </Grid>
+              <Grid item>
+                {Object.values(days[0]).includes("") && (
+                  <Typography variant="body2" component="p" color="error">
+                    One day is required
+                  </Typography>
+                )}
+              </Grid>
+            </Grid>
+
+            <Button type="submit" variant="contained">
+              Sign in
+            </Button>
+
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <Typography
+                  sx={{ marginBottom: "20px" }}
+                  variant="body1"
+                  component="h2"
+                >
+                  Select Day and Availability
+                </Typography>
+
+                <Grid container gap={2}>
+                  {days.map((day, index) => (
+                    <Grid
+                      container
+                      sx={{ width: "100%" }}
+                      gap={1}
+                      alignItems="center"
+                    >
+                      <Grid item xs={12} sm={4}>
+                        <TextField
+                          sx={{ width: "100%" }}
+                          variant="outlined"
+                          label="day"
+                          select
+                          name="day"
+                          value={day.day}
+                          onChange={(e) => handleChangeDay(e, index, day.day)}
+                        >
+                          <MenuItem value="">
+                            <em>Select</em>
+                          </MenuItem>
+                          {avaliableDays.map((aDay) =>
+                            !selectedDays.includes(aDay.value) ? (
+                              <MenuItem value={aDay.value}>
+                                {aDay.name}
+                              </MenuItem>
+                            ) : (
+                              <MenuItem
+                                sx={{ display: "none" }}
+                                value={aDay.value}
+                              >
+                                {aDay.name}
+                              </MenuItem>
+                            )
+                          )}
+                        </TextField>
+                      </Grid>
+
+                      <Grid item xs={12} sm={4}>
+                        <TextField
+                          sx={{ width: "100%" }}
+                          variant="outlined"
+                          label="availability"
+                          select
+                          name="availability"
+                          value={day.availability}
+                          onChange={(e) => handleChangeDay(e, index)}
+                        >
+                          <MenuItem value="">
+                            <em>Select</em>
+                          </MenuItem>
+
+                          <MenuItem value="morning">Morning</MenuItem>
+                          <MenuItem value="evening">Evening</MenuItem>
+                          <MenuItem value="fullday">Fullday</MenuItem>
+                        </TextField>
+                      </Grid>
+                      {index !== 0 && (
+                        <Grid item sm={2}>
+                          <Button
+                            sm={2}
+                            variant="contained"
+                            color="error"
+                            sx={{ width: "30px", height: "30px" }}
+                            onClick={() => removeDay(index)}
+                          >
+                            Remove
+                          </Button>
+                        </Grid>
+                      )}
+                      {dayErrors[index] && (
+                        <Grid item xs={12}>
+                          <Typography
+                            variant="body2"
+                            component="p"
+                            color="error"
+                          >
+                            {dayErrors[index]}
+                          </Typography>
+                        </Grid>
+                      )}
+                    </Grid>
+                  ))}
+                </Grid>
+
+                <Button
+                  sx={{ marginTop: "20px" }}
+                  xs={12}
+                  variant="contained"
+                  onClick={() => addDay()}
+                >
+                  Add
+                </Button>
+              </Box>
+            </Modal>
+          </Stack>
+        )}
       </Box>
     </Layout>
   );
