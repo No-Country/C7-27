@@ -449,8 +449,8 @@ export default function RegisterProfessional({ insurances, specialities }) {
                         </MenuItem>
 
                         <MenuItem value="morning">Morning</MenuItem>
-                        <MenuItem value="evening">Evening</MenuItem>
-                        <MenuItem value="fullday">Fullday</MenuItem>
+                        <MenuItem value="afternoon">Afternoon</MenuItem>
+                        <MenuItem value="fulltime">Fulltime</MenuItem>
                       </TextField>
                     </Grid>
                     {index !== 0 && (
@@ -484,6 +484,14 @@ export default function RegisterProfessional({ insurances, specialities }) {
                 onClick={() => addDay()}
               >
                 Add
+              </Button>
+              <Button
+                sx={{ marginTop: "20px", marginLeft: "10px" }}
+                xs={12}
+                variant="contained"
+                onClick={handleClose}
+              >
+                Close
               </Button>
             </Box>
           </Modal>
