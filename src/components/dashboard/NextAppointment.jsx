@@ -15,8 +15,6 @@ export const NextAppointment = (props) => {
   const { user } = useSelector((state) => state.users);
   const today = new Date();
 
-  console.log(user);
-
   return (
     <Card {...props}>
       <CardContent sx={{ minHeight: 200 }}>
@@ -49,12 +47,15 @@ export const NextAppointment = (props) => {
           }}
         >
           <Typography color="textSecondary" variant="caption">
-            {`en ${numeroALetras
-              .Unidades(
-                Number(user?.appointmentsRef[0]?.date.substring(0, 2)) -
-                  today.getDate()
-              )
-              .toLowerCase()} dia/s`}
+            {today.getDate() -
+            Number(user?.appointmentsRef[0]?.date.substring(0, 2))
+              ? `en ${numeroALetras
+                  .Unidades(
+                    Number(user?.appointmentsRef[0]?.date.substring(0, 2)) -
+                      today.getDate()
+                  )
+                  .toLowerCase()} dia/s`
+              : 'Hoy'}
           </Typography>
         </Box>
       </CardContent>
