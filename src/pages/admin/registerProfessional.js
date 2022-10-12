@@ -65,7 +65,7 @@ const style = {
   padding: "10px",
 };
 
-export default function RegisterProfessional({ insurances, specialities }) {
+export default function RegisterProfessional({ insurances=[], specialities=[] }) {
   const {
     register,
     handleSubmit,
@@ -526,7 +526,7 @@ export default function RegisterProfessional({ insurances, specialities }) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { data: insurances } = await axios.get(
     `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getMedicalInsuranceList`
   );

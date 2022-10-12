@@ -25,7 +25,7 @@ import { useForm } from "react-hook-form";
 import { Layout } from "../../Layouts";
 import axios from "axios";
 
-export default function RegisterPage({ insurances }) {
+export default function RegisterPage({ insurances=[] }) {
   const {
     register,
     handleSubmit,
@@ -284,7 +284,7 @@ export default function RegisterPage({ insurances }) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { data: insurances } = await axios.get(
     `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getMedicalInsuranceList`
   );
