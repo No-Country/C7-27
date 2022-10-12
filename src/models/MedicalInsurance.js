@@ -21,4 +21,4 @@ const medicalInsuranceSchema = new Schema(
 );
 
 export default models.MedicalInsurance ||
-  model("MedicalInsurance", medicalInsuranceSchema).create();
+  model("MedicalInsurance", medicalInsuranceSchema);

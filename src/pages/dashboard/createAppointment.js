@@ -65,13 +65,6 @@ export default function NewAppointment({ specialities }) {
       fetchData();
     }
   }, [professional]);
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
-  //     )
-  //     .then(({ data }) => setSpecialities(data));
-  // }, []);
 
   const getData = async (speciality = "") => {
     const { data } = await axios.get(
@@ -87,8 +80,6 @@ export default function NewAppointment({ specialities }) {
   };
 
   const submit = async (values) => {
-    // console.log(values);
-    // console.log(date);
     values = {
       ...date,
       professionalRef: values.professionalRef,
