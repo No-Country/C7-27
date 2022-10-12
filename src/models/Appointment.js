@@ -33,4 +33,4 @@ const appointmentSchema = new Schema(
 );
 
 export default models.Appointment ||
-  model("Appointment", appointmentSchema).create();
+  model("Appointment", appointmentSchema);

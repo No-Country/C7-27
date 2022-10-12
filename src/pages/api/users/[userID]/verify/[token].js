@@ -1,6 +1,5 @@
 import { dbConnect } from "../../../../../config/dbConnect"
-import { model } from 'mongoose'
-import { User } from "../../../../../models/User"
+import User from "../../../../../models/User"
 import Token from "../../../../../models/Token"
 
 dbConnect()
@@ -19,8 +18,7 @@ export default async function verifyHandler(req, res) {
 
     await Token.deleteOne({ token })
 
-    const collectionModel = model('User', User)
-    await collectionModel.findOneAndUpdate({ _id: userID }, { verified: true })
+    await User.findOneAndUpdate({ _id: userID }, { verified: true })
     return res.status(201).json('Account activated');
 
   } catch (e) {

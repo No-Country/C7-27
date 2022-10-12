@@ -23,7 +23,7 @@ export const LatestAppointments = (props) => {
         return isBefore(appDate, today)
       })
       setlatestAppointments(pastAppointments)
-  },[])
+  },[user])
 
   return (
     <Card {...props}>

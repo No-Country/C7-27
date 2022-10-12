@@ -90,7 +90,7 @@ export default function RegisterProfessional({ insurances, specialities }) {
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [user, router]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -307,7 +307,7 @@ export default function RegisterProfessional({ insurances, specialities }) {
                       <MenuItem
                         key={insurance._id}
                         value={insurance.initials}
-                        // style={getStyles(name, theme)}
+                      // style={getStyles(name, theme)}
                       >
                         {insurance.initials}
                       </MenuItem>
@@ -416,6 +416,7 @@ export default function RegisterProfessional({ insurances, specialities }) {
                 <Grid container gap={2}>
                   {days.map((day, index) => (
                     <Grid
+                      key={index}
                       container
                       sx={{ width: "100%" }}
                       gap={1}
@@ -500,38 +501,38 @@ export default function RegisterProfessional({ insurances, specialities }) {
                 </Grid>
 
 
-              <Button
-                sx={{ marginTop: "20px" }}
-                xs={12}
-                variant="contained"
-                onClick={() => addDay()}
-              >
-                Add
-              </Button>
-              <Button
-                sx={{ marginTop: "20px", marginLeft: "10px" }}
-                xs={12}
-                variant="contained"
-                onClick={handleClose}
-              >
-                Close
-              </Button>
-            </Box>
-          </Modal>
-        </Stack>
-
+                <Button
+                  sx={{ marginTop: "20px" }}
+                  xs={12}
+                  variant="contained"
+                  onClick={() => addDay()}
+                >
+                  Add
+                </Button>
+                <Button
+                  sx={{ marginTop: "20px", marginLeft: "10px" }}
+                  xs={12}
+                  variant="contained"
+                  onClick={handleClose}
+                >
+                  Close
+                </Button>
+              </Box>
+            </Modal>
+          </Stack>
+        )}
       </Box>
-    </Layout>
+    </Layout >
   );
 }
 
 export async function getStaticProps(context) {
   const { data: insurances } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getMedicalInsuranceList`
+    `${process.env.VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getMedicalInsuranceList`
   );
 
   const { data: specialities } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
+    `${process.env.VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
   );
   return {
     props: {

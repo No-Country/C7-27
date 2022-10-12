@@ -1,4 +1,3 @@
-import { Stack, Container } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useState, useEffect } from "react";
 import { Grid, TextField } from "../../components/auth";
@@ -10,7 +9,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-import axios from "axios";
 
 export default function Calendar({
     availability,
@@ -20,43 +18,17 @@ export default function Calendar({
 }) {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedHour, setSelectedHour] = useState("");
-
-    //const [availableDays, setAvailableDays] = useState(null)
-    //   const [availability, setAvailability] = useState([]);
     const [workHoursRange, setWorkHoursRange] = useState(null);
-    //   const [appointmentsList, setAppointmentsList] = useState([]);
 
     //Rango maximo de dias futuros que se puede pedir turno (30)
     const dateRange = new Date();
     dateRange.setMonth(dateRange.getMonth() + 1);
-
-    //Referencia al profesional que habria que traer desde el estado global
-    //   const professionalRefference = "6331e6781199842596e9d2a2";
 
     useEffect(() => {
         setSelectedDate(null);
         setSelectedHour("");
     }, [availability, appointmentsList]);
 
-    //Obtencion de la disponibilidad del profesional
-    //   useEffect(() => {
-    //     async function fetchData() {
-    //       try {
-    //         const result = await axios.post(
-    //           `${process.env.NEXT_PUBLIC_API_URL}/api/appointments/availableAppointments`,
-    //           {
-    //             professionalRef: professionalRefference,
-    //           }
-    //         );
-
-    //         setAvailability(result.data[0]);
-    //         setAppointmentsList(result.data[1]);
-    //       } catch (e) {
-    //         console.log(e);
-    //       }
-    //     }
-    //     fetchData();
-    //   }, [professionalRefference]);
 
     //Dias a deshabilitar en el calendario
     const shouldDisableDate = (date) => {
@@ -154,8 +126,6 @@ export default function Calendar({
     const handleHourSelect = (event) => {
         setSelectedHour(event.target.value);
         setDate({ ...date, hour: event.target.value });
-        //Hora seleccionada en formato string
-        // console.log(event.target.value);
     };
 
     return (
@@ -183,8 +153,6 @@ export default function Calendar({
                                 ...date,
                                 date: newValue.toLocaleDateString("es-ES"),
                             });
-                            //Fecha seleccionada en formato string
-                            //   console.log(newValue.toLocaleDateString("es-ES"));
                         }}
                     />
                 </Grid>
