@@ -203,14 +203,14 @@ export default function NewAppointment({ specialities }) {
   );
 }
 
-// export async function getStaticProps(context) {
-//   const { data } = await axios.get(
-//     `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
-//   );
+export async function getStaticProps(context) {
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
+  );
 
-//   return {
-//     props: {
-//       specialities: data,
-//     },
-//   };
-// }
+  return {
+    props: {
+      specialities: data,
+    },
+  };
+}
