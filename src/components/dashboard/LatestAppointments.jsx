@@ -1,4 +1,4 @@
-import { isBefore } from 'date-fns';
+import { compareAsc, isAfter } from 'date-fns';
 import Link from 'next/link';
 import {
   Box,
@@ -17,17 +17,30 @@ export const LatestAppointments = (props) => {
   const [ latestAppointments, setlatestAppointments ] = useState([])
 
   useEffect(() => {
-      const today = new Date()
-      const pastAppointments = user?.appointmentsRef?.filter((appointment) => {
-        const appDate = new Date(appointment.date)
-        return isBefore(appDate, today)
-      })
-      setlatestAppointments(pastAppointments)
-  },[user])
+
+    const getDayMonthYear = (appointment) => {
+        return appointment.date.split("/")
+    }
+
+    const today = new Date()
+    const nextAppointments = user?.appointmentsRef?.filter((appointment) => {
+    const [day, month, year] = getDayMonthYear(appointment)
+    const appointmentDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
+    return isAfter(appointmentDate, today)
+    })
+    nextAppointments.sort((appointmentA, appointmentB) => {
+    const [dayA, monthA, yearA] = getDayMonthYear(appointmentA)
+    const [dayB, monthB, yearB] = getDayMonthYear(appointmentB)
+    const appointmentADate = new Date(yearA, monthA - 1, dayA)
+    const appointmentBDate = new Date(yearB, monthB - 1, dayB)
+    return compareAsc(appointmentADate, appointmentBDate)
+    })
+    setlatestAppointments(nextAppointments.slice(0,5))
+  },[])
 
   return (
     <Card {...props}>
-      <CardHeader title="Latest Appointments" />
+      <CardHeader title="Next five Appointments" />
       <Box sx={{ minWidth: 800 }}>
         {user &&
           (user.isProfessional ? (
