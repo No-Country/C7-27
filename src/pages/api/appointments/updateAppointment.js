@@ -1,6 +1,5 @@
 import { dbConnect } from "../../../config/dbConnect"
-import { model } from 'mongoose'
-import { Appointment } from '../../../models/Appointment'
+import Appointment from '../../../models/Appointment'
 import sendEmail from "../../../utils/sendEmail"
 
 
@@ -15,9 +14,7 @@ export default async function handler(req, res) {
     }
 
     try {
-        const collectionModel = model('Appointment', Appointment)
-
-        const result = await collectionModel.findOneAndUpdate({ _id: body.id }, { confirmed: body.confirmed }, {
+        const result = await Appointment.findOneAndUpdate({ _id: body.id }, { confirmed: body.confirmed }, {
             new: true
         });
 
