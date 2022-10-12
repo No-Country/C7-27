@@ -42,7 +42,7 @@ export default function RegisterPage({ insurances }) {
 
   const submit = async (values) => {
     try {
-      const url = `${process.env.VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/registerPatient`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/api/registerPatient`;
       const { data } = await axios.post(url, values);
       console.log(data);
       reset();
@@ -286,7 +286,7 @@ export default function RegisterPage({ insurances }) {
 
 export async function getStaticProps(context) {
   const { data: insurances } = await axios.get(
-    `${process.env.VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getMedicalInsuranceList`
+    `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getMedicalInsuranceList`
   );
 
   return {

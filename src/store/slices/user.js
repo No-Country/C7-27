@@ -25,7 +25,7 @@ export const actionUserLogin = (user) => {
         "Content-Type": "application/json",
       },
     };
-    const URL = `${process.env.VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/loginUser`;
+    const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/loginUser`;
     try {
       const { data } = await axios.post(URL, user, config);
       dispatch(login(data));
@@ -43,7 +43,7 @@ export const actionUserLogout = () => {
         "Content-Type": "application/json",
       },
     };
-    const URL = `${process.env.VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/users/logout`;
+    const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/users/logout`;
     try {
       await axios.get(URL, config);
       dispatch(logout());
@@ -60,7 +60,7 @@ export const userRegister = (user) => {
         "Content-Type": "application/json",
       },
     };
-    const URL = `${process.env.VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/users/registerProfessional`;
+    const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/users/registerProfessional`;
     try {
       const { data } = await axios.post(URL, user, config);
       return;
@@ -77,7 +77,7 @@ export const actionAuthenticateUser = (token) => {
         "Content-Type": "application/json",
       },
     };
-    const URL = `${process.env.VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/users/profile`;
+    const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/users/profile`;
     try {
       const { data } = await axios.post(URL, { token }, config);
       dispatch(login(data));
