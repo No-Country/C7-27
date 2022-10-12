@@ -1,6 +1,8 @@
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
 
-import axios from "axios";
+import axios from 'axios';
+
+import { useSnackbar } from 'notistack';
 
 import {
   Button,
@@ -12,13 +14,13 @@ import {
   Typography,
   Select,
   MenuItem,
-} from "../../components/auth";
+} from '../../components/auth';
 
-import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import Calendar from "./calendarTest";
-import { useRouter } from "next/router";
+import { DashboardLayout } from '../../Layouts/dashboard/DashboardLayout';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import Calendar from './calendarTest';
+import { useRouter } from 'next/router';
 
 export default function NewAppointment({ specialities }) {
   const {
@@ -28,19 +30,22 @@ export default function NewAppointment({ specialities }) {
     control,
     formState: { errors },
   } = useForm();
+
+  const { enqueueSnackbar } = useSnackbar();
+
   const router = useRouter();
   const { user } = useSelector((state) => state.users);
   const [professionals, setProfessionals] = useState([]);
-  const [speciality, setSpeciality] = useState("");
+  const [speciality, setSpeciality] = useState('');
 
-  const [professional, setProfessional] = useState("");
+  const [professional, setProfessional] = useState('');
   const [availability, setAvailability] = useState([]);
   const [appointmentsList, setAppointmentsList] = useState([]);
-  const [date, setDate] = useState({ date: "", hour: "" });
+  const [date, setDate] = useState({ date: '', hour: '' });
 
   useEffect(() => {
     getData(speciality);
-    setProfessional("");
+    setProfessional('');
     setAvailability([]);
     setAppointmentsList([]);
   }, [speciality]);
@@ -66,7 +71,7 @@ export default function NewAppointment({ specialities }) {
     }
   }, [professional]);
 
-  const getData = async (speciality = "") => {
+  const getData = async (speciality = '') => {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/professionals/allProfessionals`
     );
@@ -89,8 +94,26 @@ export default function NewAppointment({ specialities }) {
       const url = `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/appointments/newAppointment`;
       await axios.post(url, values);
       reset();
-      router.push("/dashboard");
+
+      enqueueSnackbar('Appointment Created', {
+        variant: 'success',
+        autoHideDuration: 1500,
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'right',
+        },
+      });
+
+      router.push('/dashboard');
     } catch (e) {
+      enqueueSnackbar('Error, Try again in a few minutes', {
+        variant: 'error',
+        autoHideDuration: 1500,
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'right',
+        },
+      });
       console.log(e.message);
     }
   };
@@ -100,8 +123,8 @@ export default function NewAppointment({ specialities }) {
       <Box
         component="form"
         sx={{
-          "& > :not(style)": { m: 1 },
-          width: "100%",
+          '& > :not(style)': { m: 1 },
+          width: '100%',
         }}
         noValidate
         autoComplete="off"
@@ -114,23 +137,23 @@ export default function NewAppointment({ specialities }) {
         <Stack
           spacing={2}
           sx={{
-            display: "flex",
-            width: "100%",
-            maxWidth: "600px",
-            justifyContent: "center",
+            display: 'flex',
+            width: '100%',
+            maxWidth: '600px',
+            justifyContent: 'center',
           }}
         >
           <FormLabel component="legend">New Appointment</FormLabel>
-          <FormControl sx={{ width: "100%" }}>
+          <FormControl sx={{ width: '100%' }}>
             <InputLabel id="demo-simple-select-autowidth-label">
               Speciality
             </InputLabel>
             <Select
               label="Speciality"
-              {...register("speciality", {
+              {...register('speciality', {
                 required: {
                   value: true,
-                  message: "This field is required",
+                  message: 'This field is required',
                 },
               })}
               error={errors.speciality ? true : false}
@@ -153,16 +176,16 @@ export default function NewAppointment({ specialities }) {
             )}
           </FormControl>
 
-          <FormControl sx={{ width: "100%" }}>
+          <FormControl sx={{ width: '100%' }}>
             <InputLabel id="demo-simple-select-autowidth-label">
               Professional Reference
             </InputLabel>
             <Select
               label="Professional Reference"
-              {...register("professionalRef", {
+              {...register('professionalRef', {
                 required: {
                   value: true,
-                  message: "This field is required",
+                  message: 'This field is required',
                 },
               })}
               error={errors.professionalRef ? true : false}
@@ -185,7 +208,7 @@ export default function NewAppointment({ specialities }) {
             )}
           </FormControl>
 
-          <FormControl sx={{ width: "100%" }}>
+          <FormControl sx={{ width: '100%' }}>
             <Calendar
               availability={availability}
               appointmentsList={appointmentsList}
