@@ -63,7 +63,7 @@ export default function DashboardMainPage({ token }) {
         return patientDashboard;
       }
     } else {
-      return null;
+      return;
     }
   };
 

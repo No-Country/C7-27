@@ -28,7 +28,7 @@ export default async function handler(req, res) {
               select: "_id firstName lastName",
             },
           })
-          .select("-createdAt -updatedAt");
+          .select("-_id -createdAt -updatedAt");
 
         if (!professionalUser) {
           const error = new Error("Professional not found");
@@ -53,7 +53,7 @@ export default async function handler(req, res) {
             path: "clinicHistoryRef",
             select: "-_id -createdAt -updatedAt",
           })
-          .select("-createdAt -updatedAt");
+          .select("-_id -createdAt -updatedAt");
 
         if (!patientUser) {
           const error = new Error("Patient not found");
@@ -66,7 +66,7 @@ export default async function handler(req, res) {
         });
       }
     } catch (e) {
-      return res.status(400).json(e.message);
+      return res.status(400).json({ msg: e.message });
     }
   } else {
     return res.status(400).json({ msg: "Wrong HTTP Method" });

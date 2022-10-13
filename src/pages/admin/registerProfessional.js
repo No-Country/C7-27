@@ -85,10 +85,13 @@ export default function RegisterProfessional({ insurances = [], specialities = [
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (!user?.isAdmin) {
-      router.push("/dashboard");
-    } else {
-      setLoading(false);
+    if (user) {
+      if (!user.isAdmin) {
+        router.push("/dashboard");
+      } else {
+        console.log("asd");
+        setLoading(false);
+      }
     }
   }, [user, router]);
 
@@ -176,9 +179,7 @@ export default function RegisterProfessional({ insurances = [], specialities = [
         autoComplete="off"
         onSubmit={handleSubmit(submit)}
       >
-        {loading ? (
-          <p>cargando</p>
-        ) : (
+        {loading ? null : (
           <Stack spacing={2}>
             <FormLabel component="legend">Register Professional</FormLabel>
 
@@ -336,7 +337,7 @@ export default function RegisterProfessional({ insurances = [], specialities = [
                       },
                     })}
                     defaultValue={''}
-                    error={errors.specialities ? true : false}
+                    error={errors.speciality ? true : false}
                     MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
                   >
                     <MenuItem value="">
@@ -348,9 +349,9 @@ export default function RegisterProfessional({ insurances = [], specialities = [
                       </MenuItem>
                     ))}
                   </Select>
-                  {errors.specialities && (
+                  {errors.speciality && (
                     <Typography variant="body2" component="p" color="error">
-                      {errors.specialities.message}
+                      {errors.speciality.message}
                     </Typography>
                   )}
                 </FormControl>
@@ -364,6 +365,10 @@ export default function RegisterProfessional({ insurances = [], specialities = [
                   required: {
                     value: true,
                     message: "This field is required",
+                  },
+                  pattern: {
+                    value: /^[0-9]*$/,
+                    message: "Only numbers",
                   },
                 })}
                 type="text"
@@ -433,7 +438,6 @@ export default function RegisterProfessional({ insurances = [], specialities = [
                           name="day"
                           value={day.day}
                           onChange={(e) => handleChangeDay(e, index, day.day)}
-
                         >
                           <MenuItem value="">
                             <em>Select</em>
@@ -501,7 +505,6 @@ export default function RegisterProfessional({ insurances = [], specialities = [
                     </Grid>
                   ))}
                 </Grid>
-
 
                 <Button
                   sx={{ marginTop: "20px" }}
