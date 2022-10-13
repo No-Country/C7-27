@@ -36,7 +36,7 @@ export const LatestAppointments = (props) => {
     return compareAsc(appointmentADate, appointmentBDate)
     })
     setlatestAppointments(nextAppointments.slice(0,5))
-  },[])
+  },[user])
 
   return (
     <Card {...props}>

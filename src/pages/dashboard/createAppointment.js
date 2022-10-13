@@ -22,7 +22,7 @@ import { useEffect, useState } from 'react';
 import Calendar from './calendarTest';
 import { useRouter } from 'next/router';
 
-export default function NewAppointment({ specialities=[] }) {
+export default function NewAppointment({ specialities = [] }) {
   const {
     register,
     handleSubmit,
@@ -156,8 +156,11 @@ export default function NewAppointment({ specialities=[] }) {
                   message: 'This field is required',
                 },
               })}
+              defaultValue={""}
               error={errors.speciality ? true : false}
-              onChange={(e) => setSpeciality(e.target.value)}
+              onChange={(e) => {
+                setSpeciality(e.target.value)
+              }}
               MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
             >
               <MenuItem value="">
@@ -188,6 +191,7 @@ export default function NewAppointment({ specialities=[] }) {
                   message: 'This field is required',
                 },
               })}
+              defaultValue={""}
               error={errors.professionalRef ? true : false}
             >
               <MenuItem value="">
@@ -230,6 +234,16 @@ export async function getServerSideProps(context) {
   const { data } = await axios.get(
     `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
   );
+
+  specialities.sort(function (a, b) {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
 
   return {
     props: {

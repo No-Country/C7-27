@@ -17,10 +17,10 @@ const DashboardLayoutRoot = styled("div")(({ theme }) => ({
 }));
 
 export const DashboardLayout = (props) => {
-  const { children } = props;
   const dispatch = useDispatch();
+  const { children } = props;
   const [isSidebarOpen, setSidebarOpen] = useState(true);
-
+  
   useEffect(() => {
     const token = localStorage.getItem("token");
     // if (!token) router.push("/");
@@ -29,7 +29,7 @@ export const DashboardLayout = (props) => {
     } catch (e) {
       // router.push("/");
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
