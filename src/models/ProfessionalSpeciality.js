@@ -16,4 +16,4 @@ const professionalSpecialitySchema = new Schema(
 );
 
 export default models.ProfessionalSpeciality ||
-  model("ProfessionalSpeciality", professionalSpecialitySchema).create();
+  model("ProfessionalSpeciality", professionalSpecialitySchema);

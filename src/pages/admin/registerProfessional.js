@@ -65,7 +65,7 @@ const style = {
   padding: "10px",
 };
 
-export default function RegisterProfessional({ insurances, specialities }) {
+export default function RegisterProfessional({ insurances=[], specialities=[] }) {
   const {
     register,
     handleSubmit,
@@ -93,7 +93,7 @@ export default function RegisterProfessional({ insurances, specialities }) {
         setLoading(false);
       }
     }
-  }, [user]);
+  }, [user, router]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -308,7 +308,7 @@ export default function RegisterProfessional({ insurances, specialities }) {
                       <MenuItem
                         key={insurance._id}
                         value={insurance.initials}
-                        // style={getStyles(name, theme)}
+                      // style={getStyles(name, theme)}
                       >
                         {insurance.initials}
                       </MenuItem>
@@ -420,6 +420,7 @@ export default function RegisterProfessional({ insurances, specialities }) {
                 <Grid container gap={2}>
                   {days.map((day, index) => (
                     <Grid
+                      key={index}
                       container
                       sx={{ width: "100%" }}
                       gap={1}
@@ -523,17 +524,17 @@ export default function RegisterProfessional({ insurances, specialities }) {
           </Stack>
         )}
       </Box>
-    </Layout>
+    </Layout >
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { data: insurances } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getMedicalInsuranceList`
+    `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getMedicalInsuranceList`
   );
 
   const { data: specialities } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
+    `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
   );
   return {
     props: {

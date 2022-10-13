@@ -8,7 +8,7 @@ import { WelcomeDashboard } from "../../components/dashboard/WelcomeDashboard";
 import { NewAppointment } from "../../components/dashboard/NewAppointment";
 import { useSelector } from "react-redux";
 
-export default function dashboardMainPage({ token }) {
+export default function DashboardMainPage({ token }) {
   const { user } = useSelector((state) => state.users);
 
   const patientDashboard = (

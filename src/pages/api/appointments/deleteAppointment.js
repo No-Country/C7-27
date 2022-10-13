@@ -1,6 +1,5 @@
 import { dbConnect } from "../../../config/dbConnect"
-import { model } from 'mongoose'
-import { Appointment } from '../../../models/Appointment'
+import Appointment from '../../../models/Appointment'
 
 
 dbConnect();
@@ -14,8 +13,7 @@ export default async function handler(req, res) {
     }
 
     try {
-        const collectionModel = model('Appointment', Appointment)
-        await collectionModel.deleteOne({ _id: body.id })
+        await Appointment.deleteOne({ _id: body.id })
 
         return res.status(201).json(`Appointment deleted`);
 

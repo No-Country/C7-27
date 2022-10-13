@@ -13,7 +13,7 @@ export { default as InputLabel } from "@mui/material/InputLabel";
 export { default as OutlinedInput } from "@mui/material/OutlinedInput";
 export { default as FormHelperText } from "@mui/material/FormHelperText";
 export { default as Typography } from "@mui/material/Typography";
-export { default as Select } from "@mui/material/select";
+export { default as Select } from "@mui/material/Select";
 export { default as MenuItem } from "@mui/material/MenuItem";
 export { default as TextField } from "@mui/material/TextField";
 export { default as Grid } from "@mui/material/Grid";

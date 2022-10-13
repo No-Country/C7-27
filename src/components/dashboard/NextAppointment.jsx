@@ -47,12 +47,15 @@ export const NextAppointment = (props) => {
           }}
         >
           <Typography color="textSecondary" variant="caption">
-            {`en ${numeroALetras
-              .Unidades(
-                Number(user?.appointmentsRef[0]?.date.substring(0, 2)) -
-                  today.getDate()
-              )
-              .toLowerCase()} dia/s`}
+            {today.getDate() -
+            Number(user?.appointmentsRef[0]?.date.substring(0, 2))
+              ? `en ${numeroALetras
+                  .Unidades(
+                    Number(user?.appointmentsRef[0]?.date.substring(0, 2)) -
+                      today.getDate()
+                  )
+                  .toLowerCase()} dia/s`
+              : 'Hoy'}
           </Typography>
         </Box>
       </CardContent>
