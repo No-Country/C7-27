@@ -20,7 +20,7 @@ export default function NavBar() {
         <Typography variant="h6" component="div">
           Clinic Stuff
         </Typography>
-        <Tabs sx={{ marginRight: "auto" }} textColor="inherit">
+        <Tabs value={false} sx={{ marginRight: "auto" }} textColor="inherit">
           <Tab label="section 1" />
           <Tab label="section 2" />
           <Tab label="section 3" />

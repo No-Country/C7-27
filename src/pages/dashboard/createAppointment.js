@@ -22,7 +22,7 @@ import { useEffect, useState } from 'react';
 import Calendar from './calendarTest';
 import { useRouter } from 'next/router';
 
-export default function NewAppointment({ specialities=[] }) {
+export default function NewAppointment({ specialities = [] }) {
   const {
     register,
     handleSubmit,
@@ -156,8 +156,11 @@ export default function NewAppointment({ specialities=[] }) {
                   message: 'This field is required',
                 },
               })}
+              defaultValue={""}
               error={errors.speciality ? true : false}
-              onChange={(e) => setSpeciality(e.target.value)}
+              onChange={(e) => {
+                setSpeciality(e.target.value)
+              }}
               MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
             >
               <MenuItem value="">
@@ -188,6 +191,7 @@ export default function NewAppointment({ specialities=[] }) {
                   message: 'This field is required',
                 },
               })}
+              defaultValue={""}
               error={errors.professionalRef ? true : false}
             >
               <MenuItem value="">
