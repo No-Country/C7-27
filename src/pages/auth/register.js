@@ -289,6 +289,16 @@ export async function getServerSideProps(context) {
     `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getMedicalInsuranceList`
   );
 
+  insurances.sort(function (a, b) {
+    if (a.initials < b.initials) {
+      return -1;
+    }
+    if (a.initials > b.initials) {
+      return 1;
+    }
+    return 0;
+  });
+
   return {
     props: {
       insurances,

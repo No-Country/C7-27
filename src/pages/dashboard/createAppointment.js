@@ -235,6 +235,16 @@ export async function getServerSideProps(context) {
     `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
   );
 
+  specialities.sort(function (a, b) {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
+
   return {
     props: {
       specialities: data,

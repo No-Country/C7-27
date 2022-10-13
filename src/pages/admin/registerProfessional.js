@@ -65,7 +65,7 @@ const style = {
   padding: "10px",
 };
 
-export default function RegisterProfessional({ insurances=[], specialities=[] }) {
+export default function RegisterProfessional({ insurances = [], specialities = [] }) {
   const {
     register,
     handleSubmit,
@@ -288,11 +288,12 @@ export default function RegisterProfessional({ insurances=[], specialities=[] })
                         message: "This field is required",
                       },
                     })}
+                    defaultValue={''}
                     error={errors.medicalInsuranceList ? true : false}
                     value={medicalInsurancesList}
                     onChange={handleChange}
                     input={
-                      <OutlinedInput id="select-multiple-chip" label="Chip" />
+                      <OutlinedInput id="select-multiple-chip" label="Medical Insurances" />
                     }
                     renderValue={(selected) => (
                       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
@@ -327,13 +328,14 @@ export default function RegisterProfessional({ insurances=[], specialities=[] })
                     Speciality
                   </InputLabel>
                   <Select
-                    label="Age"
+                    label="Speciality"
                     {...register("speciality", {
                       required: {
                         value: true,
                         message: "This field is required",
                       },
                     })}
+                    defaultValue={''}
                     error={errors.specialities ? true : false}
                     MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
                   >
@@ -438,7 +440,7 @@ export default function RegisterProfessional({ insurances=[], specialities=[] })
                           </MenuItem>
                           {avaliableDays.map((aDay) =>
                             !selectedDays.includes(aDay.value) ? (
-                              <MenuItem value={aDay.value}>
+                              <MenuItem key={aDay} value={aDay.value}>
                                 {aDay.name}
                               </MenuItem>
                             ) : (
@@ -534,6 +536,28 @@ export async function getServerSideProps(context) {
   const { data: specialities } = await axios.get(
     `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
   );
+
+
+  insurances.sort(function (a, b) {
+    if (a.initials < b.initials) {
+      return -1;
+    }
+    if (a.initials > b.initials) {
+      return 1;
+    }
+    return 0;
+  });
+
+  specialities.sort(function (a, b) {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
+
   return {
     props: {
       insurances,
