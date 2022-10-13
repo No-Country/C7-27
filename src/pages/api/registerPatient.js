@@ -2,7 +2,7 @@ import { dbConnect } from "../../config/dbConnect";
 import User from "../../models/User";
 import Patient from "../../models/Patient";
 import ClinicHistory from "../../models/ClinicHistory";
-import verificationEmail from "../../utils/verificationEmail"
+import verificationEmail from "../../utils/verificationEmail";
 
 dbConnect();
 
@@ -27,14 +27,14 @@ export default async function handler(req, res) {
       email: body.email,
       password: body.password,
       isProfessional: false,
-      verified: false
+      verified: false,
     });
 
-    verificationEmail(newUser._id, newUser.email)
+    verificationEmail(newUser._id, newUser.email);
 
     // Creo el registro de historia clinia
     const newClinicHistory = new ClinicHistory();
-
+    console.log(newClinicHistory);
     // Creo el registro de paciente
     const newPatient = new Patient({
       email: body.email,
@@ -52,9 +52,10 @@ export default async function handler(req, res) {
     newUser.patientRef = newPatient._id;
 
     // Guardo los registros
+    await newClinicHistory.save();
     const savedUser = await newUser.save();
     await newPatient.save();
-    await newClinicHistory.save();
+
     return res.status(201).json(savedUser);
   } catch (e) {
     return res.status(400).json({ msg: e.message });

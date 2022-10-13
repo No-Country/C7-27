@@ -1,61 +1,66 @@
-import { useEffect } from 'react';
-import NextLink from 'next/link';
-import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
-import { Box, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
-import Logo from '@mui/icons-material/Apartment';
-import { NavItem } from './NavItem';
-import { useSelector } from 'react-redux';
+import { useEffect } from "react";
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+import PropTypes from "prop-types";
+import { Box, Divider, Drawer, Typography, useMediaQuery } from "@mui/material";
+import Logo from "@mui/icons-material/Apartment";
+import { NavItem } from "./NavItem";
+import { useSelector } from "react-redux";
 
 const Patientitems = [
   {
-    href: '/dashboard',
+    href: "/dashboard",
     icon: <Logo fontSize="small" />,
-    title: 'Dashboard',
+    title: "Dashboard",
   },
   {
-    href: '/dashboard/appointments',
+    href: "/dashboard/profile",
     icon: <Logo fontSize="small" />,
-    title: 'Appointments',
+    title: "Profile",
   },
   {
-    href: '/dashboard/createAppointment',
+    href: "/dashboard/appointments",
     icon: <Logo fontSize="small" />,
-    title: 'Create Appointment',
+    title: "Appointments",
+  },
+  {
+    href: "/dashboard/createAppointment",
+    icon: <Logo fontSize="small" />,
+    title: "Create Appointment",
   },
 ];
 
 const Professionalitems = [
-    {
-        href: '/dashboard',
-        icon: <Logo fontSize="small" />,
-        title: 'Dashboard',
-    },
-    {
-        href: '/dashboard/appointments',
-        icon: <Logo fontSize="small" />,
-        title: 'Appointments',
-    },
-    {
-        href: '/dashboard/clinicalHistory',
-        icon: <Logo fontSize="small" />,
-        title: 'Clinical History',
-    },
-]
+  {
+    href: "/dashboard",
+    icon: <Logo fontSize="small" />,
+    title: "Dashboard",
+  },
+  {
+    href: "/dashboard/appointments",
+    icon: <Logo fontSize="small" />,
+    title: "Appointments",
+  },
+  {
+    href: "/dashboard/clinicalHistory",
+    icon: <Logo fontSize="small" />,
+    title: "Clinical History",
+  },
+];
 
 const adminItems = [
-    {
-        href: '/dashboard',
-        icon: <Logo fontSize="small" />,
-        title: 'Dashboard',
-    },
-]
+  {
+    href: "/dashboard",
+    icon: <Logo fontSize="small" />,
+    title: "Dashboard",
+  },
+];
 
 export const DashboardSidebar = (props) => {
   const { user } = useSelector((state) => state.users);
   const { open, onClose } = props;
   const router = useRouter();
-  const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
+  const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
     defaultMatches: true,
     noSsr: false,
   });
@@ -76,23 +81,23 @@ export const DashboardSidebar = (props) => {
 
   const itemsArray = () => {
     if (user) {
-        if (user.isAdmin) {
-            return adminItems
-        } else {
-            return user.isProfessional ? Professionalitems : Patientitems   
-        }
+      if (user.isAdmin) {
+        return adminItems;
+      } else {
+        return user.isProfessional ? Professionalitems : Patientitems;
+      }
     } else {
-        return []
+      return [];
     }
-  }
+  };
 
   const content = (
     <>
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
         }}
       >
         <div>
@@ -111,17 +116,17 @@ export const DashboardSidebar = (props) => {
           <Box sx={{ px: 2 }}>
             <Box
               sx={{
-                alignItems: 'center',
-                backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                cursor: 'default',
-                display: 'flex',
-                justifyContent: 'space-between',
+                alignItems: "center",
+                backgroundColor: "rgba(255, 255, 255, 0.04)",
+                cursor: "default",
+                display: "flex",
+                justifyContent: "space-between",
                 px: 3,
-                py: '11px',
+                py: "11px",
                 borderRadius: 1,
               }}
             >
-              <div >
+              <div>
                 <Typography color="inherit" variant="subtitle1">
                   MediApp
                 </Typography>
@@ -141,7 +146,7 @@ export const DashboardSidebar = (props) => {
         </div>
         <Divider
           sx={{
-            borderColor: '#2D3748',
+            borderColor: "#2D3748",
             my: 3,
           }}
         />
@@ -166,8 +171,8 @@ export const DashboardSidebar = (props) => {
         open
         PaperProps={{
           sx: {
-            backgroundColor: 'neutral.900',
-            color: '#FFFFFF',
+            backgroundColor: "neutral.900",
+            color: "#FFFFFF",
             width: 280,
           },
         }}
@@ -185,8 +190,8 @@ export const DashboardSidebar = (props) => {
       open={open}
       PaperProps={{
         sx: {
-          backgroundColor: 'neutral.900',
-          color: '#FFFFFF',
+          backgroundColor: "neutral.900",
+          color: "#FFFFFF",
           width: 280,
         },
       }}

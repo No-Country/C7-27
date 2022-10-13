@@ -180,6 +180,7 @@ export default function RegisterPage({ insurances=[] }) {
                       message: "This field is required",
                     },
                   })}
+                  MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
                   error={errors.medicalInsurance ? true : false}
                 >
                   <MenuItem value="">
@@ -238,6 +239,10 @@ export default function RegisterPage({ insurances=[] }) {
                 required: {
                   value: true,
                   message: "This field is required",
+                },
+                pattern: {
+                  value: /^[0-9]*$/,
+                  message: "Only numbers",
                 },
               })}
               type="text"
