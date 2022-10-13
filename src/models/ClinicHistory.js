@@ -7,7 +7,6 @@ const clinicHistorySchema = new Schema(
         speciality: {
           type: String,
           required: true,
-          unique: true,
         },
         details: {
           type: [{
@@ -28,7 +27,6 @@ const clinicHistorySchema = new Schema(
         },
       }]
     },
-    default: [],
   },
 
   {
