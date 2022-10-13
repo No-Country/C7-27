@@ -97,8 +97,8 @@ export default function LoginPage() {
                 required: { value: true, message: "This field is required" },
                 minLength: { value: 6, message: "At least 6 characters" },
               })}
-              type={showPassword ? "text" : "password"}
-              label="password"
+              type={showPassword ? "text" : "Password"}
+              label="Password"
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">

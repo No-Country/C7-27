@@ -306,10 +306,14 @@ export default function profile({ insurances }) {
                     <MenuItem value="">
                       <em> Select</em>
                     </MenuItem>
-                    <MenuItem value="A">A</MenuItem>
-                    <MenuItem value="B">B</MenuItem>
-                    <MenuItem value="AB">AB</MenuItem>
-                    <MenuItem value="O">O</MenuItem>
+                    <MenuItem value="A+">A+</MenuItem>
+                    <MenuItem value="A-">A-</MenuItem>
+                    <MenuItem value="B+">B+</MenuItem>
+                    <MenuItem value="B-">B-</MenuItem>
+                    <MenuItem value="AB+">AB+</MenuItem>
+                    <MenuItem value="AB-">AB-</MenuItem>
+                    <MenuItem value="O+">O+</MenuItem>
+                    <MenuItem value="O-">O-</MenuItem>
                   </Select>
                   {errors.bloodType && (
                     <Typography variant="body2" component="p" color="error">
@@ -350,6 +354,16 @@ export async function getStaticProps(context) {
   const { data: insurances } = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getMedicalInsuranceList`
   );
+
+  insurances.sort(function (a, b) {
+    if (a.initials < b.initials) {
+      return -1;
+    }
+    if (a.initials > b.initials) {
+      return 1;
+    }
+    return 0;
+  });
 
   return {
     props: {

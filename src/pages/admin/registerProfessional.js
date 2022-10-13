@@ -89,7 +89,6 @@ export default function RegisterProfessional({ insurances = [], specialities = [
       if (!user.isAdmin) {
         router.push("/dashboard");
       } else {
-        console.log("asd");
         setLoading(false);
       }
     }

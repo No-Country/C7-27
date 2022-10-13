@@ -173,7 +173,7 @@ export default function RegisterPage({ insurances=[] }) {
                   Medical Insurance
                 </InputLabel>
                 <Select
-                  label="Age"
+                  label="Medical Insurance"
                   {...register("medicalInsurance", {
                     required: {
                       value: true,
@@ -206,22 +206,27 @@ export default function RegisterPage({ insurances=[] }) {
                   Blood Type
                 </InputLabel>
                 <Select
-                  label="Age"
+                  label="Blood Type"
                   {...register("bloodType", {
                     required: {
                       value: true,
                       message: "This field is required",
                     },
                   })}
+                  MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
                   error={errors.bloodType ? true : false}
                 >
                   <MenuItem value="">
                     <em>Select</em>
                   </MenuItem>
-                  <MenuItem value="A">A</MenuItem>
-                  <MenuItem value="B">B</MenuItem>
-                  <MenuItem value="AB">AB</MenuItem>
-                  <MenuItem value="O">O</MenuItem>
+                  <MenuItem value="A+">A+</MenuItem>
+                  <MenuItem value="A-">A-</MenuItem>
+                  <MenuItem value="B+">B+</MenuItem>
+                  <MenuItem value="B-">B-</MenuItem>
+                  <MenuItem value="AB+">AB+</MenuItem>
+                  <MenuItem value="AB-">AB-</MenuItem>
+                  <MenuItem value="O+">O+</MenuItem>
+                  <MenuItem value="O-">O-</MenuItem>
                 </Select>
                 {errors.bloodType && (
                   <Typography variant="body2" component="p" color="error">
