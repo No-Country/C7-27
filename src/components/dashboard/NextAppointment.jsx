@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import {
   Avatar,
   Box,
@@ -7,32 +7,30 @@ import {
   Grid,
   Typography,
   PeopleIcon,
-} from '../../components/auth';
+} from "../../components/auth";
 
-import numeroALetras from '../../utils/numeroALetras.js';
+import numeroALetras from "../../utils/numeroALetras.js";
 
 export const NextAppointment = (props) => {
   const { user } = useSelector((state) => state.users);
   const today = new Date();
 
-  console.log(user);
-
   return (
     <Card {...props}>
       <CardContent sx={{ minHeight: 200 }}>
-        <Grid container spacing={3} sx={{ justifyContent: 'space-between' }}>
+        <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
           <Grid item>
             <Typography color="textSecondary" gutterBottom variant="overline">
               Next appointment
             </Typography>
             <Typography color="textPrimary" variant="h4">
-              {user.appointmentsRef[0].date || ''}
+              {user?.appointmentsRef[0]?.date || ""}
             </Typography>
           </Grid>
           <Grid item>
             <Avatar
               sx={{
-                backgroundColor: 'success.main',
+                backgroundColor: "success.main",
                 height: 56,
                 width: 56,
               }}
@@ -43,8 +41,8 @@ export const NextAppointment = (props) => {
         </Grid>
         <Box
           sx={{
-            alignItems: 'center',
-            display: 'flex',
+            alignItems: "center",
+            display: "flex",
             pt: 2,
           }}
         >

@@ -9,7 +9,7 @@ export const userSlice = createSlice({
       state.user = action.payload;
     },
     logout: (state) => {
-      state.user = {};
+      state.user = null;
     },
   },
 });
@@ -82,6 +82,24 @@ export const actionAuthenticateUser = (token) => {
       const { data } = await axios.post(URL, { token }, config);
       dispatch(login(data));
       return;
+    } catch (e) {
+      return e.message;
+    }
+  };
+};
+
+export const updateProfile = (user) => {
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/users/update`;
+    try {
+      const { data } = await axios.put(URL, user, config);
+      dispatch(login(data));
     } catch (e) {
       return e.message;
     }

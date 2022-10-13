@@ -56,7 +56,7 @@ export default function AppFooter() {
               sx={{ height: 120 }}
             >
               <Grid sx={{ display: "flex", justifyContent: "center" }}>
-                <Box item component="a" href="https://mui.com/" sx={iconStyle}>
+                <Box component="a" href="https://mui.com/" sx={iconStyle}>
                   <FacebookIcon />
                 </Box>
                 <Box
