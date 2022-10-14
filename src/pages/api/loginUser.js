@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     if (user.verified == false) {
       verificationEmail(user._id, user.email);
       const error = new Error(
-        "Cuenta no verificada, se ha enviado un nuevo correo para verificar la misma."
+        "Unverified account, a new email has been sent to verify it."
       );
       return res.status(400).json({ msg: error.message });
     }
@@ -104,7 +104,6 @@ export default async function handler(req, res) {
         token,
         ...patientUser._doc,
       });
-
     }
   } else {
     return res.status(400).json({ msg: "Wrong HTTP Method" });

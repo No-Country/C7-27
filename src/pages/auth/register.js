@@ -21,11 +21,15 @@ import {
   TextField,
   Link,
 } from "../../components/auth";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { Layout } from "../../Layouts";
+import { patientRegister } from "../../store/slices/user";
+import { useSnackbar } from "notistack";
 import axios from "axios";
 
-export default function RegisterPage({ insurances=[] }) {
+export default function RegisterPage({ insurances = [] }) {
   const {
     register,
     handleSubmit,
@@ -34,6 +38,9 @@ export default function RegisterPage({ insurances=[] }) {
     formState: { errors },
   } = useForm();
 
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -42,12 +49,27 @@ export default function RegisterPage({ insurances=[] }) {
 
   const submit = async (values) => {
     try {
-      const url = `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/registerPatient`;
-      const { data } = await axios.post(url, values);
-      console.log(data);
+      await dispatch(patientRegister(values));
+      enqueueSnackbar("user registered, please verify your email", {
+        variant: "success",
+        autoHideDuration: 3000,
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
       reset();
+      router.push("/");
     } catch (e) {
-      console.log(e.message);
+      enqueueSnackbar(e, {
+        variant: "error",
+        autoHideDuration: 3000,
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
+      console.log(e);
     }
   };
 
@@ -296,7 +318,9 @@ export default function RegisterPage({ insurances=[] }) {
 
 export async function getServerSideProps(context) {
   const { data: insurances } = await axios.get(
-    `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getMedicalInsuranceList`
+    `${
+      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
+    }/api/resources/getMedicalInsuranceList`
   );
 
   insurances.sort(function (a, b) {

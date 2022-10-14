@@ -25,12 +25,14 @@ export const actionUserLogin = (user) => {
         "Content-Type": "application/json",
       },
     };
-    const URL = `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/loginUser`;
+    const URL = `${
+      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
+    }/api/loginUser`;
     try {
       const { data } = await axios.post(URL, user, config);
-      dispatch(login(data));
       return data.token;
     } catch (e) {
+      console.log(e);
       throw e.response.data.msg;
     }
   };
@@ -43,7 +45,9 @@ export const actionUserLogout = () => {
         "Content-Type": "application/json",
       },
     };
-    const URL = `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/users/logout`;
+    const URL = `${
+      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
+    }/api/users/logout`;
     try {
       await axios.get(URL, config);
       dispatch(logout());
@@ -53,19 +57,40 @@ export const actionUserLogout = () => {
   };
 };
 
-export const userRegister = (user) => {
+export const patientRegister = (user) => {
   return async function () {
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-    const URL = `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/users/registerProfessional`;
+    const URL = `${
+      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
+    }/api/registerPatient`;
     try {
-      const { data } = await axios.post(URL, user, config);
+      await axios.post(URL, user, config);
       return;
     } catch (e) {
-      return e.message;
+      throw e.response.data.msg;
+    }
+  };
+};
+
+export const professionalRegister = (user) => {
+  return async function () {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const URL = `${
+      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
+    }/api/users/registerProfessional`;
+    try {
+      const res = await axios.post(URL, user, config);
+      return;
+    } catch (e) {
+      throw e.response.data.msg;
     }
   };
 };
@@ -77,7 +102,9 @@ export const actionAuthenticateUser = (token) => {
         "Content-Type": "application/json",
       },
     };
-    const URL = `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/users/profile`;
+    const URL = `${
+      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
+    }/api/users/profile`;
     try {
       const { data } = await axios.post(URL, { token }, config);
       dispatch(login(data));
