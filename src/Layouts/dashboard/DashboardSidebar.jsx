@@ -1,58 +1,58 @@
-import { useEffect } from "react";
-import NextLink from "next/link";
-import { useRouter } from "next/router";
-import PropTypes from "prop-types";
-import { Box, Divider, Drawer, Typography, useMediaQuery } from "@mui/material";
-import Logo from "@mui/icons-material/Apartment";
-import { NavItem } from "./NavItem";
-import { useSelector } from "react-redux";
+import { useEffect } from 'react';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
+import { Box, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
+import { Logo } from '../../components/ui/Logo';
+import { NavItem } from './NavItem';
+import { useSelector } from 'react-redux';
 
 const Patientitems = [
   {
-    href: "/dashboard",
+    href: '/dashboard',
     icon: <Logo fontSize="small" />,
-    title: "Dashboard",
+    title: 'Dashboard',
   },
   {
-    href: "/dashboard/profile",
+    href: '/dashboard/profile',
     icon: <Logo fontSize="small" />,
-    title: "Profile",
+    title: 'Profile',
   },
   {
-    href: "/dashboard/appointments",
+    href: '/dashboard/appointments',
     icon: <Logo fontSize="small" />,
-    title: "Appointments",
+    title: 'Appointments',
   },
   {
-    href: "/dashboard/createAppointment",
+    href: '/dashboard/createAppointment',
     icon: <Logo fontSize="small" />,
-    title: "Create Appointment",
+    title: 'Create Appointment',
   },
 ];
 
 const Professionalitems = [
   {
-    href: "/dashboard",
+    href: '/dashboard',
     icon: <Logo fontSize="small" />,
-    title: "Dashboard",
+    title: 'Dashboard',
   },
   {
-    href: "/dashboard/appointments",
+    href: '/dashboard/appointments',
     icon: <Logo fontSize="small" />,
-    title: "Appointments",
+    title: 'Appointments',
   },
   {
-    href: "/dashboard/clinicalHistory",
+    href: '/dashboard/clinicalHistory',
     icon: <Logo fontSize="small" />,
-    title: "Clinical History",
+    title: 'Clinical History',
   },
 ];
 
 const adminItems = [
   {
-    href: "/dashboard",
+    href: '/dashboard',
     icon: <Logo fontSize="small" />,
-    title: "Dashboard",
+    title: 'Dashboard',
   },
 ];
 
@@ -60,7 +60,7 @@ export const DashboardSidebar = (props) => {
   const { user } = useSelector((state) => state.users);
   const { open, onClose } = props;
   const router = useRouter();
-  const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
+  const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
     noSsr: false,
   });
@@ -95,34 +95,29 @@ export const DashboardSidebar = (props) => {
     <>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100%",
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
         }}
       >
         <div>
           <Box sx={{ p: 3 }}>
             <NextLink href="/" passHref>
               <a>
-                <Logo
-                  sx={{
-                    height: 42,
-                    width: 42,
-                  }}
-                />
+                <Logo variant="h5" />
               </a>
             </NextLink>
           </Box>
           <Box sx={{ px: 2 }}>
             <Box
               sx={{
-                alignItems: "center",
-                backgroundColor: "rgba(255, 255, 255, 0.04)",
-                cursor: "default",
-                display: "flex",
-                justifyContent: "space-between",
+                alignItems: 'center',
+                backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                cursor: 'default',
+                display: 'flex',
+                justifyContent: 'space-between',
                 px: 3,
-                py: "11px",
+                py: '11px',
                 borderRadius: 1,
               }}
             >
@@ -146,7 +141,7 @@ export const DashboardSidebar = (props) => {
         </div>
         <Divider
           sx={{
-            borderColor: "#2D3748",
+            borderColor: '#2D3748',
             my: 3,
           }}
         />
@@ -171,8 +166,8 @@ export const DashboardSidebar = (props) => {
         open
         PaperProps={{
           sx: {
-            backgroundColor: "neutral.900",
-            color: "#FFFFFF",
+            backgroundColor: 'neutral.900',
+            color: '#FFFFFF',
             width: 280,
           },
         }}
@@ -190,8 +185,8 @@ export const DashboardSidebar = (props) => {
       open={open}
       PaperProps={{
         sx: {
-          backgroundColor: "neutral.900",
-          color: "#FFFFFF",
+          backgroundColor: 'neutral.900',
+          color: '#FFFFFF',
           width: 280,
         },
       }}
