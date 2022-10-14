@@ -24,8 +24,9 @@ import {
 import { useForm } from "react-hook-form";
 import { Layout } from "../../Layouts";
 import { useDispatch, useSelector } from "react-redux";
-import { userRegister } from "../../store/slices/user";
+import { professionalRegister } from "../../store/slices/user";
 import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
 import axios from "axios";
 
 const ITEM_HEIGHT = 48;
@@ -65,7 +66,10 @@ const style = {
   padding: "10px",
 };
 
-export default function RegisterProfessional({ insurances = [], specialities = [] }) {
+export default function RegisterProfessional({
+  insurances = [],
+  specialities = [],
+}) {
   const {
     register,
     handleSubmit,
@@ -74,11 +78,12 @@ export default function RegisterProfessional({ insurances = [], specialities = [
   } = useForm();
   const dispatch = useDispatch();
   const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
   const { user } = useSelector((state) => state.users);
 
   const [loading, setLoading] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
-  const [medicalInsurancesList, setMedicalInsurancesList] = useState([]);
+  const [medicalInsuranceList, setMedicalInsuranceList] = useState([]);
   const [days, setDays] = useState([{ day: "", availability: "" }]);
   const [selectedDays, setSelectedDays] = useState([]);
   const [dayErrors, setDayErrors] = useState([]);
@@ -103,7 +108,6 @@ export default function RegisterProfessional({ insurances = [], specialities = [
         error[i] = "both values are required";
       }
     }
-    console.log(error);
     if (error.length > 0) setDayErrors(error);
     else {
       setDayErrors([]);
@@ -145,13 +149,28 @@ export default function RegisterProfessional({ insurances = [], specialities = [
 
   const submit = async (values) => {
     values = { ...values, days };
-    console.log(values);
+
     try {
-      dispatch(userRegister(values));
+      await dispatch(professionalRegister(values));
+      enqueueSnackbar("Professional created", {
+        variant: "success",
+        autoHideDuration: 3000,
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
       reset();
       router.push("/dashboard");
     } catch (e) {
-      console.log(e.message);
+      enqueueSnackbar(e, {
+        variant: "error",
+        autoHideDuration: 3000,
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
     }
   };
 
@@ -159,7 +178,7 @@ export default function RegisterProfessional({ insurances = [], specialities = [
     const {
       target: { value },
     } = event;
-    setMedicalInsurancesList(
+    setMedicalInsuranceList(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
@@ -285,15 +304,20 @@ export default function RegisterProfessional({ insurances = [], specialities = [
                     {...register("medicalInsuranceList", {
                       required: {
                         value: true,
+                        minLength: 1,
                         message: "This field is required",
                       },
+                      // value: { medicalInsuranceList },
                     })}
-                    defaultValue={''}
+                    defaultValue={""}
                     error={errors.medicalInsuranceList ? true : false}
-                    value={medicalInsurancesList}
+                    value={medicalInsuranceList}
                     onChange={handleChange}
                     input={
-                      <OutlinedInput id="select-multiple-chip" label="Medical Insurances" />
+                      <OutlinedInput
+                        id="select-multiple-chip"
+                        label="Medical Insurances"
+                      />
                     }
                     renderValue={(selected) => (
                       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
@@ -308,7 +332,7 @@ export default function RegisterProfessional({ insurances = [], specialities = [
                       <MenuItem
                         key={insurance._id}
                         value={insurance.initials}
-                      // style={getStyles(name, theme)}
+                        // style={getStyles(name, theme)}
                       >
                         {insurance.initials}
                       </MenuItem>
@@ -335,7 +359,7 @@ export default function RegisterProfessional({ insurances = [], specialities = [
                         message: "This field is required",
                       },
                     })}
-                    defaultValue={''}
+                    defaultValue={""}
                     error={errors.speciality ? true : false}
                     MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
                   >
@@ -401,7 +425,7 @@ export default function RegisterProfessional({ insurances = [], specialities = [
             </Grid>
 
             <Button type="submit" variant="contained">
-              Sign in
+              Create
             </Button>
 
             <Modal
@@ -443,11 +467,12 @@ export default function RegisterProfessional({ insurances = [], specialities = [
                           </MenuItem>
                           {avaliableDays.map((aDay) =>
                             !selectedDays.includes(aDay.value) ? (
-                              <MenuItem key={aDay} value={aDay.value}>
+                              <MenuItem key={aDay.value} value={aDay.value}>
                                 {aDay.name}
                               </MenuItem>
                             ) : (
                               <MenuItem
+                                key={aDay.value}
                                 sx={{ display: "none" }}
                                 value={aDay.value}
                               >
@@ -526,19 +551,22 @@ export default function RegisterProfessional({ insurances = [], specialities = [
           </Stack>
         )}
       </Box>
-    </Layout >
+    </Layout>
   );
 }
 
 export async function getServerSideProps(context) {
   const { data: insurances } = await axios.get(
-    `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getMedicalInsuranceList`
+    `${
+      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
+    }/api/resources/getMedicalInsuranceList`
   );
 
   const { data: specialities } = await axios.get(
-    `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
+    `${
+      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
+    }/api/resources/getProfessionalSpecialitiesList`
   );
-
 
   insurances.sort(function (a, b) {
     if (a.initials < b.initials) {

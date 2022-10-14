@@ -23,6 +23,7 @@ import { useForm } from "react-hook-form";
 import { Layout } from "../../Layouts";
 import { useDispatch } from "react-redux";
 import { actionUserLogin } from "../../store/slices/user";
+import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";
 
 export default function LoginPage() {
@@ -36,6 +37,7 @@ export default function LoginPage() {
 
   const router = useRouter();
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
   const [check, setCheck] = useState(false);
 
@@ -50,6 +52,14 @@ export default function LoginPage() {
       reset();
       router.push("/dashboard");
     } catch (e) {
+      enqueueSnackbar(e, {
+        variant: "error",
+        autoHideDuration: 3000,
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
       console.log(e.message);
     }
   };
