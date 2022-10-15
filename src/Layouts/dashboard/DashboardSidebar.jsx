@@ -46,6 +46,11 @@ const Professionalitems = [
     icon: <Logo fontSize="small" />,
     title: 'Clinical History',
   },
+  {
+    href: "/dashboard/updateClinicalHistory",
+    icon: <Logo fontSize="small" />,
+    title: "Update Clinical History",
+  },
 ];
 
 const adminItems = [
