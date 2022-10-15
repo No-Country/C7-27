@@ -14,12 +14,11 @@ import {
   MenuItem,
   TextField,
   Grid,
-  Snackbar,
 } from "../../components/auth";
 import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
 import { updateProfile } from "../../store/slices/user";
 import { useRouter } from "next/router";
-import { SnackbarContent } from "@mui/material";
+import { useSnackbar } from "notistack";
 
 const initialState = {
   firstName: "",
@@ -34,8 +33,6 @@ export default function profile({ insurances }) {
   const {
     register,
     reset,
-    getValues,
-    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -46,24 +43,11 @@ export default function profile({ insurances }) {
 
   const dispatch = useDispatch();
   const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
   const { user } = useSelector((state) => state.users);
   const [update, setUpdate] = useState(false);
   const [blood, setBlood] = useState("");
   const [insurance, setInsurance] = useState("");
-
-  const [snack, setSnack] = useState({
-    open: false,
-    vertical: "top",
-    horizontal: "center",
-    message: "",
-    type: "",
-  });
-
-  const { horizontal, vertical } = snack;
-
-  const handleClose = () => {
-    setSnack({ ...snack, open: false });
-  };
 
   useEffect(() => {
     reset({
@@ -84,22 +68,34 @@ export default function profile({ insurances }) {
         try {
           values = { ...values, id: user._id, patientRef: user.patientRef };
           await dispatch(updateProfile(values));
-          setSnack({
-            ...snack,
-            open: true,
-            type: "success",
-            message: "User Updated",
+          enqueueSnackbar("Profilae updated", {
+            variant: "success",
+            autoHideDuration: 3000,
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "center",
+            },
           });
           setUpdate(false);
         } catch (e) {
+          enqueueSnackbar("Error, Try again in a few minutes", {
+            variant: "error",
+            autoHideDuration: 3000,
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "center",
+            },
+          });
           console.log(e.message);
         }
       } else {
-        setSnack({
-          ...snack,
-          open: true,
-          type: "error",
-          message: "No values changed",
+        enqueueSnackbar("No values changed", {
+          variant: "error",
+          autoHideDuration: 3000,
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
         });
       }
     } else setUpdate(true);
@@ -301,6 +297,7 @@ export default function profile({ insurances }) {
                     onChange={(e) => {
                       setBlood(e.target.value);
                     }}
+                    MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
                     error={errors.bloodType ? true : false}
                   >
                     <MenuItem value="">
@@ -330,22 +327,6 @@ export default function profile({ insurances }) {
           </Button>
         </Stack>
       </Box>
-      <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={snack.open}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        key={vertical + horizontal}
-        message={snack.message}
-      >
-        <SnackbarContent
-          style={{
-            backgroundColor: snack.type === "success" ? "green" : "red",
-            fontWeight: 700,
-          }}
-          message={snack.message}
-        />
-      </Snackbar>
     </DashboardLayout>
   );
 }

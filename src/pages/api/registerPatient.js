@@ -34,7 +34,7 @@ export default async function handler(req, res) {
 
     // Creo el registro de historia clinia
     const newClinicHistory = new ClinicHistory();
-    console.log(newClinicHistory);
+
     // Creo el registro de paciente
     const newPatient = new Patient({
       email: body.email,

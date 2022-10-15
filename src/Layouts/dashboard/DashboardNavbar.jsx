@@ -64,7 +64,7 @@ export const DashboardNavbar = (props) => {
               width: 40,
               ml: 1,
             }}
-            //src="/static/images/avatars/avatar_1.png"
+            src="https://picsum.photos/60/60"
           ></Avatar>
         </Toolbar>
       </DashboardNavbarRoot>
