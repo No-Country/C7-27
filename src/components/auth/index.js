@@ -44,6 +44,7 @@ export { default as ListItem } from "@mui/material/ListItem";
 export { default as Chip } from "@mui/material/Chip";
 export { default as Modal } from "@mui/material/Modal";
 export { default as Snackbar } from "@mui/material/Snackbar";
+export { default as Switch } from '@mui/material/Switch';
 
 // Icons
 export { default as VisibilityOff } from "@mui/icons-material/VisibilityOff";

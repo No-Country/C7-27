@@ -14,6 +14,10 @@ const clinicHistorySchema = new Schema(
               type: String,
               required: true,
             },
+            professionalName: {
+              type: String,
+              required: true,
+            },
             professionalRef: {
               type: Schema.Types.ObjectId,
               ref: "Professional",
