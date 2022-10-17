@@ -14,7 +14,7 @@ const Patientitems = [
     title: "Dashboard",
   },
   {
-    href: "/dashboard/profile",
+    href: "/dashboard/PatientProfile",
     icon: <Logo fontSize="small" />,
     title: "Profile",
   },
@@ -37,6 +37,11 @@ const Professionalitems = [
     title: "Dashboard",
   },
   {
+    href: "/dashboard/ProfessionalProfile",
+    icon: <Logo fontSize="small" />,
+    title: "Profile",
+  },
+  {
     href: "/dashboard/appointments",
     icon: <Logo fontSize="small" />,
     title: "Appointments",
@@ -53,6 +58,16 @@ const adminItems = [
     href: "/dashboard",
     icon: <Logo fontSize="small" />,
     title: "Dashboard",
+  },
+  {
+    href: "/dashboard/ProfessionalProfile",
+    icon: <Logo fontSize="small" />,
+    title: "Profile",
+  },
+  {
+    href: "/admin/AllProfessionals",
+    icon: <Logo fontSize="small" />,
+    title: "Professionals",
   },
 ];
 

@@ -4,7 +4,7 @@ import User from "../../../models/User";
 dbConnect();
 
 export default async function handler(req, res) {
-  const { method, body } = req;
+  const { method } = req;
 
   if (method === "GET") {
     try {
@@ -14,7 +14,7 @@ export default async function handler(req, res) {
       )
         .populate({
           path: "professionalRef",
-          select: "_id firstName lastName speciality",
+          select: "_id firstName lastName speciality isActive isAdmin email",
         })
         .select("-_id");
 

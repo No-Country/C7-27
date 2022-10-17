@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { capitalize } from '@mui/material';
+import { capitalize } from "@mui/material";
 import {
   Table,
   TableBody,
@@ -9,9 +9,9 @@ import {
   TableRow,
   TableSortLabel,
   Tooltip,
-} from '../../components/auth';
+} from "../../components/auth";
 
-import { SeverityPill } from './SeverityPill';
+import { SeverityPill } from "./SeverityPill";
 
 export function PatientAppointmentsTable({ appointments }) {
   return (
@@ -27,7 +27,7 @@ export function PatientAppointmentsTable({ appointments }) {
               </TableSortLabel>
             </Tooltip>
           </TableCell>
-          <TableCell>Status</TableCell>
+          <TableCell>State</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -41,10 +41,8 @@ export function PatientAppointmentsTable({ appointments }) {
             <TableCell>{appointment.professionalRef.speciality}</TableCell>
             <TableCell>{appointment.date}</TableCell>
             <TableCell>
-
-              <SeverityPill color={appointment.confirmed ? 'success' : 'error'}>
-                {appointment.confirmed ? 'Confirmed' : 'Cancelled'}
-
+              <SeverityPill color={appointment.confirmed ? "success" : "error"}>
+                {appointment.confirmed ? "Confirmed" : "Cancelled"}
               </SeverityPill>
             </TableCell>
           </TableRow>

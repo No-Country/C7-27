@@ -20,7 +20,7 @@ export const DashboardLayout = (props) => {
   const dispatch = useDispatch();
   const { children } = props;
   const [isSidebarOpen, setSidebarOpen] = useState(true);
-  
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     // if (!token) router.push("/");
@@ -39,6 +39,8 @@ export const DashboardLayout = (props) => {
             display: "flex",
             flex: "1 1 auto",
             flexDirection: "column",
+            justifyContent: "center",
+            // alignItems: "center",
             width: "100%",
           }}
         >

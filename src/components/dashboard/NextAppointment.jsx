@@ -55,7 +55,7 @@ export const NextAppointment = (props) => {
                       today.getDate()
                   )
                   .toLowerCase()} dia/s`
-              : 'Hoy'}
+              : ""}
           </Typography>
         </Box>
       </CardContent>
