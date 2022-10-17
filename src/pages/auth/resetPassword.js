@@ -1,17 +1,56 @@
+import { useSnackbar } from "notistack";
+import { useForm } from "react-hook-form";
 import {
+  Box,
   Button,
   FormControl,
-  FormLabel,
-  InputLabel,
-  TextField,
   Stack,
+  TextField,
   Typography,
-  Box,
 } from "../../components/auth";
-
 import { Layout } from "../../Layouts";
+import { forgetPassword } from "../../store/slices/user";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 export default function restPasswordPage() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+    formState: { errors },
+  } = useForm();
+
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const submit = async (values) => {
+    try {
+      await dispatch(forgetPassword(values));
+      enqueueSnackbar("Email sended", {
+        variant: "success",
+        autoHideDuration: 3000,
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
+      router.push("/");
+    } catch (e) {
+      enqueueSnackbar(e.msg, {
+        variant: "error",
+        autoHideDuration: 3000,
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
+      // console.log(e.msg);
+    }
+  };
+
   return (
     <Layout>
       <Box
@@ -23,23 +62,31 @@ export default function restPasswordPage() {
         }}
         noValidate
         autoComplete="off"
+        onSubmit={handleSubmit(submit)}
       >
-        <Typography variant={"h5"} component={"h2"}>
-          Enter Email
-        </Typography>
-        <Stack spacing={3}>
-          <FormLabel component="legend">Reset Password</FormLabel>
+        <Stack spacing={2}>
           <FormControl>
-            <TextField type="email" label="email adress" />
+            <TextField
+              {...register("email", {
+                required: { value: true, message: "This field is required" },
+                pattern: {
+                  value:
+                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: "Invalid format",
+                },
+              })}
+              type="email"
+              label="Email Address"
+              error={errors.email ? true : false}
+            />
+            {errors.email && (
+              <Typography variant="body2" component="p" color="error">
+                {errors.email.message}
+              </Typography>
+            )}
           </FormControl>
 
-          <Typography variant="subtitle2" component="h5">
-            By continuing, you agree that we create an account for you (unless
-            already created), and accept our Terms and Conditions and Privacy
-            Policy.
-          </Typography>
-
-          <Button variant="contained" sx={{ maxWidth: "200px" }}>
+          <Button type="submit" variant="contained" sx={{ maxWidth: "200px" }}>
             Continue
           </Button>
         </Stack>

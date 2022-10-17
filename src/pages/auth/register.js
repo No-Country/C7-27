@@ -69,7 +69,7 @@ export default function RegisterPage({ insurances = [] }) {
           horizontal: "center",
         },
       });
-      console.log(e);
+      // console.log(e);
     }
   };
 
