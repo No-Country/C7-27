@@ -179,10 +179,10 @@ export default function NewAppointment({ specialities = [] }) {
 
           <FormControl sx={{ width: "100%" }}>
             <InputLabel id="demo-simple-select-autowidth-label">
-              Professional Reference
+              Professional
             </InputLabel>
             <Select
-              label="Professional Reference"
+              label="Professional"
               {...register("professionalRef", {
                 required: {
                   value: true,

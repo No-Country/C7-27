@@ -30,8 +30,6 @@ export default async function handler(req, res) {
       verified: false,
     });
 
-    verificationEmail(newUser._id, newUser.email);
-
     // Creo el registro de historia clinia
     const newClinicHistory = new ClinicHistory();
 
@@ -50,6 +48,8 @@ export default async function handler(req, res) {
     newPatient.clinicHistoryRef = newClinicHistory._id;
 
     newUser.patientRef = newPatient._id;
+
+    verificationEmail(newUser._id, newUser.email);
 
     // Guardo los registros
     await newClinicHistory.save();

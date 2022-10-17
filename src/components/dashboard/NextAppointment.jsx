@@ -46,7 +46,7 @@ export const NextAppointment = (props) => {
             pt: 2,
           }}
         >
-          <Typography color="textSecondary" variant="caption">
+          {/* <Typography color="textSecondary" variant="caption">
             {today.getDate() -
             Number(user?.appointmentsRef[0]?.date.substring(0, 2))
               ? `en ${numeroALetras
@@ -56,7 +56,7 @@ export const NextAppointment = (props) => {
                   )
                   .toLowerCase()} dia/s`
               : ""}
-          </Typography>
+          </Typography> */}
         </Box>
       </CardContent>
     </Card>

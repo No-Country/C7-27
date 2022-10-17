@@ -32,7 +32,7 @@ export const actionUserLogin = (user) => {
       const { data } = await axios.post(URL, user, config);
       return data.token;
     } catch (e) {
-      console.log(e);
+      // console.log(e);
       throw e.response.data.msg;
     }
   };
@@ -134,7 +134,7 @@ export const updateProfile = (user) => {
 };
 
 export const changeActive = (user) => {
-  return async function (dispatch) {
+  return async function () {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -147,6 +147,42 @@ export const changeActive = (user) => {
       return;
     } catch (e) {
       throw e.message;
+    }
+  };
+};
+
+export const forgetPassword = (values) => {
+  return async function () {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/users/forgetPassword`;
+    try {
+      await axios.post(URL, values, config);
+      return;
+    } catch (e) {
+      throw e.response.data;
+    }
+  };
+};
+
+export const changePassword = (values) => {
+  return async function () {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/users/changePassword`;
+    try {
+      const user = await axios.put(URL, values, config);
+      return;
+    } catch (e) {
+      throw e.response.data;
     }
   };
 };
