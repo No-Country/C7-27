@@ -1,30 +1,22 @@
+import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
-import { Layout } from "../../Layouts";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
+  Box,
   Button,
-  Stack,
+  FormControl,
+  FormLabel,
   IconButton,
   InputAdornment,
-  FormLabel,
-  Box,
-  FormControl,
-  InputLabel,
-  VisibilityOff,
-  Visibility,
-  Grid,
-  Typography,
-  Select,
-  MenuItem,
+  Stack,
   TextField,
-  Link,
+  Typography,
+  Visibility,
+  VisibilityOff,
 } from "../../components/auth";
-import { useForm } from "react-hook-form";
-import { useSnackbar } from "notistack";
-import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { Layout } from "../../Layouts";
 import { changePassword } from "../../store/slices/user";
 
 export default function newPassword({ id }) {
