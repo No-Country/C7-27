@@ -37,7 +37,7 @@ export default function PatientProfile({ insurances }) {
   } = useForm({
     defaultValues: useMemo(() => {
       return initialState;
-    }, [initialState]),
+    }, []),
   });
 
   const dispatch = useDispatch();
@@ -58,7 +58,7 @@ export default function PatientProfile({ insurances }) {
     });
     setBlood(user?.bloodType || "");
     setInsurance(user?.medicalInsurance || "");
-  }, [user]);
+  }, [user, reset]);
 
   const submit = async (values) => {
     if (update) {

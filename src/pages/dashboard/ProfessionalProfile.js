@@ -35,7 +35,7 @@ export default function ProfessionalProfile({ specialities }) {
   } = useForm({
     defaultValues: useMemo(() => {
       return initialState;
-    }, [initialState]),
+    }, []),
   });
 
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ export default function ProfessionalProfile({ specialities }) {
       speciality: user?.speciality || "",
     });
     setSpeciality(user?.speciality);
-  }, [user]);
+  }, [user, reset]);
 
   const submit = async (values) => {
     if (update) {

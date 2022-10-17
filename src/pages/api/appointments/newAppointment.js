@@ -26,6 +26,9 @@ export default async function handler(req, res) {
     const patient = await Patient.findById(body.patientRef);
     const professional = await Professional.findById(body.professionalRef);
 
+    console.log(patient)
+    console.log(professional)
+
     //referencias de los turnos al paciente y profesional
     patient.appointmentsRef.push(newAppointment._id);
     professional.appointmentsRef.push(newAppointment._id);
