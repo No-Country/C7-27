@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     }
 
     try {
-        const newClinicHistoryItem = { date: body.date, observations: body.observations, professionalRef: body.professionalRef }
+        const newClinicHistoryItem = { date: body.date, observations: body.observations, professionalRef: body.professionalRef, professionalName: body.professionalName }
 
         const foundClinicHistory = await ClinicHistory.findById(body.id)
 

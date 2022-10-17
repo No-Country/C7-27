@@ -24,6 +24,10 @@ export default function AppointmentsPage({ token }) {
 
   const [isSorted, setIsSorted] = useState(true);
 
+
+  console.log(user?.appointmentsRef)
+
+
   const hourFormat = (hour) => {
     const turn = hour.split(':')[0];
     if (turn < 12) return 'am';
@@ -72,40 +76,7 @@ export default function AppointmentsPage({ token }) {
                       <TableBody>
                         {isSorted
                           ? user?.appointmentsRef
-                              ?.map((appointment) => (
-                                <TableRow hover key={appointment._id}>
-                                  <TableCell>
-                                    {`${capitalize(
-                                      appointment.professionalRef.lastName
-                                    )} ${capitalize(
-                                      appointment.professionalRef.firstName
-                                    )}`}
-                                  </TableCell>
-                                  <TableCell>
-                                    {appointment.professionalRef.speciality}
-                                  </TableCell>
-                                  <TableCell>{appointment.date}</TableCell>
-                                  <TableCell>
-                                    {appointment.hour}{' '}
-                                    {hourFormat(appointment.hour)}
-                                  </TableCell>
-                                  <TableCell>
-                                    <SeverityPill
-                                      color={
-                                        appointment.confirmed
-                                          ? 'success'
-                                          : 'error'
-                                      }
-                                    >
-                                      {appointment.confirmed
-                                        ? 'Confirmed'
-                                        : 'Cancelled'}
-                                    </SeverityPill>
-                                  </TableCell>
-                                </TableRow>
-                              ))
-                              .reverse()
-                          : user?.appointmentsRef?.map((appointment) => (
+                            ?.map((appointment) => (
                               <TableRow hover key={appointment._id}>
                                 <TableCell>
                                   {`${capitalize(
@@ -136,7 +107,40 @@ export default function AppointmentsPage({ token }) {
                                   </SeverityPill>
                                 </TableCell>
                               </TableRow>
-                            ))}
+                            ))
+                            .reverse()
+                          : user?.appointmentsRef?.map((appointment) => (
+                            <TableRow hover key={appointment._id}>
+                              <TableCell>
+                                {`${capitalize(
+                                  appointment.professionalRef.lastName
+                                )} ${capitalize(
+                                  appointment.professionalRef.firstName
+                                )}`}
+                              </TableCell>
+                              <TableCell>
+                                {appointment.professionalRef.speciality}
+                              </TableCell>
+                              <TableCell>{appointment.date}</TableCell>
+                              <TableCell>
+                                {appointment.hour}{' '}
+                                {hourFormat(appointment.hour)}
+                              </TableCell>
+                              <TableCell>
+                                <SeverityPill
+                                  color={
+                                    appointment.confirmed
+                                      ? 'success'
+                                      : 'error'
+                                  }
+                                >
+                                  {appointment.confirmed
+                                    ? 'Confirmed'
+                                    : 'Cancelled'}
+                                </SeverityPill>
+                              </TableCell>
+                            </TableRow>
+                          ))}
                       </TableBody>
                     </Table>
                   )}
