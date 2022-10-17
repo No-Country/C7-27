@@ -45,9 +45,9 @@ const userSchema = new Schema(
 );
 
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) next();
+  if (!this.isModified("password")) next(); //si no se cambio la contraseña no se hace nada
 
-  const salt = await bcrypt.genSalt(10);
+  const salt = await bcrypt.genSalt(10); //rondas
   this.password = await bcrypt.hash(this.password, salt);
 });
 

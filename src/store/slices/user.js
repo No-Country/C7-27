@@ -150,3 +150,21 @@ export const changeActive = (user) => {
     }
   };
 };
+
+export const changePassword = (values) => {
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/users/changePassword`;
+    try {
+      const user = await axios.put(URL, values, config);
+      return;
+    } catch (e) {
+      throw e.response.data;
+    }
+  };
+};

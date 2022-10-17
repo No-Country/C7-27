@@ -66,7 +66,15 @@ export const AccountPopover = (props) => {
           },
         }}
       >
-        <MenuItem onClick={() => router.push("/dashboard/profile")}>
+        <MenuItem
+          onClick={() =>
+            router.push(
+              user.isProfessional
+                ? "/dashboard/ProfessionalProfile"
+                : "/dashboard/PatientProfile"
+            )
+          }
+        >
           Profile
         </MenuItem>
         <MenuItem onClick={() => handleSignOut()}>Sign out</MenuItem>
