@@ -60,7 +60,7 @@ export default function LoginPage() {
           horizontal: "center",
         },
       });
-      console.log(e.message);
+      console.log(e);
     }
   };
 

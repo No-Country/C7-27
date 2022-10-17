@@ -60,8 +60,11 @@ export default async function handler(req, res) {
       // console.log(serialized);
       res.setHeader("Set-Cookie", serialized);
 
+      const { email, isProfessional, professionalRef } = user;
       return res.status(200).json({
-        ...user._doc,
+        email,
+        isProfessional,
+        professionalRef,
         token,
         ...professionalUser._doc,
       });
@@ -99,8 +102,11 @@ export default async function handler(req, res) {
       // console.log(serialized);
       res.setHeader("Set-Cookie", serialized);
 
+      const { email, isProfessional, patientRef } = user;
       return res.status(200).json({
-        ...user._doc,
+        email,
+        isProfessional,
+        patientRef,
         token,
         ...patientUser._doc,
       });

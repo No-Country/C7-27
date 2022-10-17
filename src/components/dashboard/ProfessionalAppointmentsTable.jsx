@@ -23,7 +23,7 @@ export function ProfessionalAppointmentsTable({ appointments }) {
               </TableSortLabel>
             </Tooltip>
           </TableCell>
-          <TableCell>Status</TableCell>
+          <TableCell>State</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>

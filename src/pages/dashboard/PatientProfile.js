@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, forwardRef } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useForm } from "react-hook-form";
@@ -17,7 +17,6 @@ import {
 } from "../../components/auth";
 import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
 import { updateProfile } from "../../store/slices/user";
-import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 
 const initialState = {
@@ -29,7 +28,7 @@ const initialState = {
   bloodType: "",
 };
 
-export default function profile({ insurances }) {
+export default function PatientProfile({ insurances }) {
   const {
     register,
     reset,
@@ -42,7 +41,6 @@ export default function profile({ insurances }) {
   });
 
   const dispatch = useDispatch();
-  const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
   const { user } = useSelector((state) => state.users);
   const [update, setUpdate] = useState(false);

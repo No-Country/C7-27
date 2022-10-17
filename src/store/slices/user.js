@@ -128,7 +128,25 @@ export const updateProfile = (user) => {
       const { data } = await axios.put(URL, user, config);
       dispatch(login(data));
     } catch (e) {
-      return e.message;
+      throw e.message;
+    }
+  };
+};
+
+export const changeActive = (user) => {
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/professionals/changeActive`;
+    try {
+      await axios.put(URL, user, config);
+      return;
+    } catch (e) {
+      throw e.message;
     }
   };
 };

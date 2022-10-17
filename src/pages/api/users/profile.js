@@ -13,7 +13,9 @@ export default async function handler(req, res) {
   if (method === "POST") {
     try {
       const { id } = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
-      let user = await User.findById(id).select("-createdAt -updatedAt");
+      let user = await User.findById(id).select(
+        "-password -token -verified -createdAt -updatedAt"
+      );
       if (!user) res.status(400).json({ msg: "User not found" });
       if (user.isProfessional) {
         let professionalUser;
