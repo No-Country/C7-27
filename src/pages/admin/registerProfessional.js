@@ -498,8 +498,8 @@ export default function RegisterProfessional({
                           </MenuItem>
 
                           <MenuItem value="morning">Morning</MenuItem>
-                          <MenuItem value="evening">Evening</MenuItem>
-                          <MenuItem value="fullday">Fullday</MenuItem>
+                          <MenuItem value="afternoon">Afternoon</MenuItem>
+                          <MenuItem value="fulltime">Fulltime</MenuItem>
                         </TextField>
                       </Grid>
                       {index !== 0 && (
