@@ -25,7 +25,7 @@ export default function AppointmentsPage({ token }) {
   const [isSorted, setIsSorted] = useState(true);
 
 
-  console.log(user?.appointmentsRef)
+  //console.log(user?.appointmentsRef)
 
 
   const hourFormat = (hour) => {

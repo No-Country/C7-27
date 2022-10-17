@@ -18,7 +18,7 @@ import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Calendar from "./calendarTest";
+import Calendar from "./calendar";
 
 export default function NewAppointment({ specialities = [] }) {
   const {
@@ -53,9 +53,8 @@ export default function NewAppointment({ specialities = [] }) {
       async function fetchData() {
         try {
           const result = await axios.post(
-            `${
-              process.env.NEXT_PUBLIC_VERCEL_URL ||
-              process.env.NEXT_PUBLIC_API_URL
+            `${process.env.NEXT_PUBLIC_VERCEL_URL ||
+            process.env.NEXT_PUBLIC_API_URL
             }/api/appointments/availableAppointments`,
             {
               professionalRef: professional,
@@ -74,8 +73,7 @@ export default function NewAppointment({ specialities = [] }) {
 
   const getData = async (speciality = "") => {
     const { data } = await axios.get(
-      `${
-        process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
+      `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
       }/api/professionals/allProfessionals`
     );
 
@@ -91,12 +89,11 @@ export default function NewAppointment({ specialities = [] }) {
     values = {
       ...date,
       professionalRef: values.professionalRef,
-      patientRef: user._id,
+      patientRef: user.patientRef,
+      patientEmail: user.email,
     };
     try {
-      const url = `${
-        process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
-      }/api/appointments/newAppointment`;
+      const url = `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/appointments/newAppointment`;
       await axios.post(url, values);
       reset();
       enqueueSnackbar("Appointment Created", {
@@ -162,6 +159,7 @@ export default function NewAppointment({ specialities = [] }) {
               error={errors.speciality ? true : false}
               onChange={(e) => setSpeciality(e.target.value)}
               MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
+              defaultValue=""
             >
               <MenuItem value="">
                 <em>Select</em>
@@ -192,6 +190,7 @@ export default function NewAppointment({ specialities = [] }) {
                 },
               })}
               error={errors.professionalRef ? true : false}
+              defaultValue=""
             >
               <MenuItem value="">
                 <em>Select</em>
@@ -231,8 +230,7 @@ export default function NewAppointment({ specialities = [] }) {
 
 export async function getServerSideProps(context) {
   const { data } = await axios.get(
-    `${
-      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
+    `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
     }/api/resources/getProfessionalSpecialitiesList`
   );
 
