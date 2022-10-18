@@ -1,5 +1,5 @@
-import NextLink from "next/link";
-import { useState } from "react";
+import NextLink from 'next/link';
+import { useState } from 'react';
 import {
   Checkbox,
   FormControlLabel,
@@ -20,14 +20,14 @@ import {
   MenuItem,
   TextField,
   Link,
-} from "../../components/auth";
-import { useDispatch } from "react-redux";
-import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
-import { Layout } from "../../Layouts";
-import { patientRegister } from "../../store/slices/user";
-import { useSnackbar } from "notistack";
-import axios from "axios";
+} from '../../components/auth';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
+import { Layout } from '../../Layouts';
+import { patientRegister } from '../../store/slices/user';
+import { useSnackbar } from 'notistack';
+import axios from 'axios';
 
 export default function RegisterPage({ insurances = [] }) {
   const {
@@ -50,23 +50,23 @@ export default function RegisterPage({ insurances = [] }) {
   const submit = async (values) => {
     try {
       await dispatch(patientRegister(values));
-      enqueueSnackbar("user registered, please verify your email", {
-        variant: "success",
+      enqueueSnackbar('user registered, please verify your email', {
+        variant: 'success',
         autoHideDuration: 3000,
         anchorOrigin: {
-          vertical: "top",
-          horizontal: "center",
+          vertical: 'top',
+          horizontal: 'center',
         },
       });
       reset();
-      router.push("/");
+      router.push('/');
     } catch (e) {
       enqueueSnackbar(e, {
-        variant: "error",
+        variant: 'error',
         autoHideDuration: 3000,
         anchorOrigin: {
-          vertical: "top",
-          horizontal: "center",
+          vertical: 'top',
+          horizontal: 'center',
         },
       });
       // console.log(e);
@@ -78,9 +78,9 @@ export default function RegisterPage({ insurances = [] }) {
       <Box
         component="form"
         sx={{
-          "& > :not(style)": { m: 1 },
-          width: "100%",
-          maxWidth: "500px",
+          '& > :not(style)': { m: 1 },
+          width: '100%',
+          maxWidth: '500px',
         }}
         noValidate
         autoComplete="off"
@@ -91,12 +91,12 @@ export default function RegisterPage({ insurances = [] }) {
 
           <FormControl>
             <TextField
-              {...register("email", {
-                required: { value: true, message: "This field is required" },
+              {...register('email', {
+                required: { value: true, message: 'This field is required' },
                 pattern: {
                   value:
                     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: "Invalid format",
+                  message: 'Invalid format',
                 },
               })}
               type="email"
@@ -112,11 +112,11 @@ export default function RegisterPage({ insurances = [] }) {
 
           <FormControl>
             <TextField
-              {...register("password", {
-                required: { value: true, message: "This field is required" },
-                minLength: { value: 6, message: "At least 6 characters" },
+              {...register('password', {
+                required: { value: true, message: 'This field is required' },
+                minLength: { value: 6, message: 'At least 6 characters' },
               })}
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               label="Password"
               InputProps={{
                 endAdornment: (
@@ -142,19 +142,19 @@ export default function RegisterPage({ insurances = [] }) {
           </FormControl>
           <Grid
             container
-            width={"100%"}
-            justifyContent={"space-between"}
+            width={'100%'}
+            justifyContent={'space-between'}
             gap={2}
             display="flex"
           >
             <Grid item sx={{ flexGrow: 5 }} xs={12}>
-              <FormControl sx={{ width: "100%" }}>
+              <FormControl sx={{ width: '100%' }}>
                 <TextField
                   // id="component-outlined"
-                  {...register("firstName", {
+                  {...register('firstName', {
                     required: {
                       value: true,
-                      message: "This field is required",
+                      message: 'This field is required',
                     },
                   })}
                   type="text"
@@ -169,13 +169,13 @@ export default function RegisterPage({ insurances = [] }) {
               </FormControl>
             </Grid>
             <Grid item sx={{ flexGrow: 1 }} xs={12}>
-              <FormControl sx={{ width: "100%" }}>
+              <FormControl sx={{ width: '100%' }}>
                 <TextField
                   // id="component-outlined"
-                  {...register("lastName", {
+                  {...register('lastName', {
                     required: {
                       value: true,
-                      message: "This field is required",
+                      message: 'This field is required',
                     },
                   })}
                   type="text"
@@ -190,16 +190,17 @@ export default function RegisterPage({ insurances = [] }) {
               </FormControl>
             </Grid>
             <Grid item sx={{ flexGrow: 1 }}>
-              <FormControl sx={{ width: "100%" }} xs={12} sm={6}>
+              <FormControl sx={{ width: '100%' }} xs={12} sm={6}>
                 <InputLabel id="demo-simple-select-autowidth-label">
                   Medical Insurance
                 </InputLabel>
                 <Select
                   label="Medical Insurance"
-                  {...register("medicalInsurance", {
+                  defaultValue=""
+                  {...register('medicalInsurance', {
                     required: {
                       value: true,
-                      message: "This field is required",
+                      message: 'This field is required',
                     },
                   })}
                   MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
@@ -209,8 +210,8 @@ export default function RegisterPage({ insurances = [] }) {
                     <em>Select</em>
                   </MenuItem>
                   {insurances.map((insurance) => (
-                    <MenuItem key={insurance._id} value={insurance.initials}>
-                      {insurance.initials}
+                    <MenuItem key={insurance?._id} value={insurance?.initials}>
+                      {insurance?.initials}
                     </MenuItem>
                   ))}
                   <MenuItem value="Other">Other</MenuItem>
@@ -223,16 +224,17 @@ export default function RegisterPage({ insurances = [] }) {
               </FormControl>
             </Grid>
             <Grid item sx={{ flexGrow: 1 }} xs={12} sm={6}>
-              <FormControl sx={{ width: "100%" }}>
+              <FormControl sx={{ width: '100%' }}>
                 <InputLabel id="demo-simple-select-autowidth-label">
                   Blood Type
                 </InputLabel>
                 <Select
                   label="Blood Type"
-                  {...register("bloodType", {
+                  defaultValue=""
+                  {...register('bloodType', {
                     required: {
                       value: true,
-                      message: "This field is required",
+                      message: 'This field is required',
                     },
                   })}
                   MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
@@ -262,14 +264,14 @@ export default function RegisterPage({ insurances = [] }) {
           <FormControl xs={12}>
             <TextField
               // id="component-outlined"
-              {...register("phoneNumber", {
+              {...register('phoneNumber', {
                 required: {
                   value: true,
-                  message: "This field is required",
+                  message: 'This field is required',
                 },
                 pattern: {
                   value: /^[0-9]*$/,
-                  message: "Only numbers",
+                  message: 'Only numbers',
                 },
               })}
               type="text"
@@ -287,8 +289,8 @@ export default function RegisterPage({ insurances = [] }) {
             <FormControlLabel
               control={
                 <Checkbox
-                  {...register("check", {
-                    required: { value: true, message: "Accept" },
+                  {...register('check', {
+                    required: { value: true, message: 'Accept' },
                   })}
                   defaultChecked={false}
                 />
