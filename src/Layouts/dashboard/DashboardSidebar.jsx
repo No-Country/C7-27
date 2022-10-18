@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
@@ -7,65 +7,66 @@ import { Logo } from "../../components/ui/Logo";
 import { NavItem } from "./NavItem";
 import { useSelector } from "react-redux";
 
+const Patientitems = [
+  {
+    href: "/dashboard",
+    icon: <Logo fontSize="small" />,
+    title: "Dashboard",
+  },
+  {
+    href: "/dashboard/PatientProfile",
+    icon: <Logo fontSize="small" />,
+    title: "Profile",
+  },
+  {
+    href: "/dashboard/appointments",
+    icon: <Logo fontSize="small" />,
+    title: "Appointments",
+  },
+  {
+    href: "/dashboard/createAppointment",
+    icon: <Logo fontSize="small" />,
+    title: "New Appointment",
+  },
+];
+
+const Professionalitems = [
+  {
+    href: "/dashboard",
+    icon: <Logo fontSize="small" />,
+    title: "Dashboard",
+  },
+  {
+    href: "/dashboard/ProfessionalProfile",
+    icon: <Logo fontSize="small" />,
+    title: "Profile",
+  },
+  {
+    href: "/dashboard/appointments",
+    icon: <Logo fontSize="small" />,
+    title: "Appointments",
+  },
+  {
+    href: "/dashboard/clinicalHistory",
+    icon: <Logo fontSize="small" />,
+    title: "Clinical History",
+  },
+  {
+    href: "/dashboard/updateClinicalHistory",
+    icon: <Logo fontSize="small" />,
+    title: "Update Clinical History",
+  },
+];
+
 export const DashboardSidebar = (props) => {
   const { user } = useSelector((state) => state.users);
   const { open, onClose } = props;
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
     defaultMatches: true,
     noSsr: false,
   });
-
-  const Patientitems = [
-    {
-      href: "/dashboard",
-      icon: <Logo fontSize="small" />,
-      title: "Dashboard",
-    },
-    {
-      href: "/dashboard/PatientProfile",
-      icon: <Logo fontSize="small" />,
-      title: "Profile",
-    },
-    {
-      href: "/dashboard/appointments",
-      icon: <Logo fontSize="small" />,
-      title: "Appointments",
-    },
-    {
-      href: "/dashboard/createAppointment",
-      icon: <Logo fontSize="small" />,
-      title: "New Appointment",
-    },
-  ];
-
-  const Professionalitems = [
-    {
-      href: "/dashboard",
-      icon: <Logo fontSize="small" />,
-      title: "Dashboard",
-    },
-    {
-      href: "/dashboard/ProfessionalProfile",
-      icon: <Logo fontSize="small" />,
-      title: "Profile",
-    },
-    {
-      href: "/dashboard/appointments",
-      icon: <Logo fontSize="small" />,
-      title: "Appointments",
-    },
-    {
-      href: "/dashboard/clinicalHistory",
-      icon: <Logo fontSize="small" />,
-      title: "Clinical History",
-    },
-    {
-      href: "/dashboard/updateClinicalHistory",
-      icon: <Logo fontSize="small" />,
-      title: "Update Clinical History",
-    },
-  ];
 
   const adminItems = [
     {
@@ -83,7 +84,16 @@ export const DashboardSidebar = (props) => {
       icon: <Logo fontSize="small" />,
       title: "Professionals",
     },
+    {
+        href: "/dashboard/edit",
+        icon: <Logo fontSize="small" />,
+        title: "Edit Web",
+    },
   ];
+
+  useEffect(() => {
+    if (user) setLoading(false);
+  }, [user]);
 
   useEffect(
     () => {
@@ -165,21 +175,25 @@ export const DashboardSidebar = (props) => {
             my: 3,
           }}
         />
-        <Box sx={{ flexGrow: 1 }}>
-          {itemsArray().map((item) => (
+        {loading ? (
+          <p></p>
+        ) : (
+          <Box sx={{ flexGrow: 1 }}>
+            {itemsArray().map((item) => (
+              <NavItem
+                key={item.title}
+                //   icon={item.icon}
+                href={item.href}
+                title={item.title}
+              />
+            ))}
             <NavItem
-              key={item.title}
-              //   icon={item.icon}
-              href={item.href}
-              title={item.title}
+              key="Change Password"
+              title="Change Password"
+              href={`/${user?._id}/NewPassword`}
             />
-          ))}
-          <NavItem
-            key="Change Password"
-            title="Change Password"
-            href={`/${user?._id}/NewPassword`}
-          />
-        </Box>
+          </Box>
+        )}
       </Box>
     </>
   );

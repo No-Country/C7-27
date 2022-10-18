@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
+import { useRef, useState } from "react";
+import PropTypes from "prop-types";
+import styled from "@emotion/styled";
 import {
   AppBar,
   Avatar,
@@ -8,8 +8,8 @@ import {
   IconButton,
   Toolbar,
   MenuIcon,
-} from '../../components/auth';
-import { AccountPopover } from './AccountPopover';
+} from "../../components/auth";
+import { AccountPopover } from "./AccountPopover";
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -29,7 +29,7 @@ export const DashboardNavbar = (props) => {
             lg: 280,
           },
           width: {
-            lg: 'calc(100% - 280px)',
+            lg: "calc(100% - 280px)",
           },
         }}
         {...other}
@@ -46,8 +46,8 @@ export const DashboardNavbar = (props) => {
             onClick={onSidebarOpen}
             sx={{
               display: {
-                xs: 'inline-flex',
-                lg: 'none',
+                xs: "inline-flex",
+                lg: "none",
               },
             }}
           >
@@ -59,7 +59,7 @@ export const DashboardNavbar = (props) => {
             onClick={() => setOpenAccountPopover(true)}
             ref={settingsRef}
             sx={{
-              cursor: 'pointer',
+              cursor: "pointer",
               height: 40,
               width: 40,
               ml: 1,

@@ -1,6 +1,7 @@
 import { dbConnect } from "../../../config/dbConnect";
-import User from "../../../models/User";
 import Professional from "../../../models/Professional";
+import User from "../../../models/User";
+import verificationEmail from "../utils/verificationEmail";
 
 dbConnect();
 
@@ -40,6 +41,8 @@ export default async function handler(req, res) {
     });
 
     newUser.professionalRef = newProfessional._id;
+
+    verificationEmail(newUser._id, newUser.email);
 
     const savedUser = await newUser.save();
     await newProfessional.save();

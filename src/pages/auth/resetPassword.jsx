@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
 export default function ResetPasswordPage() {
+
   const {
     register,
     handleSubmit,

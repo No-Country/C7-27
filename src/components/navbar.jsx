@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import {
   AppBar,
@@ -8,22 +8,16 @@ import {
   Tab,
   Tabs,
   ApartmentIcon,
-} from '../components/auth';
+} from "./auth";
 
-import Link from 'next/link';
-import { Logo } from './ui/Logo';
+import Link from "next/link";
+import { Logo } from "./ui/Logo";
 
 export default function NavBar() {
   return (
     <AppBar position="static">
-      <Toolbar sx={{ justifyContent: 'space-between' }}>
+      <Toolbar sx={{ justifyContent: "space-between" }}>
         <Logo color="white" />
-        <Tabs value={false} sx={{ marginRight: '20px' }} textColor="inherit">
-          <Tab label="section 1" />
-          <Tab label="section 2" />
-          <Tab label="section 3" />
-          <Tab label="section 4" />
-        </Tabs>
         <Button variant="contained">
           <Link href="/auth/login">Login</Link>
         </Button>

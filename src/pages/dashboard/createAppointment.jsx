@@ -95,7 +95,6 @@ export default function NewAppointment() {
 
   const getData = async (speciality = "") => {
     const { data } = await axios.get(`/api/professionals/allProfessionals`);
-
     data = data.filter(
       (professional) =>
         professional.professionalRef.speciality.toLowerCase() ===

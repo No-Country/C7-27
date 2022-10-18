@@ -17,15 +17,31 @@ import { DashboardLayout } from '../../Layouts/dashboard/DashboardLayout';
 import { SeverityPill } from '../../components/dashboard';
 import { useSelector } from 'react-redux';
 import { capitalize } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { compareDesc } from 'date-fns';
 
 export default function AppointmentsPage({ token }) {
   const { user } = useSelector((state) => state.users);
 
   const [isSorted, setIsSorted] = useState(true);
+  const [ appointmentsList, setAppointmentsList ] = useState([])
 
+  useEffect(() => {
 
-  //console.log(user?.appointmentsRef)
+    const getDayMonthYear = (appointment) => {
+        return appointment.date.split("/")
+    }
+
+    const appointmentsArray = user?.appointmentsRef ? [...user.appointmentsRef] : []
+    appointmentsArray?.sort((appointmentA, appointmentB) => {
+        const [dayA, monthA, yearA] = getDayMonthYear(appointmentA)
+        const [dayB, monthB, yearB] = getDayMonthYear(appointmentB)
+        const appointmentADate = new Date(yearA, monthA - 1, dayA)
+        const appointmentBDate = new Date(yearB, monthB - 1, dayB)
+        return compareDesc(appointmentADate, appointmentBDate)
+    })
+    setAppointmentsList(appointmentsArray)
+  },[user])
 
 
   const hourFormat = (hour) => {
@@ -75,8 +91,7 @@ export default function AppointmentsPage({ token }) {
                       </TableHead>
                       <TableBody>
                         {isSorted
-                          ? user?.appointmentsRef
-                            ?.map((appointment) => (
+                          ? appointmentsList.map((appointment) => (
                               <TableRow hover key={appointment._id}>
                                 <TableCell>
                                   {`${capitalize(
@@ -109,7 +124,7 @@ export default function AppointmentsPage({ token }) {
                               </TableRow>
                             ))
                             .reverse()
-                          : user?.appointmentsRef?.map((appointment) => (
+                          : appointmentsList.map((appointment) => (
                             <TableRow hover key={appointment._id}>
                               <TableCell>
                                 {`${capitalize(
