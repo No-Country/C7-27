@@ -18,7 +18,7 @@ const initialState = {
   webName: "",
 };
 
-export default function editWeb() {
+export default function EditWeb() {
   const {
     register,
     reset,
