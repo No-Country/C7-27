@@ -83,6 +83,11 @@ export const DashboardSidebar = (props) => {
       icon: <Logo fontSize="small" />,
       title: "Professionals",
     },
+    {
+        href: "/dashboard/edit",
+        icon: <Logo fontSize="small" />,
+        title: "Edit Web",
+    },
   ];
 
   useEffect(

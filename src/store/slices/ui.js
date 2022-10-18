@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const uiSlice = createSlice({
   name: 'ui',
   initialState: {
-    name: 'Hospital Logo',
+    name: 'MediApp',
   },
   reducers: {
     update: (state, action) => {
