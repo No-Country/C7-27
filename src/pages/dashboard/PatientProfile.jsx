@@ -28,7 +28,7 @@ const initialState = {
   bloodType: "",
 };
 
-export default function PatientProfile({ insurances }) {
+export default function PatientProfile({ insurances = [] }) {
   const {
     register,
     reset,

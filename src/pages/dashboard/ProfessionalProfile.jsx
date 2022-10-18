@@ -26,7 +26,7 @@ const initialState = {
   speciality: "",
 };
 
-export default function ProfessionalProfile({ specialities }) {
+export default function ProfessionalProfile({ specialities = [] }) {
   const {
     register,
     reset,
