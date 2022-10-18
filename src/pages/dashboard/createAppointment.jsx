@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Calendar from "./calendar";
 
-export default function NewAppointment({ specialities = [] }) {
+export default function NewAppointment() {
   const {
     register,
     handleSubmit,
@@ -40,6 +40,30 @@ export default function NewAppointment({ specialities = [] }) {
   const [availability, setAvailability] = useState([]);
   const [appointmentsList, setAppointmentsList] = useState([]);
   const [date, setDate] = useState({ date: "", hour: "" });
+  const [specialities, setSpecialities] = useState([]);
+
+
+  useEffect(() => {
+    const getResources = async () => {
+      const { data: specialitiesList } = await axios.get(
+        `/api/resources/getProfessionalSpecialitiesList`
+      );
+
+      specialitiesList.sort(function (a, b) {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      });
+
+      setSpecialities(specialitiesList);
+    };
+
+    getResources();
+  }, []);
 
   useEffect(() => {
     getData(speciality);
@@ -53,10 +77,7 @@ export default function NewAppointment({ specialities = [] }) {
       async function fetchData() {
         try {
           const result = await axios.post(
-            `${
-              process.env.NEXT_PUBLIC_VERCEL_URL ||
-              process.env.NEXT_PUBLIC_API_URL
-            }/api/appointments/availableAppointments`,
+            `/api/appointments/availableAppointments`,
             {
               professionalRef: professional,
             }
@@ -73,12 +94,7 @@ export default function NewAppointment({ specialities = [] }) {
   }, [professional]);
 
   const getData = async (speciality = "") => {
-    const { data } = await axios.get(
-      `${
-        process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
-      }/api/professionals/allProfessionals`
-    );
-
+    const { data } = await axios.get(`/api/professionals/allProfessionals`);
     data = data.filter(
       (professional) =>
         professional.professionalRef.speciality.toLowerCase() ===
@@ -95,9 +111,7 @@ export default function NewAppointment({ specialities = [] }) {
       patientEmail: user.email,
     };
     try {
-      const url = `${
-        process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
-      }/api/appointments/newAppointment`;
+      const url = `/api/appointments/newAppointment`;
       await axios.post(url, values);
       reset();
       enqueueSnackbar("Appointment Created", {
@@ -230,28 +244,4 @@ export default function NewAppointment({ specialities = [] }) {
       </Box>
     </DashboardLayout>
   );
-}
-
-export async function getStaticProps(context) {
-  const { data } = await axios.get(
-    `${
-      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
-    }/api/resources/getProfessionalSpecialitiesList`
-  );
-
-  data.sort(function (a, b) {
-    if (a.name < b.name) {
-      return -1;
-    }
-    if (a.name > b.name) {
-      return 1;
-    }
-    return 0;
-  });
-
-  return {
-    props: {
-      specialities: data,
-    },
-  };
 }

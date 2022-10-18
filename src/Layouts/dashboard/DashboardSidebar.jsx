@@ -189,7 +189,7 @@ export const DashboardSidebar = (props) => {
             ))}
             <NavItem
               key="Change Password"
-              title="Changed Password"
+              title="Change Password"
               href={`/${user?._id}/NewPassword`}
             />
           </Box>

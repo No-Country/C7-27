@@ -19,6 +19,7 @@ import {
 import { Layout } from "../../Layouts";
 import { changePassword } from "../../store/slices/user";
 
+
 export default function NewPassword() {
   const {
     register,
