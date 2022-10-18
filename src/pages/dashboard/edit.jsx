@@ -27,7 +27,7 @@ export default function EditWeb() {
   } = useForm({
     defaultValues: useMemo(() => {
       return initialState;
-    }, [initialState]),
+    }, []),
   });
 
   const [update, setUpdate] = useState(false);
@@ -38,7 +38,7 @@ export default function EditWeb() {
     reset({
       webName: name,
     });
-  }, []);
+  }, [name, reset]);
 
   const submit = async (values) => {
     if (update) {
