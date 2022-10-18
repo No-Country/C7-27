@@ -29,7 +29,7 @@ export default function ResetPasswordPage() {
   const submit = async (values) => {
     try {
       await dispatch(forgetPassword(values));
-      enqueueSnackbar("Email sended", {
+      enqueueSnackbar("Email sent", {
         variant: "success",
         autoHideDuration: 3000,
         anchorOrigin: {
