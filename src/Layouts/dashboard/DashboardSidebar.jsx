@@ -176,7 +176,7 @@ export const DashboardSidebar = (props) => {
           ))}
           <NavItem
             key="Change Password"
-            title={process.env.NEXT_PUBLIC_VERCEL_URL}
+            title="Change Password"
             href={`/${user?._id}/NewPassword`}
           />
         </Box>
