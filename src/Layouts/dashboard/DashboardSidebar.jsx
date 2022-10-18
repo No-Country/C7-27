@@ -74,6 +74,11 @@ const adminItems = [
     icon: <Logo fontSize="small" />,
     title: "Professionals",
   },
+  {
+    href: "/dashboard/edit",
+    icon: <Logo fontSize="small" />,
+    title: "Edit Web",
+  },
 ];
 
 export const DashboardSidebar = (props) => {
