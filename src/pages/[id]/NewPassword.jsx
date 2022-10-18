@@ -19,7 +19,7 @@ import {
 import { Layout } from "../../Layouts";
 import { changePassword } from "../../store/slices/user";
 
-export default function newPassword({ id }) {
+export default function NewPassword() {
   const {
     register,
     handleSubmit,
@@ -41,6 +41,8 @@ export default function newPassword({ id }) {
 
   const submit = async (values) => {
     const { password, repeatPassword } = values;
+    const { id } = router.query;
+
     if (password !== repeatPassword) {
       enqueueSnackbar("Passwords must be the same", {
         variant: "error",
@@ -160,12 +162,4 @@ export default function newPassword({ id }) {
       </Box>
     </Layout>
   );
-}
-
-export async function getServerSideProps({ query: { id } }) {
-  return {
-    props: {
-      id,
-    },
-  };
 }

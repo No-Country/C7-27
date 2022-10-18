@@ -1,5 +1,5 @@
 import { Box } from "../components/auth";
-import NavBar from "../components/navbar";
+import NavBar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Data from "../components/Data";
 import AppFooter from "../components/Footer";

@@ -12,7 +12,7 @@ const gridStyle = {
   "& .MuiDataGrid-main": { borderRadius: 2 },
   "& .MuiDataGrid-virtualScrollerRenderZone": {
     "& .MuiDataGrid-row": {
-      "&:nth-child(2n)": { backgroundColor: "rgba(235, 235, 235, .7)" },
+      "&:nth-of-type(2n)": { backgroundColor: "rgba(235, 235, 235, .7)" },
     },
   },
   "& .MuiDataGrid-columnHeaders": {
@@ -76,7 +76,6 @@ export default function AllProfessionals({ professionals }) {
     },
     {
       field: "action",
-      type: "action",
       sortable: false,
       menubar: false,
       headerName: "Active",

@@ -555,7 +555,7 @@ export default function RegisterProfessional({
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const { data: insurances } = await axios.get(
     `${
       process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL

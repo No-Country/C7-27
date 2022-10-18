@@ -132,27 +132,6 @@ export default function LoginPage() {
             )}
           </FormControl>
 
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  {...register("check", {
-                    required: { value: true, message: "Accept" },
-                  })}
-                />
-              }
-              checked={check}
-              onClick={() => setCheck(!check)}
-              label="i'm not a robot"
-            />
-
-            {errors.check && (
-              <Typography variant="body2" component="p" color="error">
-                {errors.check.message}
-              </Typography>
-            )}
-          </FormGroup>
-
           <Button type="submit" variant="contained">
             Sign in
           </Button>
@@ -160,7 +139,7 @@ export default function LoginPage() {
             <NextLink passHref href={"/auth/register"}>
               <Link>Are you new in Hospital Name?</Link>
             </NextLink>
-            <NextLink passHref href={"/auth/resetPassword"}>
+            <NextLink passHref href={"/auth/ResetPassword"}>
               <Link>Forgot password?</Link>
             </NextLink>
           </Stack>
