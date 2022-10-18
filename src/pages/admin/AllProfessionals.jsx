@@ -123,7 +123,7 @@ export default function AllProfessionals({ professionals }) {
 
 export async function getServerSideProps(context) {
   const { data } = await axios.get(
-    `${rocess.env.NEXT_PUBLIC_VERCEL_URL}/api/professionals/allProfessionals`
+    `/api/professionals/allProfessionals`
   );
   const professionals = data.map((p) => p.professionalRef);
 

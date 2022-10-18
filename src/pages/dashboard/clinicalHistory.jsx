@@ -53,7 +53,7 @@ export default function GetClinicHistories() {
     useEffect(() => {
         const getPatientList = async () => {
             const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/resources/getPatientList`
+                `/api/resources/getPatientList`
             );
 
             const newList = []
@@ -68,7 +68,7 @@ export default function GetClinicHistories() {
 
     const submit = async () => {
         try {
-            const url = `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/clinicHistory/getClinicHistory`;
+            const url = `/api/clinicHistory/getClinicHistory`;
 
             const response = await axios.post(url, { clinicHistoryRef: patientClinicalRef });
 
