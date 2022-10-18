@@ -121,7 +121,7 @@ export default function AllProfessionals({ professionals }) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { data } = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}/api/professionals/allProfessionals`
   );
