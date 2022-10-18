@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Calendar from "./calendar";
 
-export default function NewAppointment({ specialities = [] }) {
+export default function NewAppointment() {
   const {
     register,
     handleSubmit,
@@ -40,6 +40,30 @@ export default function NewAppointment({ specialities = [] }) {
   const [availability, setAvailability] = useState([]);
   const [appointmentsList, setAppointmentsList] = useState([]);
   const [date, setDate] = useState({ date: "", hour: "" });
+  const [specialities, setSpecialities] = useState([]);
+
+
+  useEffect(() => {
+    const getResources = async () => {
+      const { data: specialitiesList } = await axios.get(
+        `/api/resources/getProfessionalSpecialitiesList`
+      );
+
+      specialitiesList.sort(function (a, b) {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      });
+
+      setSpecialities(specialitiesList);
+    };
+
+    getResources();
+  }, []);
 
   useEffect(() => {
     getData(speciality);
@@ -70,9 +94,7 @@ export default function NewAppointment({ specialities = [] }) {
   }, [professional]);
 
   const getData = async (speciality = "") => {
-    const { data } = await axios.get(
-      `/api/professionals/allProfessionals`
-    );
+    const { data } = await axios.get(`/api/professionals/allProfessionals`);
 
     data = data.filter(
       (professional) =>
@@ -223,26 +245,4 @@ export default function NewAppointment({ specialities = [] }) {
       </Box>
     </DashboardLayout>
   );
-}
-
-export async function getServerSideProps(context) {
-  const { data } = await axios.get(
-    `/api/resources/getProfessionalSpecialitiesList`
-  );
-
-  data.sort(function (a, b) {
-    if (a.name < b.name) {
-      return -1;
-    }
-    if (a.name > b.name) {
-      return 1;
-    }
-    return 0;
-  });
-
-  return {
-    props: {
-      specialities: data,
-    },
-  };
 }

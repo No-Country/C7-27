@@ -1,7 +1,7 @@
 import { Checkbox } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
 import { changeActive } from "../../store/slices/user";
@@ -12,7 +12,7 @@ const gridStyle = {
   "& .MuiDataGrid-main": { borderRadius: 2 },
   "& .MuiDataGrid-virtualScrollerRenderZone": {
     "& .MuiDataGrid-row": {
-      "&:nth-child(2n)": { backgroundColor: "rgba(235, 235, 235, .7)" },
+      "&:nth-of-type(2n)": { backgroundColor: "rgba(235, 235, 235, .7)" },
     },
   },
   "& .MuiDataGrid-columnHeaders": {
@@ -29,11 +29,21 @@ const gridStyle = {
   },
 };
 
-export default function AllProfessionals({ professionals = [] }) {
-  console.log(professionals);
+export default function AllProfessionals() {
+  const [allProfessionals, setAllProfessional] = useState([]);
   const dispatch = useDispatch();
 
-  const [allProfessionals, setAllProfessional] = useState(professionals);
+  useEffect(() => {
+    const getProfessionalsList = async () => {
+      const { data } = await axios.get(`/api/professionals/allProfessionals`);
+      const professionals = data.map((p) => p.professionalRef);
+
+      setAllProfessional(professionals);
+    };
+    getProfessionalsList();
+  }, []);
+
+  //console.log(professionals);
 
   const handleChangeActive = async (row) => {
     const professional = allProfessionals.filter((p) => p === row)[0];
@@ -76,7 +86,7 @@ export default function AllProfessionals({ professionals = [] }) {
     },
     {
       field: "action",
-      type: "action",
+      type: "string",
       sortable: false,
       menubar: false,
       headerName: "Active",
@@ -97,7 +107,7 @@ export default function AllProfessionals({ professionals = [] }) {
 
   return (
     <DashboardLayout>
-      {professionals ? (
+      {allProfessionals.length > 0 ? (
         <div
           style={{
             width: "100%",
@@ -111,6 +121,7 @@ export default function AllProfessionals({ professionals = [] }) {
             autoHeight
             columns={columns}
             rows={allProfessionals}
+            rowsPerPageOptions={[5]}
             pageSize={5}
             getRowId={(row) => row._id}
             sx={gridStyle}
@@ -121,15 +132,3 @@ export default function AllProfessionals({ professionals = [] }) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/professionals/allProfessionals`
-  );
-  const professionals = data.map((p) => p.professionalRef);
-
-  return {
-    props: {
-      professionals,
-    },
-  };
-}

@@ -90,17 +90,3 @@ export default function DashboardMainPage({ token }) {
   );
 }
 
-// export const getServerSideProps = async ({ req, res }) => {
-//   const { token } = req.cookies;
-//   if (token) {
-//     return {
-//       props: {
-//         token,
-//       },
-//     };
-//   } else {
-//     return {
-//       props: {},
-//     };
-//   }
-// };

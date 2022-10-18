@@ -28,7 +28,7 @@ const initialState = {
   bloodType: "",
 };
 
-export default function PatientProfile({ insurances = [] }) {
+export default function PatientProfile() {
   const {
     register,
     reset,
@@ -46,6 +46,30 @@ export default function PatientProfile({ insurances = [] }) {
   const [update, setUpdate] = useState(false);
   const [blood, setBlood] = useState("");
   const [insurance, setInsurance] = useState("");
+  const [insurances, setInsurances] = useState([]);
+
+
+  useEffect(() => {
+    const getResources = async () => {
+      const { data: insurancesList } = await axios.get(
+        `/api/resources/getMedicalInsuranceList`
+      );
+
+      insurancesList.sort(function (a, b) {
+        if (a.initials < b.initials) {
+          return -1;
+        }
+        if (a.initials > b.initials) {
+          return 1;
+        }
+        return 0;
+      });
+
+      setInsurances(insurancesList);
+    };
+
+    getResources();
+  }, []);
 
   useEffect(() => {
     reset({
@@ -327,26 +351,4 @@ export default function PatientProfile({ insurances = [] }) {
       </Box>
     </DashboardLayout>
   );
-}
-
-export async function getServerSideProps(context) {
-  const { data: insurances } = await axios.get(
-    `/api/resources/getMedicalInsuranceList`
-  );
-
-  insurances.sort(function (a, b) {
-    if (a.initials < b.initials) {
-      return -1;
-    }
-    if (a.initials > b.initials) {
-      return 1;
-    }
-    return 0;
-  });
-
-  return {
-    props: {
-      insurances,
-    },
-  };
 }
