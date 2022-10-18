@@ -13,7 +13,7 @@ import { forgetPassword } from "../../store/slices/user";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
-export default function restPasswordPage() {
+export default function RestPasswordPage() {
   const {
     register,
     handleSubmit,
