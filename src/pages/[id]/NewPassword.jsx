@@ -19,7 +19,7 @@ import {
 import { Layout } from "../../Layouts";
 import { changePassword } from "../../store/slices/user";
 
-export default function newPassword({ id }) {
+export default function NewPassword({ id }) {
   const {
     register,
     handleSubmit,
