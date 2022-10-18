@@ -275,7 +275,7 @@ export default function ProfessionalProfile({ specialities }) {
 
 export async function getServerSideProps(context) {
   const { data: specialities } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
+    `${rocess.env.NEXT_PUBLIC_VERCEL_URL}/api/resources/getProfessionalSpecialitiesList`
   );
 
   specialities.sort(function (a, b) {

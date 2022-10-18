@@ -25,9 +25,7 @@ export const actionUserLogin = (user) => {
         "Content-Type": "application/json",
       },
     };
-    const URL = `${
-      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
-    }/api/loginUser`;
+    const URL = `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/loginUser`;
     try {
       const { data } = await axios.post(URL, user, config);
       return data.token;
@@ -45,9 +43,7 @@ export const actionUserLogout = () => {
         "Content-Type": "application/json",
       },
     };
-    const URL = `${
-      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
-    }/api/users/logout`;
+    const URL = `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/users/logout`;
     try {
       await axios.get(URL, config);
       dispatch(logout());
@@ -64,9 +60,7 @@ export const patientRegister = (user) => {
         "Content-Type": "application/json",
       },
     };
-    const URL = `${
-      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
-    }/api/registerPatient`;
+    const URL = `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/registerPatient`;
     try {
       await axios.post(URL, user, config);
       return;
@@ -83,9 +77,7 @@ export const professionalRegister = (user) => {
         "Content-Type": "application/json",
       },
     };
-    const URL = `${
-      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
-    }/api/users/registerProfessional`;
+    const URL = `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/users/registerProfessional`;
     try {
       const res = await axios.post(URL, user, config);
       return;
@@ -102,9 +94,7 @@ export const actionAuthenticateUser = (token) => {
         "Content-Type": "application/json",
       },
     };
-    const URL = `${
-      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
-    }/api/users/profile`;
+    const URL = `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/users/profile`;
     try {
       const { data } = await axios.post(URL, { token }, config);
       dispatch(login(data));
@@ -123,7 +113,7 @@ export const updateProfile = (user) => {
       },
     };
 
-    const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/users/update`;
+    const URL = `${rocess.env.NEXT_PUBLIC_VERCEL_URL}/api/users/update`;
     try {
       const { data } = await axios.put(URL, user, config);
       dispatch(login(data));
@@ -141,7 +131,7 @@ export const changeActive = (user) => {
       },
     };
 
-    const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/professionals/changeActive`;
+    const URL = `${rocess.env.NEXT_PUBLIC_VERCEL_URL}/api/professionals/changeActive`;
     try {
       await axios.put(URL, user, config);
       return;
@@ -159,7 +149,7 @@ export const forgetPassword = (values) => {
       },
     };
 
-    const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/users/forgetPassword`;
+    const URL = `${rocess.env.NEXT_PUBLIC_VERCEL_URL}/api/users/forgetPassword`;
     try {
       await axios.post(URL, values, config);
       return;
@@ -177,7 +167,7 @@ export const changePassword = (values) => {
       },
     };
 
-    const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/users/changePassword`;
+    const URL = `${rocess.env.NEXT_PUBLIC_VERCEL_URL}/api/users/changePassword`;
     try {
       const user = await axios.put(URL, values, config);
       return;

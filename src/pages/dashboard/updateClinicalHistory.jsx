@@ -38,7 +38,7 @@ export default function UpdateClinicHistory() {
     useEffect(() => {
         const getPatientList = async () => {
             const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/resources/getPatientList`
+                `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/resources/getPatientList`
             );
 
             const newList = []
@@ -64,7 +64,7 @@ export default function UpdateClinicHistory() {
                 observations: observations
             }
 
-            const url = `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/clinicHistory/updateClinicHistory`;
+            const url = `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/clinicHistory/updateClinicHistory`;
             const response = await axios.put(url, updatedClinicHistory);
 
             if (response.status == 201) {

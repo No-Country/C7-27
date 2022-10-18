@@ -331,7 +331,7 @@ export default function PatientProfile({ insurances }) {
 
 export async function getServerSideProps(context) {
   const { data: insurances } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getMedicalInsuranceList`
+    `${rocess.env.NEXT_PUBLIC_VERCEL_URL}/api/resources/getMedicalInsuranceList`
   );
 
   insurances.sort(function (a, b) {

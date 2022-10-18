@@ -53,9 +53,7 @@ export default function NewAppointment({ specialities = [] }) {
       async function fetchData() {
         try {
           const result = await axios.post(
-            `${process.env.NEXT_PUBLIC_VERCEL_URL ||
-            process.env.NEXT_PUBLIC_API_URL
-            }/api/appointments/availableAppointments`,
+            `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/appointments/availableAppointments`,
             {
               professionalRef: professional,
             }
@@ -73,8 +71,7 @@ export default function NewAppointment({ specialities = [] }) {
 
   const getData = async (speciality = "") => {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
-      }/api/professionals/allProfessionals`
+      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/professionals/allProfessionals`
     );
 
     data = data.filter(
@@ -93,7 +90,7 @@ export default function NewAppointment({ specialities = [] }) {
       patientEmail: user.email,
     };
     try {
-      const url = `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL}/api/appointments/newAppointment`;
+      const url = `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/appointments/newAppointment`;
       await axios.post(url, values);
       reset();
       enqueueSnackbar("Appointment Created", {
@@ -230,8 +227,7 @@ export default function NewAppointment({ specialities = [] }) {
 
 export async function getServerSideProps(context) {
   const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
-    }/api/resources/getProfessionalSpecialitiesList`
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/resources/getProfessionalSpecialitiesList`
   );
 
   data.sort(function (a, b) {

@@ -19,7 +19,7 @@ export default function NavBar() {
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Logo color="white" />
         <Tabs value={false} sx={{ marginRight: '20px' }} textColor="inherit">
-          <Tab label={process.env.NEXT_PUBLIC_VERCEL_URL} />
+          <Tab label="section 1" />
           <Tab label="section 2" />
           <Tab label="section 3" />
           <Tab label="section 4" />

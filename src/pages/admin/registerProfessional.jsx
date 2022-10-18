@@ -557,15 +557,11 @@ export default function RegisterProfessional({
 
 export async function getServerSideProps(context) {
   const { data: insurances } = await axios.get(
-    `${
-      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
-    }/api/resources/getMedicalInsuranceList`
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/resources/getMedicalInsuranceList`
   );
 
   const { data: specialities } = await axios.get(
-    `${
-      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
-    }/api/resources/getProfessionalSpecialitiesList`
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/resources/getProfessionalSpecialitiesList`
   );
 
   insurances.sort(function (a, b) {
