@@ -65,7 +65,7 @@ export const Layout = ({ children }) => {
         maxHeight={{ xs: "30vh", md: "100vh" }}
         width={"100%"}
         sx={{
-          backgroundImage: "url(/images/layout.avif)",
+          backgroundImage: "url(/images/hospital2.png)",
           backgroundSize: "calc(100vh - 16vh)",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",

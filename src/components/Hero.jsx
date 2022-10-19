@@ -23,15 +23,18 @@ export default function NavBar() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          gap: 3,
+          paddingLeft: {
+            lg:15
+          },
+          gap: 2,
         }}
       >
-        <Typography variant="h4">Online Appointments</Typography>
-        <Typography variant="h5">
+        <Typography variant="h3">Online Appointments</Typography>
+        <Typography variant="h6">
           MediApp is an online medical appointment service for connecting
           patients and healthcare professionales.
         </Typography>
-        <Typography variant="h5">
+        <Typography variant="h6">
           You can choose your preferred health insurance and obtain a list of
           professionals that work with it. We have a vast nmber of different
           medical specialities to cover all your needs
@@ -48,12 +51,13 @@ export default function NavBar() {
         md={5}
         sx={{
           position: "relative",
-          minHeight: "400px",
+          height: "400px",
           display: { xs: "none", md: "block" },
+          paddingRight: 15,
         }}
       >
         <Image
-          src="/images/landing.webp"
+          src="/images/hospital.jpg"
           alt="Image"
           layout="fill"
           width="100%"

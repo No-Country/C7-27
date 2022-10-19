@@ -5,23 +5,40 @@ import {
   Stack,
   Typography,
   ApartmentIcon,
+  EscalatorWarningIcon,
+  MedicalServicesIcon
 } from "../components/auth";
 
 export default function Data() {
   const dataArray = [
     {
       number: "+100",
-      user: "doctors",
+      user: "Doctors",
+      icon: "doctor"
     },
     {
       number: "+500",
-      user: "Patiets",
+      user: "Patients",
+      icon: "patient"
     },
     {
       number: "+50",
       user: "Specialities",
+      icon: "speciality"
     },
   ];
+
+  function Icon(icon) {
+    if (icon == "doctor") {
+      return <MedicalServicesIcon sx={{ fontSize: 70 }}/>;
+    }
+    if (icon == "patient") {
+      return <EscalatorWarningIcon sx={{ fontSize: 70 }}/>;
+    }
+    if (icon == "speciality") {
+      return <ApartmentIcon sx={{ fontSize: 70 }}/>;
+    }
+  }
 
   return (
     <Box>
@@ -49,7 +66,7 @@ export default function Data() {
               spacing={1}
               sx={{ width: { xs: "200px", sm: "100%" } }}
             >
-              <ApartmentIcon sx={{ fontSize: 70 }} />
+              {Icon(data.icon)}
               <Stack>
                 <Typography variant="h5">{data.number}</Typography>
                 <Typography variant="h5">{data.user}</Typography>

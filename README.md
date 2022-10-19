@@ -61,7 +61,13 @@
 <h2>Usage</h2>
 </div>
 
-This app uses `Nodemailer` for email notifications, configure the SMTP transport options for your email host here `src/utils/sendEmail.js`
+First clone our repository with `git clone https://github.com/No-Country/C7-27.git` then you must have to configure the environment variables described before.
+&nbsp;
+
+This app uses `Nodemailer` for email notifications, configure the SMTP transport options for your email host here `src/utils/sendEmail.js` 
+&nbsp;
+
+Finally run the command `npm run build` and wait for the compile process to complete, once finished you can run `npm start` and use the app at `http://localhost:3000/`.
 
 <br>
 
