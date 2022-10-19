@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 export default function DashboardMainPage({ token }) {
   const { user } = useSelector((state) => state.users);
 
+
   const patientDashboard = (
     <>
       <Grid item xl={4} lg={4} sm={6} xs={12}>

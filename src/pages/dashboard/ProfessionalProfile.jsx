@@ -26,7 +26,7 @@ const initialState = {
   speciality: "",
 };
 
-export default function ProfessionalProfile({ specialities }) {
+export default function ProfessionalProfile() {
   const {
     register,
     reset,
@@ -43,6 +43,30 @@ export default function ProfessionalProfile({ specialities }) {
   const { user } = useSelector((state) => state.users);
   const [update, setUpdate] = useState(false);
   const [speciality, setSpeciality] = useState("");
+  const [specialities, setSpecialities] = useState([]);
+
+
+  useEffect(() => {
+    const getResources = async () => {
+      const { data: specialitiesList } = await axios.get(
+        `/api/resources/getProfessionalSpecialitiesList`
+      );
+
+      specialitiesList.sort(function (a, b) {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      });
+
+      setSpecialities(specialitiesList);
+    };
+
+    getResources();
+  }, []);
 
   useEffect(() => {
     reset({
@@ -271,26 +295,4 @@ export default function ProfessionalProfile({ specialities }) {
       </Box>
     </DashboardLayout>
   );
-}
-
-export async function getStaticProps(context) {
-  const { data: specialities } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/resources/getProfessionalSpecialitiesList`
-  );
-
-  specialities.sort(function (a, b) {
-    if (a.initials < b.initials) {
-      return -1;
-    }
-    if (a.initials > b.initials) {
-      return 1;
-    }
-    return 0;
-  });
-
-  return {
-    props: {
-      specialities,
-    },
-  };
 }

@@ -1,6 +1,6 @@
 <h1 align="center">MediApp 🩺</h1>
 <p align="center">
-    <img src="https://i.ibb.co/1m5qS22/Captura-de-pantalla-2022-10-11-17-18-35.png" alt="App Screenshot" border="0" width="700">
+    <img src="https://user-images.githubusercontent.com/84481967/196561544-fdf482d2-3b4a-4c5b-b49e-fb308b4932e4.png" alt="App Screenshot" border="0" width="700">
 </p>
 
 ---
@@ -32,7 +32,6 @@
 </div>
 
 <br>
-<br>
 
 <h3 align="center"> Backend Stack 🖥 </h3>
 
@@ -43,6 +42,56 @@
 <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" />
 <img src="https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white"/>
 </div>
+
+<br>
+<br>
+
+<div align="center">
+<h2>Environment variables</h2>
+</div>
+
+`MONGODB_URL`= Mongo Database URL<br>
+`MAIN_EMAIL_ADDRESS`= Email address used for app notifications<br>
+`MAIN_EMAIL_PASSWORD`= Email password used for app notifications<br>
+`NEXT_PUBLIC_JWT_SECRET`= Json Web Token secret phrase
+
+<br>
+
+<div align="center">
+<h2>Usage</h2>
+</div>
+
+This app uses `Nodemailer` for email notifications, configure the SMTP transport options for your email host here `src/utils/sendEmail.js`
+
+<br>
+
+<div align="center">
+<h2>Dependencies</h2>
+</div>
+
+<br>
+
+<dl>
+    <dd>
+        <dl>
+            <dd>
+                <ul>
+                    <li>Material UI</li>
+                    <li>nodemailer</li>
+                    <li>axios</li>
+                    <li>jsonwebtoken</li>
+                    <li>cookie</li>
+                    <li>jose</li>
+                    <li>bcrypt</li>
+                    <li>uuid</li>
+                    <li>notistack</li>
+                    <li>date-fns</li>
+                </ul>
+            </dd>
+        </dl>
+    </dd>
+</dl>
+
 <br>
 
 ---

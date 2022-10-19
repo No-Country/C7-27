@@ -1,7 +1,7 @@
 import { dbConnect } from "../../../config/dbConnect";
 import Professional from "../../../models/Professional";
 import User from "../../../models/User";
-import verificationEmail from "../utils/verificationEmail";
+import verificationEmail from "../../../utils/verificationEmail";
 
 dbConnect();
 

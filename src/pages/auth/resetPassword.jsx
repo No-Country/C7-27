@@ -13,7 +13,8 @@ import { forgetPassword } from "../../store/slices/user";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
-export default function RestPasswordPage() {
+export default function ResetPasswordPage() {
+
   const {
     register,
     handleSubmit,
@@ -29,7 +30,7 @@ export default function RestPasswordPage() {
   const submit = async (values) => {
     try {
       await dispatch(forgetPassword(values));
-      enqueueSnackbar("Email sended", {
+      enqueueSnackbar("Email sent", {
         variant: "success",
         autoHideDuration: 3000,
         anchorOrigin: {

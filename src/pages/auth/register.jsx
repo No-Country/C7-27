@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Checkbox,
   FormControlLabel,
@@ -29,7 +29,7 @@ import { patientRegister } from '../../store/slices/user';
 import { useSnackbar } from 'notistack';
 import axios from 'axios';
 
-export default function RegisterPage({ insurances = [] }) {
+export default function RegisterPage() {
   const {
     register,
     handleSubmit,
@@ -42,6 +42,31 @@ export default function RegisterPage({ insurances = [] }) {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
+  const [insurances, setInsurances] = useState([]);
+
+
+  useEffect(() => {
+    const getResources = async () => {
+      const { data: insurancesList } = await axios.get(
+        `/api/resources/getMedicalInsuranceList`
+      );
+
+      insurancesList.sort(function (a, b) {
+        if (a.initials < b.initials) {
+          return -1;
+        }
+        if (a.initials > b.initials) {
+          return 1;
+        }
+        return 0;
+      });
+
+      setInsurances(insurancesList);
+    };
+
+    getResources();
+  }, []);
+
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -316,28 +341,4 @@ export default function RegisterPage({ insurances = [] }) {
       </Box>
     </Layout>
   );
-}
-
-export async function getStaticProps(context) {
-  const { data: insurances } = await axios.get(
-    `${
-      process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
-    }/api/resources/getMedicalInsuranceList`
-  );
-
-  insurances.sort(function (a, b) {
-    if (a.initials < b.initials) {
-      return -1;
-    }
-    if (a.initials > b.initials) {
-      return 1;
-    }
-    return 0;
-  });
-
-  return {
-    props: {
-      insurances,
-    },
-  };
 }

@@ -1,35 +1,33 @@
+import axios from "axios";
+import { useSnackbar } from "notistack";
 import { useForm } from "react-hook-form";
 
-import axios from "axios";
-
-import { useSnackbar } from "notistack";
-
 import {
-  Button,
-  Stack,
-  FormLabel,
   Box,
-  FormControl,
-  InputLabel,
-  Typography,
-  Select,
-  MenuItem,
+  Button,
   Divider,
-  ListItem,
+  FormControl,
   FormControlLabel,
+  FormLabel,
+  InputLabel,
+  ListItem,
+  MenuItem,
+  Select,
+  Stack,
   Switch,
+  Typography,
 } from "../../components/auth";
 
-import * as React from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import * as React from "react";
 
-import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import { DashboardLayout } from "../../Layouts/dashboard/DashboardLayout";
 
 export default function GetClinicHistories() {
   const {
@@ -49,11 +47,7 @@ export default function GetClinicHistories() {
 
   useEffect(() => {
     const getPatientList = async () => {
-      const { data } = await axios.get(
-        `${
-          process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
-        }/api/resources/getPatientList`
-      );
+      const { data } = await axios.get(`/api/resources/getPatientList`);
 
       const newList = [];
       data.map((patient) => {
@@ -67,9 +61,7 @@ export default function GetClinicHistories() {
 
   const submit = async () => {
     try {
-      const url = `${
-        process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_API_URL
-      }/api/clinicHistory/getClinicHistory`;
+      const url = `/api/clinicHistory/getClinicHistory`;
 
       const response = await axios.post(url, {
         clinicHistoryRef: patientClinicalRef,

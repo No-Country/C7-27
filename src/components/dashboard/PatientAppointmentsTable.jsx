@@ -29,7 +29,7 @@ export function PatientAppointmentsTable({ appointments }) {
   const updateAppointment = () => {
     axios
       .put(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/appointments/updateAppointment`,
+        `/api/appointments/updateAppointment`,
         {
           id,
           confirmed: false,
