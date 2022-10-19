@@ -25,7 +25,15 @@ export default function Home() {
   }, [dispatch]);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        gap: 5,
+        minHeight: "100vh",
+      }}
+    >
       <NavBar />
       <Hero />
       <Data />

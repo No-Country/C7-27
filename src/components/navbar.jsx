@@ -1,14 +1,6 @@
 import React from "react";
 
-import {
-  AppBar,
-  Toolbar,
-  Button,
-  Typography,
-  Tab,
-  Tabs,
-  ApartmentIcon,
-} from "./auth";
+import { AppBar, Button, Toolbar, Link as MLink } from "./auth";
 
 import Link from "next/link";
 import { Logo } from "./ui/Logo";
@@ -18,7 +10,7 @@ export default function NavBar() {
     <AppBar position="static">
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Logo color="white" />
-        <Button variant="contained">
+        <Button variant="contained" sx={{ fontSize: "20px" }}>
           <Link href="/auth/login">Login</Link>
         </Button>
       </Toolbar>

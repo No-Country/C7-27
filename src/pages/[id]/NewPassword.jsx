@@ -63,7 +63,7 @@ export default function NewPassword() {
             horizontal: "center",
           },
         });
-        router.push("/");
+        router.push("/dashboard");
       } catch (e) {
         enqueueSnackbar(e.msg, {
           variant: "error",
