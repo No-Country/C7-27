@@ -46,7 +46,7 @@ export default function AppFooter() {
           justifyContent="center"
           alignItems={{ xs: "center", sm: "flex-start" }}
           gap={0}
-          sx={{ order: { xs: 1 }, marginTop: { xs: "1rem" } }}
+          sx={{ order: { xs: 1, sm: 0 }, marginTop: { xs: "1rem" } }}
         >
           <Typography variant="h5" sx={{ fontWeight: "400" }}>
             Contact
@@ -76,7 +76,7 @@ export default function AppFooter() {
           justifyContent="center"
           alignItems="center"
           gap={1}
-          sx={{ order: { xs: 1 } }}
+          sx={{ order: { xs: 1, sm: 0 } }}
           //paddingLeft={5}
         >
           <Typography variant="h5" sx={{ fontWeight: "400" }}>
