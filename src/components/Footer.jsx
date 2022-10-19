@@ -1,155 +1,84 @@
+import { Stack } from "@mui/system";
 import React from "react";
 import {
   Box,
-  Grid,
-  Link,
-  Container,
   Typography,
-  TextField,
   FacebookIcon,
   InstagramIcon,
   TwitterIcon,
-  Script,
+  PhoneIcon,
+  MailIcon,
+  LocationIcon,
 } from "../components/auth";
 
-function Copyright() {
-  return (
-    <Box sx={{ display: "flex" }}>
-      <Typography sx={{ fontWeight: "400" }}>
-        © MediApp {new Date().getFullYear()}
-      </Typography>{" "}
-    </Box>
-  );
-}
-
 const iconStyle = {
-  width: 50,
   height: 50,
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  gap: 1,
 };
-
-const LANGUAGES = [
-  {
-    code: "en-US",
-    name: "English",
-  },
-  {
-    code: "es-AR",
-    name: "Español",
-  },
-];
 
 export default function AppFooter() {
   return (
-    <Box component="footer" sx={{ display: "flex" }}>
-      <Container sx={{ my: 8, display: "flex" }}>
-        <Grid container spacing={5}>
-          <Grid xs={6} sm={4} md={3}>
-            <Grid
-              container
-              direction="column"
-              justifyContent="flex-end"
-              spacing={2}
-              sx={{ height: 120 }}
-            >
-              <Grid sx={{ ml: 3, display: "flex", justifyContent: "center" }}>
-                <Box component="a" href="https://facebook.com/" sx={iconStyle}>
-                  <FacebookIcon />
-                </Box>
-                <Box component="a" href="https://twitter.com" sx={iconStyle}>
-                  <TwitterIcon />
-                </Box>
-                <Box component="a" href="https://instagram.com" sx={iconStyle}>
-                  <InstagramIcon />
-                </Box>
-              </Grid>
+    <Stack
+      justifyContent="space-between"
+      direction={{ xs: "column", sm: "row" }}
+      spacing={2}
+      paddingX={5}
+      paddingY={2}
+    >
+      <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="flex-start"
+        gap={1}
+      >
+        <Typography variant="h5">Social</Typography>
+        <Box component="a" href="#" sx={iconStyle}>
+          <FacebookIcon sx={{ fontSize: 30 }} />
+          <Typography variant="h6">Facebook</Typography>
+        </Box>
 
-              <Grid item sx={{ display: "flex", justifyContent: "center" }}>
-                <Copyright />
-              </Grid>
-            </Grid>
-          </Grid>
+        <Box component="a" href="#" sx={iconStyle}>
+          <TwitterIcon sx={{ fontSize: 30 }} />
+          <Typography variant="h6">Twitter</Typography>
+        </Box>
 
-          <Grid>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105073.44366915547!2d-58.50333790863538!3d-34.61566245909427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcca3b4ef90cbd%3A0xa0b3812e88e88e87!2sBuenos%20Aires%2C%20CABA!5e0!3m2!1ses-419!2sar!4v1666140382337!5m2!1ses-419!2sar"
-              width="250"
-              height="150"
-              style={{ border: 0 }}
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
-          </Grid>
+        <Box component="a" href="#" sx={iconStyle}>
+          <InstagramIcon sx={{ fontSize: 30 }} />
+          <Typography variant="h6">Instagram</Typography>
+        </Box>
+      </Stack>
 
-          {/* <Grid item xs={6} sm={4} md={2}>
-            <Typography variant="h6" marked="left" gutterBottom>
-              Legal
-            </Typography>
-            <Box component="ul" sx={{ m: 0, listStyle: "none", p: 0 }}>
-              <Box component="li" sx={{ py: 0.5 }}>
-                <Link href="/terms/">Terms</Link>
-              </Box>
-              <Box component="li" sx={{ py: 0.5 }}>
-                <Link href="/premium-themes/onepirate/privacy/">Privacy</Link>
-              </Box>
-            </Box>
-          </Grid> */}
+      <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="flex-start"
+        gap={1}
+      >
+        <Typography variant="h5">Contact</Typography>
+        <Box sx={iconStyle}>
+          <LocationIcon sx={{ fontSize: 30 }} />
+          <Typography variant="h6">Av. Cabildo 2260, Buenos Aires</Typography>
+        </Box>
+        <Box sx={iconStyle}>
+          <PhoneIcon sx={{ fontSize: 30 }} />
+          <Typography variant="h6">142345678</Typography>
+        </Box>
+        <Box sx={iconStyle}>
+          <MailIcon sx={{ fontSize: 30 }} />
+          <Typography variant="h6">mail@gmail.com</Typography>
+        </Box>{" "}
+      </Stack>
 
-          {/* <Grid item xs={6} sm={8} md={4}>
-            <Typography variant="h6" marked="left" gutterBottom>
-              Language
-            </Typography>
-            <TextField
-              select
-              size="medium"
-              variant="standard"
-              SelectProps={{
-                native: true,
-              }}
-              sx={{ mt: 1, width: 150 }}
-            >
-              {LANGUAGES.map((language) => (
-                <option value={language.code} key={language.code}>
-                  {language.name}
-                </option>
-              ))}
-            </TextField>
-          </Grid> */}
-
-          {/* <Grid item>
-            <Typography variant="caption">
-              {"Icons made by "}
-              <Link
-                href="https://www.freepik.com"
-                rel="sponsored"
-                title="Freepik"
-              >
-                Freepik
-              </Link>
-              {" from "}
-              <Link
-                href="https://www.flaticon.com"
-                rel="sponsored"
-                title="Flaticon"
-              >
-                www.flaticon.com
-              </Link>
-              {" is licensed by "}
-              <Link
-                href="https://creativecommons.org/licenses/by/3.0/"
-                title="Creative Commons BY 3.0"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                CC 3.0 BY
-              </Link>
-            </Typography>
-          </Grid> */}
-        </Grid>
-      </Container>
-    </Box>
+      <Box sx={{ height: { xs: "400px", sm: "300px" } }}>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d821.4293497354935!2d-58.45877867074515!3d-34.56070999434532!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb5d4a282e349%3A0x5eee1174ce4f659!2sAv.%20Cabildo%202260%2C%20C1428AAR%20CABA!5e0!3m2!1ses-419!2sar!4v1666128393005!5m2!1ses-419!2sar"
+          width="100%"
+          height="100%"
+        ></iframe>
+      </Box>
+    </Stack>
   );
 }

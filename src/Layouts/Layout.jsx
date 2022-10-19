@@ -65,12 +65,10 @@ export const Layout = ({ children }) => {
         maxHeight={{ xs: "30vh", md: "100vh" }}
         width={"100%"}
         sx={{
-          backgroundImage:
-            "url(/static/images/hospital2.png)",
-          // backgroundSize: "calc(100vh - 16vh)",
+          backgroundImage: "url(/images/layout.avif)",
+          backgroundSize: "calc(100vh - 16vh)",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
         }}
       >
         {/* <Box display={{ md: "none" }} xs={0}>

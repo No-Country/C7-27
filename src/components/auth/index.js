@@ -44,7 +44,7 @@ export { default as ListItem } from "@mui/material/ListItem";
 export { default as Chip } from "@mui/material/Chip";
 export { default as Modal } from "@mui/material/Modal";
 export { default as Snackbar } from "@mui/material/Snackbar";
-export { default as Switch } from '@mui/material/Switch';
+export { default as Switch } from "@mui/material/Switch";
 
 // Icons
 export { default as VisibilityOff } from "@mui/icons-material/VisibilityOff";
@@ -59,4 +59,6 @@ export { default as TwitterIcon } from "@mui/icons-material/Twitter";
 export { default as AccessibleForwardIcon } from "@mui/icons-material/AccessibleForward";
 export { default as MenuIcon } from "@mui/icons-material/Menu";
 export { default as Logo } from "@mui/icons-material/Apartment";
-export { default as GitHubIcon } from '@mui/icons-material/GitHub';
+export { default as PhoneIcon } from "@mui/icons-material/LocalPhone";
+export { default as MailIcon } from "@mui/icons-material/Email";
+export { default as LocationIcon } from "@mui/icons-material/LocationOn";
