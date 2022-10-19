@@ -8,7 +8,7 @@ export default function NavBar() {
     <Grid
       container
       sx={{
-        padding: 2,
+        padding: 5,
         display: "flex",
         justifyContent: "space-between",
         gap: 5,

@@ -24,8 +24,9 @@ export default function AppFooter() {
     <Stack
       justifyContent="space-between"
       direction={{ xs: "column", sm: "row" }}
-      padding={2}
       spacing={2}
+      paddingX={5}
+      paddingY={2}
     >
       <Stack
         direction="column"
