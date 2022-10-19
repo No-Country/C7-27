@@ -54,6 +54,7 @@ export default function Data() {
             <Stack
               direction="row"
               className="animate__animated animate__fadeIn"
+              sx={{ width: "200px" }}
             >
               <ApartmentIcon sx={{ fontSize: 80 }} />
               <Stack>
@@ -62,12 +63,12 @@ export default function Data() {
               </Stack>
             </Stack>
 
-            <Typography
+            {/* <Typography
               className="animate__animated animate__fadeIn"
               variant="body"
             >
               {data.description}
-            </Typography>
+            </Typography> */}
           </Grid>
         ))}
       </Grid>

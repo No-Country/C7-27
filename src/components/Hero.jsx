@@ -1,66 +1,48 @@
-import React from "react";
-import { Box, Grid, Button, Typography, Stack } from "../components/auth";
-
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
+import { Box, Button, Grid, Stack, Typography } from "../components/auth";
 
 export default function NavBar() {
   return (
-    <Box>
-      <Grid container sx={{ padding: 5 }}>
-        <Grid
-          className="animate__animated animate__fadeInLeft"
-          item
-          xs={12}
-          md={7}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            padding: 5,
-            gap: 2,
-          }}
-        >
-          <Typography variant="h3">Online Appointments</Typography>
-          <Typography variant="h6">
-            Medi App is an online medical appointment service for connecting
-            patients and healthcare professionals
-          </Typography>
-          <Typography variant="h6">
-            You can choose your preferred health insurance and obtain a list of
-            professionals that work with it. We have a vast number of different
-            medical specialities to cover all your needs
-          </Typography>
-          <Stack direction="row" spacing={2}>
-            <Button variant="contained" size="large">
-              <Link href="auth/register">Create Account</Link>
-            </Button>
-          </Stack>
-        </Grid>
-        <Grid
-          item
-          xs={0}
-          md={0}
-          sx={{ display: "flex", justifyContent: "flex-end" }}
-        >
-          <Box
-            sx={{
-              position: "relative",
-              width: "500px",
-              height: "374px",
-              display: { xs: "none", lg: "block" },
-            }}
-          >
-            <Image
-              className="animate__animated animate__fadeInRight"
-              layout="fill"
-              src="/static/images/hospital.jpg"
-              alt="hospital"
-            />
-          </Box>
-        </Grid>
+    <Grid
+      container
+      className="animate__animated animate__fadeInLeft"
+      sx={{
+        paddingX: 5,
+        paddingY: 3,
+        display: "flex",
+        justifyContent: "space-between",
+        gap: 5,
+      }}
+    >
+      <Grid
+        item
+        xs={12}
+        md={6}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          gap: 3,
+        }}
+      >
+        <Typography variant="h3">Online Appointments</Typography>
+        <Typography variant="h6">
+          MediApp is an online medical appointment service for connecting
+          patients and healthcare professionales.
+        </Typography>
+        <Typography variant="h6">
+          You can choose your preferred health insurance and obtain a list of
+          professionals that work with it. We have a vast nmber of different
+          medical specialities to cover all your needs
+        </Typography>
+        <Stack direction="row" spacing={2}>
+          <Button variant="contained" size="large">
+            <Link href="auth/register">Create account</Link>
+          </Button>
+        </Stack>
       </Grid>
-
       <Grid
         item
         xs={12}
@@ -72,7 +54,7 @@ export default function NavBar() {
         }}
       >
         <Image
-          src="/images/landing.webp"
+          src="/static/images/hospital.jpg"
           alt="Image"
           layout="fill"
           width="100%"
@@ -80,6 +62,6 @@ export default function NavBar() {
           objectFit="contain"
         />
       </Grid>
-    </Box>
+    </Grid>
   );
 }

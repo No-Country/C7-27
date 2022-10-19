@@ -1,7 +1,11 @@
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { AccessibleForwardIcon, Box, Stack, Typography } from "../auth";
-export const Logo = ({ color = "primary" }) => {
+export const Logo = ({
+  color = "primary",
+  variant = "h3",
+  component = "h3",
+}) => {
   const { name } = useSelector((state) => state.ui);
   const router = useRouter();
 

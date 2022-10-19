@@ -51,7 +51,7 @@ export const Layout = ({ children }) => {
               sx={{ fontSize: 40 }}
               color="primary"
             />
-            Hospital Name
+            MediApp
           </Typography>
         </Box>
       </Grid>
@@ -76,23 +76,15 @@ export const Layout = ({ children }) => {
         md={5}
         xs={12}
         overflow="hidden"
-        maxHeight={{ xs: "30vh", md: "100vh" }}
-        width={"100%"}
+        // width={"100%"}
         sx={{
-          backgroundImage: "url(/images/layout.avif)",
-          // backgroundSize: "calc(100vh - 16vh)",
+          backgroundImage: "url(/static/images/hospital.jpg)",
+          backgroundSize: "calc(100vh - 16vh)",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
+          // display: { xs: "none", md: "initial" },
         }}
-      >
-        {/* <Box display={{ md: 'none' }}>
-          <img
-            src="https://images.unsplash.com/photo-1607799013470-8a46c0db7eb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
-            alt="hospital"
-            width={'100%'}
-          />
-        </Box> */}
-      </Grid>
+      ></Grid>
     </Grid>
   );
 };
