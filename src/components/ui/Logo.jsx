@@ -1,20 +1,18 @@
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import { AccessibleForwardIcon, Box, Typography } from '../auth';
-export const Logo = ({
-  color = 'primary',
-  variant = 'h3',
-  component = 'h3',
-}) => {
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { AccessibleForwardIcon, Box, Stack, Typography } from "../auth";
+export const Logo = ({ color = "primary" }) => {
   const { name } = useSelector((state) => state.ui);
   const router = useRouter();
 
   return (
-    <Box onClick={() => router.push('/')} sx={{ cursor: 'pointer' }}>
-      <Typography variant={variant} component={component}>
+    <Box onClick={() => router.push("/")} sx={{ cursor: "pointer" }}>
+      <Stack direction="row" spacing={1}>
         <AccessibleForwardIcon sx={{ fontSize: 40 }} color={color} />
-        {name}
-      </Typography>
+        <Typography variant="h5" sx={{ fontSize: "30px" }}>
+          {name}
+        </Typography>
+      </Stack>
     </Box>
   );
 };

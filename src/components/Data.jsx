@@ -10,48 +10,51 @@ import {
 export default function Data() {
   const dataArray = [
     {
-      number: "+456",
+      number: "+100",
       user: "doctors",
-      description:
-        "Maecenas nisl libero, tincidunt id odio id, feugiat vulputate quam.",
     },
     {
-      number: "+456",
-      user: "doctors",
-      description:
-        "Maecenas nisl libero, tincidunt id odio id, feugiat vulputate quam.",
+      number: "+500",
+      user: "Patiets",
     },
     {
-      number: "+456",
-      user: "doctors",
-      description:
-        "Maecenas nisl libero, tincidunt id odio id, feugiat vulputate quam.",
+      number: "+50",
+      user: "Specialities",
     },
   ];
 
   return (
     <Box>
-      <Grid container sx={{ padding: 5 }} spacing={10}>
+      <Grid
+        container
+        spacing={5}
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", sm: "row" },
+          justifyContent: "space-around",
+        }}
+      >
         {dataArray.map((data, index) => (
           <Grid
             item
-            xs
             key={index}
             sx={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              px: 5,
             }}
           >
-            <Stack direction="row">
-              <ApartmentIcon sx={{ fontSize: 80 }} />
+            <Stack
+              direction="row"
+              spacing={1}
+              sx={{ width: { xs: "200px", sm: "100%" } }}
+            >
+              <ApartmentIcon sx={{ fontSize: 70 }} />
               <Stack>
-                <Typography variant="h4">{data.number}</Typography>
-                <Typography variant="h6">{data.user}</Typography>
+                <Typography variant="h5">{data.number}</Typography>
+                <Typography variant="h5">{data.user}</Typography>
               </Stack>
             </Stack>
-            <Typography variant="body">{data.description}</Typography>
           </Grid>
         ))}
       </Grid>
