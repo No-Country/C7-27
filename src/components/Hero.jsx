@@ -60,8 +60,6 @@ export default function NavBar() {
           src="/images/hospital.jpg"
           alt="Image"
           layout="fill"
-          width="100%"
-          height="100%"
           objectFit="contain"
         />
       </Grid>

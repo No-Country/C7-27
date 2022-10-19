@@ -100,7 +100,7 @@ export default function AppFooter() {
           </Stack>
         </Stack>
 
-        <Box
+        {/* <Box
           sx={{
             height: "210px",
             width: { sm: "252px" },
@@ -111,9 +111,9 @@ export default function AppFooter() {
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d821.4293497354935!2d-58.45877867074515!3d-34.56070999434532!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb5d4a282e349%3A0x5eee1174ce4f659!2sAv.%20Cabildo%202260%2C%20C1428AAR%20CABA!5e0!3m2!1ses-419!2sar!4v1666128393005!5m2!1ses-419!2sar"
             width="100%"
             height="100%"
-            frameborder="0"
+            frameBorder="0"
           ></iframe>
-        </Box>
+        </Box> */}
       </Stack>
 
       <Stack alignItems="center" paddingBottom={2}>
