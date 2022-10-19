@@ -78,7 +78,7 @@ export const Layout = ({ children }) => {
         overflow="hidden"
         // width={"100%"}
         sx={{
-          backgroundImage: "url(/static/images/hospital.jpg)",
+          backgroundImage: "url(/static/images/hospital2.png)",
           backgroundSize: "calc(100vh - 16vh)",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",

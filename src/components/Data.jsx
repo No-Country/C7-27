@@ -62,13 +62,6 @@ export default function Data() {
                 <Typography variant="h5">{data.user}</Typography>
               </Stack>
             </Stack>
-
-            {/* <Typography
-              className="animate__animated animate__fadeIn"
-              variant="body"
-            >
-              {data.description}
-            </Typography> */}
           </Grid>
         ))}
       </Grid>
