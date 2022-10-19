@@ -59,3 +59,4 @@ export { default as TwitterIcon } from "@mui/icons-material/Twitter";
 export { default as AccessibleForwardIcon } from "@mui/icons-material/AccessibleForward";
 export { default as MenuIcon } from "@mui/icons-material/Menu";
 export { default as Logo } from "@mui/icons-material/Apartment";
+export { default as GitHubIcon } from '@mui/icons-material/GitHub';

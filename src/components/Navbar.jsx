@@ -18,7 +18,7 @@ export default function NavBar() {
     <AppBar position="static">
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Logo color="white" />
-        <Button variant="contained">
+        <Button variant="contained" color="primary" size="large">
           <Link href="/auth/login">Login</Link>
         </Button>
       </Toolbar>

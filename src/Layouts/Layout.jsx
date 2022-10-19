@@ -66,10 +66,11 @@ export const Layout = ({ children }) => {
         width={"100%"}
         sx={{
           backgroundImage:
-            "url(https://images.unsplash.com/photo-1607799013470-8a46c0db7eb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80)",
+            "url(/static/images/hospital2.png)",
           // backgroundSize: "calc(100vh - 16vh)",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
         }}
       >
         {/* <Box display={{ md: "none" }} xs={0}>

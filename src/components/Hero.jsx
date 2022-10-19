@@ -22,38 +22,35 @@ export default function NavBar() {
         >
           <Typography variant="h3">Online Appointments</Typography>
           <Typography variant="h6">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet
-            luctus venenatis lectus magna fringilla urna porttitor rhoncus
-            dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-            do eiusmod tempor incididunt ut labore et dolore magna aliqua Amet.
+            Medi App is an online medical appointment service for connecting patients and healthcare professionals
+          </Typography>
+          <Typography variant="h6">
+            You can choose your preferred health insurance and obtain a list of professionals that work with it.
+            We have a vast number of different medical specialities to cover all your needs
           </Typography>
           <Stack direction="row" spacing={2}>
-            <Button variant="text" size="large">
-              See detail
-            </Button>
             <Button variant="contained" size="large">
-              <Link href="auth/register">Get started</Link>
+              <Link href="auth/register">Create Account</Link>
             </Button>
           </Stack>
         </Grid>
         <Grid
           item
           xs={0}
-          md={5}
+          md={0}
           sx={{ display: "flex", justifyContent: "flex-end" }}
         >
           <Box
             sx={{
               position: "relative",
               width: "500px",
-              height: "300px",
+              height: "374px",
               display: { xs: "none", lg: "block" },
             }}
           >
             <Image
               layout="fill"
-              src="https://images.unsplash.com/photo-1607799013470-8a46c0db7eb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
+              src="/static/images/hospital.jpg"
               alt="hospital"
             />
           </Box>
