@@ -8,7 +8,8 @@ export default function NavBar() {
     <Grid
       container
       sx={{
-        padding: 5,
+        paddingX: 5,
+        paddingY: 3,
         display: "flex",
         justifyContent: "space-between",
         gap: 5,
@@ -22,16 +23,18 @@ export default function NavBar() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          gap: 2,
+          gap: 3,
         }}
       >
-        <Typography variant="h3">Online Appointments</Typography>
+        <Typography variant="h4">Online Appointments</Typography>
         <Typography variant="h5">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet
-          luctus venenatis lectus magna fringilla urna porttitor rhoncus dolor.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua Amet.
+          MediApp is an online medical appointment service for connecting
+          patients and healthcare professionales.
+        </Typography>
+        <Typography variant="h5">
+          You can choose your preferred health insurance and obtain a list of
+          professionals that work with it. We have a vast nmber of different
+          medical specialities to cover all your needs
         </Typography>
         <Stack direction="row" spacing={2}>
           <Button variant="contained" size="large">

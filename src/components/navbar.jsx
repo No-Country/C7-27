@@ -8,7 +8,7 @@ import { Logo } from "./ui/Logo";
 export default function NavBar() {
   return (
     <AppBar position="static">
-      <Toolbar sx={{ justifyContent: "space-between" }}>
+      <Toolbar sx={{ justifyContent: "space-between", padding: 2 }}>
         <Logo color="white" />
         <Button variant="contained" sx={{ fontSize: "20px" }}>
           <Link href="/auth/login">Login</Link>
