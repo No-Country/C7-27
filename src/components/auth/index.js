@@ -62,3 +62,4 @@ export { default as Logo } from "@mui/icons-material/Apartment";
 export { default as PhoneIcon } from "@mui/icons-material/LocalPhone";
 export { default as MailIcon } from "@mui/icons-material/Email";
 export { default as LocationIcon } from "@mui/icons-material/LocationOn";
+export { default as GitHubIcon } from "@mui/icons-material/GitHub";

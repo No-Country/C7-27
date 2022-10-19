@@ -5,14 +5,14 @@ import {
   Grid,
   Typography,
   AddCircleOutlineRoundedIcon,
-} from "../../components/auth";
-import Link from "next/link";
+} from '../../components/auth';
+import Link from 'next/link';
 
 export const NewAppointment = (props) => {
   return (
-    <Card {...props}>
+    <Card {...props} className="animate__animated animate__fadeIn">
       <CardContent sx={{ minHeight: 200 }}>
-        <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
+        <Grid container spacing={3} sx={{ justifyContent: 'space-between' }}>
           <Grid item xs={12}>
             <Typography color="textSecondary" gutterBottom variant="overline">
               New appointment

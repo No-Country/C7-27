@@ -11,6 +11,16 @@ import {
   LocationIcon,
 } from "../components/auth";
 
+function Copyright() {
+  return (
+    <Box sx={{ display: "flex" }}>
+      <Typography sx={{ fontWeight: "400" }}>
+        © MediApp {new Date().getFullYear()}
+      </Typography>{" "}
+    </Box>
+  );
+}
+
 const iconStyle = {
   height: 50,
   display: "flex",
@@ -68,7 +78,7 @@ export default function AppFooter() {
         </Box>
         <Box sx={iconStyle}>
           <MailIcon sx={{ fontSize: 30 }} />
-          <Typography variant="h6">mail@gmail.com</Typography>
+          <Typography variant="h6">mediapp@gmail.com</Typography>
         </Box>{" "}
       </Stack>
 

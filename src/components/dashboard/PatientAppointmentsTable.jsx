@@ -28,13 +28,10 @@ export function PatientAppointmentsTable({ appointments }) {
 
   const updateAppointment = () => {
     axios
-      .put(
-        `/api/appointments/updateAppointment`,
-        {
-          id,
-          confirmed: false,
-        }
-      )
+      .put(`/api/appointments/updateAppointment`, {
+        id,
+        confirmed: false,
+      })
       .finally(() => {
         setId('');
         location.reload();
@@ -116,7 +113,11 @@ export function PatientAppointmentsTable({ appointments }) {
         </TableHead>
         <TableBody>
           {appointments?.map((appointment) => (
-            <TableRow hover key={appointment._id}>
+            <TableRow
+              className="animate__animated animate__fadeInLeft"
+              hover
+              key={appointment._id}
+            >
               <TableCell>
                 {`
               ${capitalize(appointment.professionalRef.lastName)}

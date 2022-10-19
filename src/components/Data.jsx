@@ -10,16 +10,22 @@ import {
 export default function Data() {
   const dataArray = [
     {
-      number: "+100",
-      user: "doctors",
+      number: "+456",
+      user: "Patients",
+      description:
+        "Maecenas nisl libero, tincidunt id odio id, feugiat vulputate quam.",
     },
     {
-      number: "+500",
-      user: "Patiets",
+      number: "+456",
+      user: "Professionals",
+      description:
+        "Maecenas nisl libero, tincidunt id odio id, feugiat vulputate quam.",
     },
     {
       number: "+50",
       user: "Specialities",
+      description:
+        "Maecenas nisl libero, tincidunt id odio id, feugiat vulputate quam.",
     },
   ];
 
@@ -42,19 +48,26 @@ export default function Data() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              px: 5,
             }}
           >
             <Stack
               direction="row"
-              spacing={1}
-              sx={{ width: { xs: "200px", sm: "100%" } }}
+              className="animate__animated animate__fadeIn"
             >
-              <ApartmentIcon sx={{ fontSize: 70 }} />
+              <ApartmentIcon sx={{ fontSize: 80 }} />
               <Stack>
                 <Typography variant="h5">{data.number}</Typography>
                 <Typography variant="h5">{data.user}</Typography>
               </Stack>
             </Stack>
+
+            <Typography
+              className="animate__animated animate__fadeIn"
+              variant="body"
+            >
+              {data.description}
+            </Typography>
           </Grid>
         ))}
       </Grid>

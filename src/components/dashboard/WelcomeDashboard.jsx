@@ -15,7 +15,7 @@ export const WelcomeDashboard = (props) => {
   const { user } = useSelector((state) => state.users);
 
   return (
-    <Card {...props}>
+    <Card {...props} className="animate__animated animate__fadeIn">
       <CardContent sx={{ minHeight: 200 }}>
         <Grid container spacing={3} sx={{ justifyContent: 'space-between' }}>
           <Grid item>

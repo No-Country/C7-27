@@ -6,13 +6,17 @@ export const Logo = ({ color = "primary" }) => {
   const router = useRouter();
 
   return (
-    <Box onClick={() => router.push("/")} sx={{ cursor: "pointer" }}>
-      <Stack direction="row" spacing={1}>
+    <Box
+      className="animate__animated animate__fadeInLeft"
+      onClick={() => router.push("/")}
+      sx={{ cursor: "pointer", display: "flex", flexDirection: "row" }}
+    >
+      <Typography variant={variant} component={component}>
         <AccessibleForwardIcon sx={{ fontSize: 40 }} color={color} />
-        <Typography variant="h5" sx={{ fontSize: "30px" }}>
-          {name}
-        </Typography>
-      </Stack>
+      </Typography>
+      <Typography variant="h4" sx={{ fontWeight: 600 }}>
+        {name}
+      </Typography>
     </Box>
   );
 };

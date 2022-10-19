@@ -8,6 +8,8 @@ import theme from '../theme/theme';
 import { Provider } from 'react-redux';
 import { store } from '../store/store';
 
+import 'animate.css';
+
 function MyApp({ Component, pageProps }) {
   return (
     <SnackbarProvider maxSnack={3}>
