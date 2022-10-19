@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
 export async function middleware(request) {
-  const token = request.cookies.get("token");
+  const token = await request.cookies.get("token");
 
   const publicUrls = [
     "/",

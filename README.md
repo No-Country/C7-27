@@ -82,7 +82,6 @@ Finally run the command `npm run build` and wait for the compile process to comp
         <dl>
             <dd>
                 <ul>
-                    <li>Material UI</li>
                     <li>nodemailer</li>
                     <li>axios</li>
                     <li>jsonwebtoken</li>
@@ -97,6 +96,12 @@ Finally run the command `npm run build` and wait for the compile process to comp
         </dl>
     </dd>
 </dl>
+
+---
+
+<br>
+
+* To test the app here is the [Vercel Deploy](https://mediapp-blush.vercel.app)
 
 <br>
 
