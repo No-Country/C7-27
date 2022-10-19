@@ -3,7 +3,7 @@ import { jwtVerify } from "jose";
 
 export async function middleware(request) {
   const token = request.cookies.get("token");
-
+  console.log(token);
   const publicUrls = [
     "/",
     "/auth/login",
