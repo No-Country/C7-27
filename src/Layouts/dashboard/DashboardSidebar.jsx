@@ -132,7 +132,7 @@ export const DashboardSidebar = (props) => {
       >
         <div>
           <Box sx={{ p: 3 }}>
-            <NextLink href="/" passHref>
+            <NextLink href="/dashboard" passHref>
               <a>
                 <Logo variant="h5" />
               </a>
@@ -182,7 +182,6 @@ export const DashboardSidebar = (props) => {
             {itemsArray().map((item) => (
               <NavItem
                 key={item.title}
-                //   icon={item.icon}
                 href={item.href}
                 title={item.title}
               />
