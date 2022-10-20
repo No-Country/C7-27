@@ -41,6 +41,7 @@ export default async function sendEmail(userEmail, subject, emailContent) {
     to: userEmail,
     from: "otho96@ethereal.email",
     subject,
+    text: `${emailContent}`,
     html: `${emailContent}`,
   };
 
