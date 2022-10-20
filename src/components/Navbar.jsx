@@ -23,7 +23,7 @@ export default function NavBar() {
         <Button
           variant="contained"
           color="primary"
-          size="large"
+          size="medium"
           sx={{ fontSize: { sm: "1.2rem" }, fontWeight: "400" }}
         >
           <Link href="/auth/login">Login</Link>

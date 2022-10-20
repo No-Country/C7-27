@@ -11,8 +11,6 @@ export async function middleware(request) {
     "/auth/resetPassword",
   ];
 
-  console.log(request.nextUrl)
-
   if (!token) {
     if (publicUrls.includes(request.nextUrl.pathname))
       return NextResponse.next();
@@ -41,7 +39,7 @@ export async function middleware(request) {
     );
     return NextResponse.next();
   } catch (e) {
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 }
 
