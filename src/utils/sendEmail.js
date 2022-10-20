@@ -41,7 +41,7 @@ export default async function sendEmail(userEmail, subject, url) {
     to: userEmail,
     from: "otho96@ethereal.email",
     subject,
-    html: `<p>Click the link below to verify your account</p><a href=${url}>LINK</a>`,
+    html: `Click the link below to verify your account<a href=${url}>LINK</a>`,
   };
 
   mail.send(data);
