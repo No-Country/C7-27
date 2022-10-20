@@ -19,6 +19,7 @@ export default function Data() {
     {
       number: "+500",
       user: "Patients",
+      icon: "patient"
     },
     {
       number: "+50",
