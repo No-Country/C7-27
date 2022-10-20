@@ -16,7 +16,7 @@ export async function middleware(request) {
   }
   // // this condition avoid to show the login page if the user is logged in
   if (token) {
-    if (publicUrls.includes(request.nextUrl.pathname)) {
+    if (publicUrls.includes(request.nextUrl.pathname || request.nextUrl.pathname == null)) {
       try {
         await jwtVerify(
           token,
@@ -35,33 +35,9 @@ export async function middleware(request) {
     );
     return NextResponse.next();
   } catch (e) {
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 }
-
-// export default async function middleware(req, res) {
-//   let token;
-//   if (
-//     req.headers.get("authorization") &&
-//     req.headers.get("authorization").startsWith("Bearer")
-//   ) {
-//     try {
-//       token = req.headers.get("authorization").split(" ")[1];
-//       const { payload } = await jwtVerify(
-//         token,
-//         new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET)
-//       );
-//       const id = payload.id;
-//       return NextResponse.next();
-//     } catch (e) {
-//       return res.status(400).json({ msg: e.message });
-//     }
-//   }
-//   if (token) {
-//     const error = new Error("Invalid token");
-//     return res.status(400).json({ msg: error.message });
-//   }
-// }
 
 export const config = {
   matcher: ["/", "/auth/:path*", "/dashboard/:path*", "/admin/:path*"],

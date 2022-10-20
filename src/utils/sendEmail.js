@@ -8,10 +8,14 @@ export default async function sendEmail(to, subject, content) {
       user: process.env.MAIN_EMAIL_ADDRESS,
       pass: process.env.MAIN_EMAIL_PASSWORD,
     },
+    tls: {
+      rejectUnauthorized: false,
+    },
+    secure: false,
   });
 
   const mailOptions = {
-    from: `"MediApp - No Country C7-27" <${process.env.MAIN_EMAIL_ADDRESS}>`,
+    from: `"MediApp - No Country C7-27" `,
     to: to,
     subject: subject,
     html: content,
@@ -21,6 +25,6 @@ export default async function sendEmail(to, subject, content) {
     await transporter.sendMail(mailOptions);
     console.log(`Email sent successfully`);
   } catch (e) {
-    console.log(e.message);
+    console.log(e);
   }
 }

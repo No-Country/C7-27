@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 import {
   Box,
@@ -8,7 +8,7 @@ import {
   Typography,
   CardActions,
   Button,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Table,
   TableBody,
@@ -17,14 +17,14 @@ import {
   TableRow,
   TableSortLabel,
   Tooltip,
-} from '../../components/auth';
+} from "../../components/auth";
 
-import { SeverityPill } from './SeverityPill';
-import axios from 'axios';
+import { SeverityPill } from "./SeverityPill";
+import axios from "axios";
 
 export function PatientAppointmentsTable({ appointments }) {
   const [showOverlay, setShowOverlay] = useState(false);
-  const [id, setId] = useState('');
+  const [id, setId] = useState("");
 
   const updateAppointment = () => {
     axios
@@ -33,7 +33,7 @@ export function PatientAppointmentsTable({ appointments }) {
         confirmed: false,
       })
       .finally(() => {
-        setId('');
+        setId("");
         location.reload();
       });
   };
@@ -45,41 +45,41 @@ export function PatientAppointmentsTable({ appointments }) {
   };
 
   return (
-    <Box sx={{ position: 'relative' }}>
+    <Box sx={{ position: "relative" }}>
       {showOverlay && (
         <Card
           sx={{
-            position: 'absolute',
-            backgroundColor: '#0009',
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
+            position: "absolute",
+            backgroundColor: "#0009",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <CardContent>
             <Typography
               variant="h5"
               component="h3"
-              textAlign={'center'}
-              color={'white'}
+              textAlign={"center"}
+              color={"white"}
             >
               Are your sure to delete this appointment?
             </Typography>
           </CardContent>
           <CardActions
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              width: '100%',
-              maxWidth: '400px',
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+              maxWidth: "400px",
             }}
           >
             <Button
               size="small"
-              variant={'contained'}
+              variant={"contained"}
               color="secondary"
               onClick={updateAppointment}
             >
@@ -87,7 +87,7 @@ export function PatientAppointmentsTable({ appointments }) {
             </Button>
             <Button
               size="small"
-              variant={'contained'}
+              variant={"contained"}
               color="error"
               onClick={() => setShowOverlay(false)}
             >
@@ -96,10 +96,9 @@ export function PatientAppointmentsTable({ appointments }) {
           </CardActions>
         </Card>
       )}
-      <Table>
+      <Table sx={{ whiteSpace: 'nowrap' }}>
         <TableHead>
           <TableRow>
-            <TableCell>Professional</TableCell>
             <TableCell>Speciality</TableCell>
             <TableCell sortDirection="desc">
               <Tooltip enterDelay={300} title="Sort">
@@ -127,11 +126,11 @@ export function PatientAppointmentsTable({ appointments }) {
               <TableCell>{appointment.date}</TableCell>
               <TableCell>
                 <SeverityPill
-                  color={appointment.confirmed ? 'success' : 'error'}
+                  color={appointment.confirmed ? "success" : "error"}
                   onClick={() => onClick(appointment)}
-                  sx={{ cursor: 'pointer' }}
+                  sx={{ cursor: "pointer" }}
                 >
-                  {appointment.confirmed ? 'Confirmed' : 'Cancelled'}
+                  {appointment.confirmed ? "Confirmed" : "Cancelled"}
                 </SeverityPill>
               </TableCell>
             </TableRow>

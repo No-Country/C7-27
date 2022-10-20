@@ -39,8 +39,12 @@
 
 <div align="center">
 <img src="https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
-<img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" />
 <img src="https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white"/>
+<img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" />
+</div>
+<div align="center">
+<img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" />  
+<img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white" />
 </div>
 
 <br>
@@ -61,7 +65,13 @@
 <h2>Usage</h2>
 </div>
 
-This app uses `Nodemailer` for email notifications, configure the SMTP transport options for your email host here `src/utils/sendEmail.js`
+First clone our repository with `git clone https://github.com/No-Country/C7-27.git` then you must have to configure the environment variables described before.
+&nbsp;
+
+This app uses `Nodemailer` for email notifications, configure the SMTP transport options for your email host here `src/utils/sendEmail.js` 
+&nbsp;
+
+Finally run the command `npm run build` and wait for the compile process to complete, once finished you can run `npm start` and use the app at `http://localhost:3000/`.
 
 <br>
 
@@ -76,7 +86,6 @@ This app uses `Nodemailer` for email notifications, configure the SMTP transport
         <dl>
             <dd>
                 <ul>
-                    <li>Material UI</li>
                     <li>nodemailer</li>
                     <li>axios</li>
                     <li>jsonwebtoken</li>
@@ -91,6 +100,12 @@ This app uses `Nodemailer` for email notifications, configure the SMTP transport
         </dl>
     </dd>
 </dl>
+
+---
+
+<br>
+
+* To test the app here is the [Vercel Deploy](https://mediapp-blush.vercel.app)
 
 <br>
 

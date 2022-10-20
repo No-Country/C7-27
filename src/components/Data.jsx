@@ -5,29 +5,39 @@ import {
   Stack,
   Typography,
   ApartmentIcon,
+  EscalatorWarningIcon,
+  MedicalServicesIcon,
 } from "../components/auth";
 
 export default function Data() {
   const dataArray = [
     {
-      number: "+456",
-      user: "Patients",
-      description:
-        "Maecenas nisl libero, tincidunt id odio id, feugiat vulputate quam.",
+      number: "+100",
+      user: "Doctors",
+      icon: "doctor",
     },
     {
-      number: "+456",
-      user: "Professionals",
-      description:
-        "Maecenas nisl libero, tincidunt id odio id, feugiat vulputate quam.",
+      number: "+500",
+      user: "Patients",
     },
     {
       number: "+50",
       user: "Specialities",
-      description:
-        "Maecenas nisl libero, tincidunt id odio id, feugiat vulputate quam.",
+      icon: "speciality",
     },
   ];
+
+  function Icon(icon) {
+    if (icon == "doctor") {
+      return <MedicalServicesIcon sx={{ fontSize: 70 }} />;
+    }
+    if (icon == "patient") {
+      return <EscalatorWarningIcon sx={{ fontSize: 70 }} />;
+    }
+    if (icon == "speciality") {
+      return <ApartmentIcon sx={{ fontSize: 70 }} />;
+    }
+  }
 
   return (
     <Box>
@@ -56,7 +66,8 @@ export default function Data() {
               className="animate__animated animate__fadeIn"
               sx={{ width: "200px" }}
             >
-              <ApartmentIcon sx={{ fontSize: 80 }} />
+              {Icon(data.icon)}
+
               <Stack>
                 <Typography variant="h5">{data.number}</Typography>
                 <Typography variant="h5">{data.user}</Typography>

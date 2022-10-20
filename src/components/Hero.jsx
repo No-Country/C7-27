@@ -24,7 +24,10 @@ export default function NavBar() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          gap: 3,
+          paddingLeft: {
+            lg: 15,
+          },
+          gap: 2,
         }}
       >
         <Typography variant="h3">Online Appointments</Typography>
@@ -49,16 +52,15 @@ export default function NavBar() {
         md={5}
         sx={{
           position: "relative",
-          minHeight: "400px",
+          height: "400px",
           display: { xs: "none", md: "block" },
+          paddingRight: 15,
         }}
       >
         <Image
-          src="/static/images/hospital.jpg"
+          src="/images/hospital.jpg"
           alt="Image"
           layout="fill"
-          width="100%"
-          height="100%"
           objectFit="contain"
         />
       </Grid>

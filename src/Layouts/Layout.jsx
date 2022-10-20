@@ -1,16 +1,12 @@
-import {
-  Box,
-  Grid,
-  Typography,
-  AccessibleForwardIcon,
-} from "../components/auth";
-
+import { Grid } from "../components/auth";
+import Image from "next/image";
 import { useDispatch } from "react-redux";
-import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { actionAuthenticateUser } from "../store/slices/user";
+import { useRouter } from "next/router";
+import { Logo } from "../components/ui/Logo";
 
-export const Layout = ({ children }) => {
+export const Layout = ({ children, logoUrl }) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -19,7 +15,6 @@ export const Layout = ({ children }) => {
     if (token) {
       try {
         dispatch(actionAuthenticateUser(token));
-        // router.push("/dashboard");
       } catch (e) {
         console.log(e);
       }
@@ -44,16 +39,7 @@ export const Layout = ({ children }) => {
         sx={{ position: "absolute" }}
         top={0}
       >
-        <Box>
-          <Typography variant="h3" component="h2">
-            <AccessibleForwardIcon
-              onClick={() => router.push("/")}
-              sx={{ fontSize: 40 }}
-              color="primary"
-            />
-            MediApp
-          </Typography>
-        </Box>
+        <Logo logoUrl={logoUrl} />
       </Grid>
 
       <Grid
@@ -78,11 +64,10 @@ export const Layout = ({ children }) => {
         overflow="hidden"
         // width={"100%"}
         sx={{
-          backgroundImage: "url(/static/images/hospital2.png)",
+          backgroundImage: "url(/images/hospital2.png)",
           backgroundSize: "calc(100vh - 16vh)",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-          // display: { xs: "none", md: "initial" },
         }}
       ></Grid>
     </Grid>

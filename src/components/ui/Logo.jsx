@@ -1,18 +1,19 @@
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { AccessibleForwardIcon, Box, Stack, Typography } from "../auth";
+import { AccessibleForwardIcon, Box, Typography } from "../auth";
+
 export const Logo = ({
   color = "primary",
   variant = "h3",
   component = "h3",
+  logoUrl = "/",
 }) => {
   const { name } = useSelector((state) => state.ui);
   const router = useRouter();
 
   return (
     <Box
-      className="animate__animated animate__fadeInLeft"
-      onClick={() => router.push("/")}
+      onClick={() => router.push(logoUrl)}
       sx={{ cursor: "pointer", display: "flex", flexDirection: "row" }}
     >
       <Typography variant={variant} component={component}>
