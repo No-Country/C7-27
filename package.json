@@ -18,6 +18,7 @@
     "@mui/x-data-grid": "^5.17.7",
     "@mui/x-date-pickers": "^5.0.3",
     "@reduxjs/toolkit": "^1.8.5",
+    "@sendgrid/mail": "^7.7.0",
     "animate.css": "^4.1.1",
     "axios": "^1.1.2",
     "bcrypt": "^5.0.1",
