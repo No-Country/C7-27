@@ -139,7 +139,7 @@ export default function LoginPage() {
             <NextLink passHref href={"/auth/register"}>
               <Link>Are you new in Hospital Name?</Link>
             </NextLink>
-            <NextLink passHref href={"/auth/ResetPassword"}>
+            <NextLink passHref href={"/auth/resetPassword"}>
               <Link>Forgot password?</Link>
             </NextLink>
           </Stack>

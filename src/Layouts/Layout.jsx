@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { actionAuthenticateUser } from "../store/slices/user";
 import { Logo } from "../components/ui/Logo";
 
-export const Layout = ({ children }) => {
+export const Layout = ({ children, logoUrl }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export const Layout = ({ children }) => {
     if (token) {
       try {
         dispatch(actionAuthenticateUser(token));
-        // router.push("/dashboard");
+        router.push("/dashboard");
       } catch (e) {
         console.log(e);
       }
@@ -39,7 +39,7 @@ export const Layout = ({ children }) => {
         sx={{ position: "absolute" }}
         top={0}
       >
-        <Logo />
+        <Logo logoUrl={logoUrl} />
       </Grid>
 
       <Grid
@@ -70,15 +70,7 @@ export const Layout = ({ children }) => {
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
-      >
-        {/* <Box display={{ md: "none" }} xs={0}>
-          <Image
-            src="https://images.unsplash.com/photo-1607799013470-8a46c0db7eb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
-            alt="hospital"
-            layout="fill"
-          />
-        </Box> */}
-      </Grid>
+      ></Grid>
     </Grid>
   );
 };
