@@ -36,13 +36,13 @@ const API_KEY =
 
 mail.setApiKey(API_KEY);
 
-export default async function sendEmail(userEmail, subject, emailContent) {
+export default async function sendEmail(userEmail, subject, url) {
   const data = {
     to: userEmail,
     from: "otho96@ethereal.email",
     subject,
-    text: `${emailContent}`,
-    html: `${emailContent}`,
+    text: 
+    html: `<p>Click the link below to verify your account</p><a href=${url}>LINK</a>`,
   };
 
   mail.send(data);
