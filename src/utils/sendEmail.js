@@ -8,6 +8,7 @@ export default async function sendEmail(to, subject, content) {
       user: process.env.MAIN_EMAIL_ADDRESS,
       pass: process.env.MAIN_EMAIL_PASSWORD,
     },
+    secure: false,
   });
 
   const mailOptions = {
