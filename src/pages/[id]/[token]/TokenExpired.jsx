@@ -26,16 +26,7 @@ export default function VerifiedUser() {
               horizontal: "center",
             },
           });
-        } catch (e) {
-          enqueueSnackbar(e.response.data.msg, {
-            variant: "error",
-            autoHideDuration: 3000,
-            anchorOrigin: {
-              vertical: "top",
-              horizontal: "center",
-            },
-          });
-        }
+        } catch (e) {}
       })();
     }
   }, [token, id, enqueueSnackbar]);

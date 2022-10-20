@@ -18,6 +18,7 @@ export default async function verifyHandler(req, res) {
 
     await User.findOneAndUpdate({ _id: userID }, { verified: true });
     return res.status(201).json("Account activated");
+    
   } catch (e) {
     return res.status(400).json({ msg: e.message });
   }
