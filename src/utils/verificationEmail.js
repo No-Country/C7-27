@@ -24,7 +24,7 @@ export default async function verificationEmail(userID, userEmail) {
     const emailContent = `<p>Click the link below to verify your account</p><a href="${url}">LINK</a>`;
     const subject = "Verify your email";
 
-    await sendEmail(userEmail, subject, emailContent);
+    await sendEmail(userEmail, subject, url);
   } catch (e) {
     console.log(e.message);
   }
