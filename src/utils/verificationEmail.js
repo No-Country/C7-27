@@ -22,7 +22,7 @@ export default async function verificationEmail(userID, userEmail) {
     const url = `${
       process.env.NEXT_PUBLIC_API_URL || process.env.VERCEL_URL
     }/${userID}/${token.token}/VerifiedUser`;
-    const emailContent = `<p>Click the link below to verify your account</p><a href=${url}>LINK</a>`;
+    const emailContent = `<p>Click the link below to verify your account</p><a href="${url}">LINK</a>`;
     const subject = "Verify your email";
 
     await sendEmail(userEmail, subject, emailContent);
