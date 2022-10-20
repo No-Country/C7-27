@@ -40,7 +40,8 @@ export default async function handler(req, res) {
     //envio de email de notificacion
     const emailContent = `<p>Usted solicitó un nuevo turno para el día ${body.date} a las ${body.hour}hs.</p>
                               <p>Recuerde presentarse 10 minutos antes del horario de la consulta, muchas gracias.</p>`;
-    await sendEmail(body.patientEmail, "Nuevo turno confirmado", emailContent);
+    const subject = "Nuevo turno confirmado";
+    await sendEmail(body.patientEmail, subject, emailContent);
 
     return res.status(201).json(newAppointment);
   } catch (e) {
