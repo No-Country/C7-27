@@ -67,9 +67,9 @@ export default function AppointmentsPage({ token }) {
             <Grid item lg={12} md={12} xl={12} xs={12}>
               <Card>
                 <CardHeader title="Your Appointments" />
-                <Box sx={{ minWidth: 800 }}>
+                <Box sx={{ overflowX: 'auto'}}>
                   {!user?.isProfessional && (
-                    <Table>
+                    <Table sx={{ whiteSpace: 'nowrap' }}>
                       <TableHead>
                         <TableRow>
                           <TableCell>Professional</TableCell>

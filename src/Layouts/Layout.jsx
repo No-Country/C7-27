@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { actionAuthenticateUser } from "../store/slices/user";
 import { Logo } from "../components/ui/Logo";
 
-export const Layout = ({ children }) => {
+export const Layout = ({ children, logoUrl }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -13,7 +13,6 @@ export const Layout = ({ children }) => {
     if (token) {
       try {
         dispatch(actionAuthenticateUser(token));
-        console.log("asd");
       } catch (e) {
         console.log(e);
       }
@@ -38,7 +37,7 @@ export const Layout = ({ children }) => {
         sx={{ position: "absolute" }}
         top={0}
       >
-        <Logo />
+        <Logo logoUrl={logoUrl} />
       </Grid>
 
       <Grid

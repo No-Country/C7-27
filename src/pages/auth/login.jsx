@@ -21,7 +21,7 @@ import {
 
 import { useForm } from "react-hook-form";
 import { Layout } from "../../Layouts";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionUserLogin } from "../../store/slices/user";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";
@@ -40,6 +40,7 @@ export default function LoginPage() {
   const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
   const [check, setCheck] = useState(false);
+  const {name: webName} = useSelector((state) => state.ui)
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -137,9 +138,9 @@ export default function LoginPage() {
           </Button>
           <Stack direction="row" spacing={2} justifyContent="space-between">
             <NextLink passHref href={"/auth/register"}>
-              <Link>Are you new in Hospital Name?</Link>
+              <Link>Are you new in {webName}?</Link>
             </NextLink>
-            <NextLink passHref href={"/auth/ResetPassword"}>
+            <NextLink passHref href={"/auth/resetPassword"}>
               <Link>Forgot password?</Link>
             </NextLink>
           </Stack>

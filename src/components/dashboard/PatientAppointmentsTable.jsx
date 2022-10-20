@@ -96,7 +96,7 @@ export function PatientAppointmentsTable({ appointments }) {
           </CardActions>
         </Card>
       )}
-      <Table>
+      <Table sx={{ whiteSpace: 'nowrap' }}>
         <TableHead>
           <TableRow>
             <TableCell>Speciality</TableCell>
