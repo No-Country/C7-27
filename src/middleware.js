@@ -5,7 +5,7 @@ export async function middleware(request) {
   const token = request.cookies.get("token");
 
   const publicUrls = [
-    `${process.env.NEXT_PUBLIC_VERCEL_URL}`,
+    "",
     "/",
     "/auth/login",
     "/auth/register",
