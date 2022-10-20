@@ -8,7 +8,7 @@ export async function middleware(request) {
     "/",
     "/auth/login",
     "/auth/register",
-    "/auth/resetPassword",
+    "/auth/ResetPassword",
   ];
 
   if (!token) {
