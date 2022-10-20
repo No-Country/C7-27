@@ -10,22 +10,18 @@ import { useSelector } from "react-redux";
 const Patientitems = [
   {
     href: "/dashboard",
-    icon: <Logo fontSize="small" />,
     title: "Dashboard",
   },
   {
     href: "/dashboard/PatientProfile",
-    icon: <Logo fontSize="small" />,
     title: "Profile",
   },
   {
     href: "/dashboard/appointments",
-    icon: <Logo fontSize="small" />,
     title: "Appointments",
   },
   {
     href: "/dashboard/createAppointment",
-    icon: <Logo fontSize="small" />,
     title: "New Appointment",
   },
 ];
@@ -33,27 +29,22 @@ const Patientitems = [
 const Professionalitems = [
   {
     href: "/dashboard",
-    icon: <Logo fontSize="small" />,
     title: "Dashboard",
   },
   {
     href: "/dashboard/ProfessionalProfile",
-    icon: <Logo fontSize="small" />,
     title: "Profile",
   },
   {
     href: "/dashboard/appointments",
-    icon: <Logo fontSize="small" />,
     title: "Appointments",
   },
   {
     href: "/dashboard/clinicalHistory",
-    icon: <Logo fontSize="small" />,
     title: "Clinical History",
   },
   {
     href: "/dashboard/updateClinicalHistory",
-    icon: <Logo fontSize="small" />,
     title: "Update Clinical History",
   },
 ];
@@ -71,22 +62,18 @@ export const DashboardSidebar = (props) => {
   const adminItems = [
     {
       href: "/dashboard",
-      icon: <Logo fontSize="small" />,
       title: "Dashboard",
     },
     {
       href: "/dashboard/ProfessionalProfile",
-      icon: <Logo fontSize="small" />,
       title: "Profile",
     },
     {
       href: "/admin/AllProfessionals",
-      icon: <Logo fontSize="small" />,
       title: "Professionals",
     },
     {
         href: "/dashboard/edit",
-        icon: <Logo fontSize="small" />,
         title: "Edit Web",
     },
   ];
