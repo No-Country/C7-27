@@ -5,7 +5,6 @@ export async function middleware(request) {
   const token = request.cookies.get("token");
 
   const publicUrls = [
-    "",
     "/",
     "/auth/login",
     "/auth/register",
@@ -20,7 +19,7 @@ export async function middleware(request) {
 
   // // this condition avoid to show the login page if the user is logged in
   if (token) {
-    if (publicUrls.includes(request.nextUrl.pathname)) {
+    if (publicUrls.includes(request.nextUrl.pathname) || request.nextUrl.pathname == "null") {
       try {
         await jwtVerify(
           token,
