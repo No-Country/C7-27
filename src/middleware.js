@@ -3,20 +3,17 @@ import { jwtVerify } from "jose";
 
 export async function middleware(request) {
   const token = request.cookies.get("token");
-
   const publicUrls = [
     "/",
     "/auth/login",
     "/auth/register",
     "/auth/resetPassword",
   ];
-
   if (!token) {
     if (publicUrls.includes(request.nextUrl.pathname))
       return NextResponse.next();
     return NextResponse.redirect(new URL("/", request.url));
   }
-
   // // this condition avoid to show the login page if the user is logged in
   if (token) {
     if (publicUrls.includes(request.nextUrl.pathname)) {
@@ -31,7 +28,6 @@ export async function middleware(request) {
       }
     }
   }
-
   try {
     const { payload } = await jwtVerify(
       token,
