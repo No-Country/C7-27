@@ -31,25 +31,6 @@ export default function VerifiedUser() {
     }
   }, [token, id]);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const url = `/api/users/${id}/verify/${token}`;
-  //       const { data } = await axios.get(url);
-  //       enqueueSnackbar(data, {
-  //         variant: "success",
-  //         autoHideDuration: 3000,
-  //         anchorOrigin: {
-  //           vertical: "top",
-  //           horizontal: "center",
-  //         },
-  //       });
-  //     } catch (e) {
-
-  //     }
-  //   })();
-  // }, []);
-
   return (
     <div>
       <LoginPage />
