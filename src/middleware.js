@@ -7,7 +7,7 @@ export async function middleware(request) {
     "/",
     "/auth/login",
     "/auth/register",
-    "/auth/ResetPassword",
+    "/auth/resetPassword",
   ];
   if (!token) {
     if (publicUrls.includes(request.nextUrl.pathname))

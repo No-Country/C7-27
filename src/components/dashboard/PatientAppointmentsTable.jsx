@@ -96,9 +96,10 @@ export function PatientAppointmentsTable({ appointments }) {
           </CardActions>
         </Card>
       )}
-      <Table sx={{ whiteSpace: 'nowrap' }}>
+      <Table sx={{ whiteSpace: "nowrap" }}>
         <TableHead>
           <TableRow>
+            <TableCell>Professional</TableCell>
             <TableCell>Speciality</TableCell>
             <TableCell sortDirection="desc">
               <Tooltip enterDelay={300} title="Sort">
