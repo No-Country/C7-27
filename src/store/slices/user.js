@@ -45,7 +45,7 @@ export const actionUserLogout = () => {
     };
     const URL = `/api/users/logout`;
     try {
-      await axios.get(URL, config);
+      await axios.post(URL, config);
       dispatch(logout());
     } catch (e) {
       console.log(e);
