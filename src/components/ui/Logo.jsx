@@ -10,7 +10,7 @@ export const Logo = ({
 
   return (
     <Box
-      onClick={() => Router.push("/dashboard")}
+      onClick={() => Router.push("/")}
       sx={{ cursor: "pointer", display: "flex", flexDirection: "row" }}
     >
       <Typography variant={variant} component={component}>
