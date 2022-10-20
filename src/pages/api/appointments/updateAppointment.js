@@ -20,7 +20,8 @@ export default async function handler(req, res) {
 
         //envio de email de notificacion
         const emailContent = `<p>El turno que usted solicitó para el día ${body.date} fué ${body.confirmed ? "Actualizado" : "Cancelado"}.</p>`
-        await sendEmail(body.patientEmail, `Su turno fué ${body.confirmed ? "Actualizado" : "Cancelado"}`, emailContent)
+        const subject = `Su turno fué ${body.confirmed ? "Actualizado" : "Cancelado"}`;
+        await sendEmail(body.patientEmail, subject, emailContent);
 
         return res.status(201).json(result);
 
