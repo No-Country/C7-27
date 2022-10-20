@@ -100,7 +100,7 @@ export default function AppFooter() {
           </Stack>
         </Stack>
 
-        {/* <Box
+        <Box
           sx={{
             height: "210px",
             width: { sm: "252px" },
@@ -113,7 +113,7 @@ export default function AppFooter() {
             height="100%"
             frameBorder="0"
           ></iframe>
-        </Box> */}
+        </Box>
       </Stack>
 
       <Stack alignItems="center" paddingBottom={2}>
