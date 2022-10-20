@@ -11,6 +11,8 @@ export async function middleware(request) {
     "/auth/resetPassword",
   ];
 
+  console.log(request.nextUrl)
+
   if (!token) {
     if (publicUrls.includes(request.nextUrl.pathname))
       return NextResponse.next();
@@ -19,7 +21,7 @@ export async function middleware(request) {
 
   // // this condition avoid to show the login page if the user is logged in
   if (token) {
-    if (request.nextUrl.pathname === null || publicUrls.includes(request.nextUrl.pathname)) {
+    if (publicUrls.includes(request.nextUrl.pathname || request.nextUrl.pathname == null)) {
       try {
         await jwtVerify(
           token,
