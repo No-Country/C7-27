@@ -20,6 +20,7 @@ export async function middleware(request) {
   // // this condition avoid to show the login page if the user is logged in
   if (token) {
     if (publicUrls.includes(request.nextUrl.pathname) || request.nextUrl.pathname == "null" || request.nextUrl.pathname == "") {
+      console.log(request.nextUrl.pathname)
       try {
         await jwtVerify(
           token,
