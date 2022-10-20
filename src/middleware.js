@@ -8,7 +8,7 @@ export async function middleware(request) {
     "/",
     "/auth/login",
     "/auth/register",
-    "/auth/resetPassword",
+    "/auth/ResetPassword",
   ];
 
   if (!token) {
@@ -19,7 +19,11 @@ export async function middleware(request) {
 
   // // this condition avoid to show the login page if the user is logged in
   if (token) {
-    if (publicUrls.includes(request.nextUrl.pathname || request.nextUrl.pathname == null)) {
+    if (
+      publicUrls.includes(
+        request.nextUrl.pathname || request.nextUrl.pathname == null
+      )
+    ) {
       try {
         await jwtVerify(
           token,

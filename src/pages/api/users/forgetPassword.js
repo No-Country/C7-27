@@ -25,7 +25,9 @@ export default async function handler(req, res) {
       user._id
     }/NewPassword`;
     const emailContent = `<p>Click the link below to change your password</p><a href="${url}">LINK</a>`;
-    await sendEmail(email, "Change your email", emailContent);
+    const subject = "Change your email";
+    await sendEmail(email, subject, emailContent);
+
     return res.json(user);
   } catch (e) {
     return res.status(400).json({ msg: e.mesage });
