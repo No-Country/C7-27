@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ msg: error.message });
     }
 
-    const url = `${process.env.NEXT_PUBLIC_API_URL || process.env.VERCEL_URL}/${
+    const url = `https://${process.env.NEXT_PUBLIC_API_URL || process.env.VERCEL_URL}/${
       user._id
     }/NewPassword`;
     const emailContent = `<p>Click the link below to change your password</p><a href="${url}">LINK</a>`;
