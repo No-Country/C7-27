@@ -1,7 +1,6 @@
-import { Box, Grid } from "../components/auth";
+import { Grid } from "../components/auth";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
-import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { actionAuthenticateUser } from "../store/slices/user";
 import { Logo } from "../components/ui/Logo";
@@ -14,7 +13,6 @@ export const Layout = ({ children, logoUrl }) => {
     if (token) {
       try {
         dispatch(actionAuthenticateUser(token));
-        router.push("/dashboard");
       } catch (e) {
         console.log(e);
       }
