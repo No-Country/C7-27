@@ -47,8 +47,9 @@ export const actionUserLogout = () => {
     try {
       await axios.post(URL, config);
       dispatch(logout());
+      return;
     } catch (e) {
-      console.log(e);
+      throw e.response.data.msg;
     }
   };
 };

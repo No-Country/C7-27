@@ -7,6 +7,7 @@ export default function NavBar() {
   return (
     <Grid
       container
+      className="animate__animated animate__fadeInLeft"
       sx={{
         paddingX: 5,
         paddingY: 3,
@@ -24,7 +25,7 @@ export default function NavBar() {
           flexDirection: "column",
           justifyContent: "center",
           paddingLeft: {
-            lg:15
+            lg: 15,
           },
           gap: 2,
         }}

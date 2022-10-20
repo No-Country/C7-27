@@ -73,8 +73,8 @@ export const DashboardSidebar = (props) => {
       title: "Professionals",
     },
     {
-        href: "/dashboard/edit",
-        title: "Edit Web",
+      href: "/dashboard/edit",
+      title: "Edit Web",
     },
   ];
 
@@ -127,6 +127,7 @@ export const DashboardSidebar = (props) => {
           </Box>
           <Box sx={{ px: 2 }}>
             <Box
+              className="animate__animated animate__fadeInLeft"
               sx={{
                 alignItems: "center",
                 backgroundColor: "rgba(255, 255, 255, 0.04)",
@@ -167,11 +168,7 @@ export const DashboardSidebar = (props) => {
         ) : (
           <Box sx={{ flexGrow: 1 }}>
             {itemsArray().map((item) => (
-              <NavItem
-                key={item.title}
-                href={item.href}
-                title={item.title}
-              />
+              <NavItem key={item.title} href={item.href} title={item.title} />
             ))}
             <NavItem
               key="Change Password"

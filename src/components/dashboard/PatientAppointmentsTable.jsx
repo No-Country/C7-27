@@ -112,7 +112,11 @@ export function PatientAppointmentsTable({ appointments }) {
         </TableHead>
         <TableBody>
           {appointments?.map((appointment) => (
-            <TableRow hover key={appointment._id}>
+            <TableRow
+              className="animate__animated animate__fadeInLeft"
+              hover
+              key={appointment._id}
+            >
               <TableCell>
                 {`
               ${capitalize(appointment.professionalRef.lastName)}

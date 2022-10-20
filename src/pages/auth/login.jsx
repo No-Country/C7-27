@@ -40,7 +40,7 @@ export default function LoginPage() {
   const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
   const [check, setCheck] = useState(false);
-  const {name: webName} = useSelector((state) => state.ui)
+  const { name: webName } = useSelector((state) => state.ui);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -61,7 +61,6 @@ export default function LoginPage() {
           horizontal: "center",
         },
       });
-      console.log(e);
     }
   };
 
@@ -140,7 +139,7 @@ export default function LoginPage() {
             <NextLink passHref href={"/auth/register"}>
               <Link>Are you new in {webName}?</Link>
             </NextLink>
-            <NextLink passHref href={"/auth/resetPassword"}>
+            <NextLink passHref href={"/auth/ResetPassword"}>
               <Link>Forgot password?</Link>
             </NextLink>
           </Stack>

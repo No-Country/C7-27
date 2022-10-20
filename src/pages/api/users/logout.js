@@ -3,7 +3,7 @@ import { serialize } from "cookie";
 export default function logoutHandler(req, res) {
   const { token } = req.cookies;
   if (!token) {
-    return res.status(401).json({ error: "Not logged in" });
+    return res.status(401).json({ msg: "Not logged in" });
   }
 
   const serialized = serialize("token", null, {

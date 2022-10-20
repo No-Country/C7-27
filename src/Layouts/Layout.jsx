@@ -3,10 +3,12 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { actionAuthenticateUser } from "../store/slices/user";
+import { useRouter } from "next/router";
 import { Logo } from "../components/ui/Logo";
 
 export const Layout = ({ children, logoUrl }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -58,10 +60,9 @@ export const Layout = ({ children, logoUrl }) => {
       <Grid
         item
         md={5}
-        xs={0}
+        xs={12}
         overflow="hidden"
-        maxHeight={{ xs: "30vh", md: "100vh" }}
-        width={"100%"}
+        // width={"100%"}
         sx={{
           backgroundImage: "url(/images/hospital2.png)",
           backgroundSize: "calc(100vh - 16vh)",

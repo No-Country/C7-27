@@ -21,9 +21,13 @@ export const AccountPopover = (props) => {
   const router = useRouter();
 
   const handleSignOut = async () => {
-    await dispatch(actionUserLogout());
-    localStorage.removeItem("token");
-    router.push("/");
+    try {
+      await dispatch(actionUserLogout());
+      localStorage.removeItem("token");
+      router.push("/");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
