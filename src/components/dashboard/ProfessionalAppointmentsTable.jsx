@@ -12,7 +12,7 @@ import { SeverityPill } from "./SeverityPill";
 
 export function ProfessionalAppointmentsTable({ appointments }) {
   return (
-    <Table>
+    <Table sx={{ whiteSpace: 'nowrap' }}>
       <TableHead>
         <TableRow>
           <TableCell>Patient</TableCell>

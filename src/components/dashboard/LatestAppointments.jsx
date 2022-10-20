@@ -41,7 +41,7 @@ export const LatestAppointments = (props) => {
   return (
     <Card {...props}>
       <CardHeader title="Next five Appointments" />
-      <Box sx={{ minWidth: 800 }}>
+      <Box sx={{ overflowX: 'auto'}}>
         {user &&
           (user.isProfessional ? (
             <ProfessionalAppointmentsTable
