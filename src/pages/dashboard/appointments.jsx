@@ -27,7 +27,6 @@ import axios from "axios";
 
 export default function AppointmentsPage({ token }) {
   const { user } = useSelector((state) => state.users);
-
   const [isSorted, setIsSorted] = useState(true);
   const [appointmentsList, setAppointmentsList] = useState([]);
   const [showOverlay, setShowOverlay] = useState(false);
@@ -90,10 +89,19 @@ export default function AppointmentsPage({ token }) {
         <Container>
           <Grid container spacing={3}>
             <Grid item lg={12} md={12} xl={12} xs={12}>
-              <Card>
+              <Card sx={{ position: "relative" }}>
                 <CardHeader title="Your Appointments" />
-                <Box sx={{ overflowX: "auto", position: "relative" }}>
+                <Box
+                  sx={{
+                    overflowX: "auto",
+                    // position: "relative",
+                  }}
+                >
                   {showOverlay && (
+                    // <AppointmentModal
+                    //   updateAppointment={updateAppointment}
+                    //   setShowOverlay={setShowOverlay}
+                    // />
                     <Card
                       sx={{
                         position: "absolute",
@@ -144,7 +152,7 @@ export default function AppointmentsPage({ token }) {
                       </CardActions>
                     </Card>
                   )}
-                  {!user?.isProfessional && (
+                  {!user?.isProfessional ? (
                     <Table sx={{ whiteSpace: "nowrap" }}>
                       <TableHead>
                         <TableRow>
@@ -214,6 +222,94 @@ export default function AppointmentsPage({ token }) {
                                 </TableCell>
                                 <TableCell>
                                   {appointment.professionalRef.speciality}
+                                </TableCell>
+                                <TableCell>{appointment.date}</TableCell>
+                                <TableCell>
+                                  {appointment.hour}{" "}
+                                  {hourFormat(appointment.hour)}
+                                </TableCell>
+                                <TableCell>
+                                  <SeverityPill
+                                    color={
+                                      appointment.confirmed
+                                        ? "success"
+                                        : "error"
+                                    }
+                                    onClick={() => onClick(appointment)}
+                                    sx={{ cursor: "pointer" }}
+                                  >
+                                    {appointment.confirmed
+                                      ? "Confirmed"
+                                      : "Cancelled"}
+                                  </SeverityPill>
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                      </TableBody>
+                    </Table>
+                  ) : (
+                    <Table sx={{ whiteSpace: "nowrap" }}>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Patient</TableCell>
+                          <TableCell>
+                            <Tooltip enterDelay={300} title="Sort">
+                              <TableSortLabel
+                                active
+                                direction={isSorted ? "asc" : "desc"}
+                                onClick={() => setIsSorted(!isSorted)}
+                              >
+                                Date
+                              </TableSortLabel>
+                            </Tooltip>
+                          </TableCell>
+                          <TableCell>schedule</TableCell>
+                          <TableCell>Status</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {isSorted
+                          ? appointmentsList
+                              .map((appointment) => (
+                                <TableRow hover key={appointment._id}>
+                                  <TableCell>
+                                    {`${capitalize(
+                                      appointment.patientRef.lastName
+                                    )} ${capitalize(
+                                      appointment.patientRef.firstName
+                                    )}`}
+                                  </TableCell>
+                                  <TableCell>{appointment.date}</TableCell>
+                                  <TableCell>
+                                    {appointment.hour}{" "}
+                                    {hourFormat(appointment.hour)}
+                                  </TableCell>
+                                  <TableCell>
+                                    <SeverityPill
+                                      color={
+                                        appointment.confirmed
+                                          ? "success"
+                                          : "error"
+                                      }
+                                      onClick={() => onClick(appointment)}
+                                      sx={{ cursor: "pointer" }}
+                                    >
+                                      {appointment.confirmed
+                                        ? "Confirmed"
+                                        : "Cancelled"}
+                                    </SeverityPill>
+                                  </TableCell>
+                                </TableRow>
+                              ))
+                              .reverse()
+                          : appointmentsList.map((appointment) => (
+                              <TableRow hover key={appointment._id}>
+                                <TableCell>
+                                  {`${capitalize(
+                                    appointment.patientRef.lastName
+                                  )} ${capitalize(
+                                    appointment.patientRef.firstName
+                                  )}`}
                                 </TableCell>
                                 <TableCell>{appointment.date}</TableCell>
                                 <TableCell>

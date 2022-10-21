@@ -45,58 +45,61 @@ export function PatientAppointmentsTable({ appointments }) {
   };
 
   return (
-    <Box sx={{ position: "relative" }}>
-      {showOverlay && (
-        <Card
-          sx={{
-            position: "absolute",
-            backgroundColor: "#0009",
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 10,
-          }}
-        >
-          <CardContent>
-            <Typography
-              variant="h5"
-              component="h3"
-              textAlign={"center"}
-              color={"white"}
-            >
-              Are your sure to delete this appointment?
-            </Typography>
-          </CardContent>
-          <CardActions
+    <Box sx={{ overflowX: "auto" }}>
+      <Box>
+        {showOverlay && (
+          <Card
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
+              position: "absolute",
+              backgroundColor: "#0009",
               width: "100%",
-              maxWidth: "400px",
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              zIndex: 10,
             }}
           >
-            <Button
-              size="small"
-              variant={"contained"}
-              color="secondary"
-              onClick={updateAppointment}
+            <CardContent>
+              <Typography
+                variant="h5"
+                component="h3"
+                textAlign={"center"}
+                color={"white"}
+              >
+                Are your sure to delete this appointment?
+              </Typography>
+            </CardContent>
+            <CardActions
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+                maxWidth: "400px",
+              }}
             >
-              CONFIRM
-            </Button>
-            <Button
-              size="small"
-              variant={"contained"}
-              color="error"
-              onClick={() => setShowOverlay(false)}
-            >
-              CANCEL
-            </Button>
-          </CardActions>
-        </Card>
-      )}
+              <Button
+                size="small"
+                variant={"contained"}
+                color="secondary"
+                onClick={updateAppointment}
+              >
+                CONFIRM
+              </Button>
+              <Button
+                size="small"
+                variant={"contained"}
+                color="error"
+                onClick={() => setShowOverlay(false)}
+              >
+                CANCEL
+              </Button>
+            </CardActions>
+          </Card>
+        )}
+      </Box>
+
       <Table sx={{ whiteSpace: "nowrap" }}>
         <TableHead>
           <TableRow>
