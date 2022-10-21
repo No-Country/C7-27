@@ -100,14 +100,9 @@ export default function AppointmentsPage({ token }) {
                 <Box
                   sx={{
                     overflowX: "auto",
-                    // position: "relative",
                   }}
                 >
                   {showOverlay && (
-                    // <AppointmentModal
-                    //   updateAppointment={updateAppointment}
-                    //   setShowOverlay={setShowOverlay}
-                    // />
                     <Card
                       sx={{
                         position: "absolute",
@@ -116,7 +111,7 @@ export default function AppointmentsPage({ token }) {
                         height: "100%",
                         display: "flex",
                         flexDirection: "column",
-                        justifyContent: "center",
+                        justifyContent: "column",
                         alignItems: "center",
                         zIndex: 10,
                       }}
