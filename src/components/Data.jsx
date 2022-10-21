@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Box,
   Grid,
@@ -7,35 +7,35 @@ import {
   ApartmentIcon,
   EscalatorWarningIcon,
   MedicalServicesIcon,
-} from "../components/auth";
+} from '../components/auth';
 
 export default function Data() {
   const dataArray = [
     {
-      number: "+100",
-      user: "Doctors",
-      icon: "doctor",
+      number: '+100',
+      user: 'Doctors',
+      icon: 'doctor',
     },
     {
-      number: "+500",
-      user: "Patients",
-      icon: "patient",
+      number: '+500',
+      user: 'Patients',
+      icon: 'patient',
     },
     {
-      number: "+50",
-      user: "Specialities",
-      icon: "speciality",
+      number: '+50',
+      user: 'Specialities',
+      icon: 'speciality',
     },
   ];
 
   function Icon(icon) {
-    if (icon == "doctor") {
+    if (icon == 'doctor') {
       return <MedicalServicesIcon sx={{ fontSize: 70 }} />;
     }
-    if (icon == "patient") {
+    if (icon == 'patient') {
       return <EscalatorWarningIcon sx={{ fontSize: 70 }} />;
     }
-    if (icon == "speciality") {
+    if (icon == 'speciality') {
       return <ApartmentIcon sx={{ fontSize: 70 }} />;
     }
   }
@@ -46,9 +46,9 @@ export default function Data() {
         container
         spacing={5}
         sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          justifyContent: "space-around",
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
+          justifyContent: 'space-around',
         }}
       >
         {dataArray.map((data, index) => (
@@ -56,16 +56,16 @@ export default function Data() {
             item
             key={index}
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
               px: 5,
             }}
           >
             <Stack
               direction="row"
-              className="animate__animated animate__fadeIn"
-              sx={{ width: "200px" }}
+              className="animate__animated animate__fadeIn animate__delay-1s"
+              sx={{ width: '200px' }}
             >
               {Icon(data.icon)}
 
