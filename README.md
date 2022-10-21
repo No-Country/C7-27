@@ -56,8 +56,9 @@
 
 `MONGODB_URL`= Mongo Database URL<br>
 `MAIN_EMAIL_ADDRESS`= Email address used for app notifications<br>
-`MAIN_EMAIL_PASSWORD`= Email password used for app notifications<br>
+`SENDGRID_API_KEY`= Sendgrid api key<br>
 `NEXT_PUBLIC_JWT_SECRET`= Json Web Token secret phrase
+
 
 <br>
 
@@ -66,9 +67,6 @@
 </div>
 
 First clone our repository with `git clone https://github.com/No-Country/C7-27.git` then you must have to configure the environment variables described before.
-&nbsp;
-
-This app uses `Nodemailer` for email notifications, configure the SMTP transport options for your email host here `src/utils/sendEmail.js` 
 &nbsp;
 
 Finally run the command `npm run build` and wait for the compile process to complete, once finished you can run `npm start` and use the app at `http://localhost:3000/`.
@@ -86,7 +84,7 @@ Finally run the command `npm run build` and wait for the compile process to comp
         <dl>
             <dd>
                 <ul>
-                    <li>nodemailer</li>
+                    <li>@sendgrid/mail</li>
                     <li>axios</li>
                     <li>jsonwebtoken</li>
                     <li>cookie</li>
