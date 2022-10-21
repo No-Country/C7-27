@@ -114,6 +114,7 @@ export default function NewAppointment() {
       const url = `/api/appointments/newAppointment`;
       await axios.post(url, values);
       reset();
+      location.reload();
       enqueueSnackbar("Appointment Created", {
         variant: "success",
         autoHideDuration: 3000,

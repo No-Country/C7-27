@@ -39,8 +39,8 @@ export default async function handler(req, res) {
 
     //envio de email de notificacion
     const emailContent = `<p>You created a new appointment for the day ${body.date} at ${body.hour}hs.</p>
-                              <p>Remember been 10 minutes before consultation time, Thanks.</p>`;
-    const subject = "New appointmente confirmed";
+                              <p>Remember to be 10 minutes before consultation time, Thanks.</p>`;
+    const subject = "New appointment confirmed";
     await sendEmail(body.patientEmail, subject, emailContent);
 
     return res.status(201).json(newAppointment);
