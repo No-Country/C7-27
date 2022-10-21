@@ -70,7 +70,7 @@ export const DashboardSidebar = (props) => {
     },
     {
       href: "/admin/AllProfessionals",
-      title: "Professionals",
+      title: "Professionals List",
     },
     {
       href: "/dashboard/edit",
