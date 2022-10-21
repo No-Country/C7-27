@@ -129,7 +129,7 @@ export default function NewAppointment() {
         autoHideDuration: 3000,
         anchorOrigin: {
           vertical: "top",
-          horizontal: "center",
+          horizontal: "center", 
         },
       });
       console.log(e.message);
