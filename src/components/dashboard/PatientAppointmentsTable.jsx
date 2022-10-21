@@ -63,8 +63,8 @@ export function PatientAppointmentsTable({ appointments }) {
             sx={{
               position: "absolute",
               backgroundColor: "#0009",
-              // width: "100%",
-              // height: "100%",
+              width: "100%",
+              height: "100%",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
