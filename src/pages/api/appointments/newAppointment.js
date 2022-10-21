@@ -38,9 +38,9 @@ export default async function handler(req, res) {
     await professional.save();
 
     //envio de email de notificacion
-    const emailContent = `<p>Usted solicitó un nuevo turno para el día ${body.date} a las ${body.hour}hs.</p>
-                              <p>Recuerde presentarse 10 minutos antes del horario de la consulta, muchas gracias.</p>`;
-    const subject = "Nuevo turno confirmado";
+    const emailContent = `<p>You created a new appointment for the day ${body.date} at ${body.hour}hs.</p>
+                              <p>Remember been 10 minutes before consultation time, Thanks.</p>`;
+    const subject = "New appointmente confirmed";
     await sendEmail(body.patientEmail, subject, emailContent);
 
     return res.status(201).json(newAppointment);

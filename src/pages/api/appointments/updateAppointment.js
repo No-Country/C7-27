@@ -22,11 +22,11 @@ export default async function handler(req, res) {
     );
 
     //envio de email de notificacion
-    const emailContent = `<p>El turno que usted solicitó para el día ${
+    const emailContent = `<p>The appointment of the day ${
       body.date
-    } fué ${body.confirmed ? "Actualizado" : "Cancelado"}.</p>`;
-    const subject = `Su turno fué ${
-      body.confirmed ? "Actualizado" : "Cancelado"
+    } was ${body.confirmed ? "Updated" : "Cancelled"}.</p>`;
+    const subject = `Your appointment was ${
+      body.confirmed ? "Updated" : "Cancelled"
     }`;
     await sendEmail(body.patientEmail, subject, emailContent);
 

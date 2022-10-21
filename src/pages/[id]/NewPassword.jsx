@@ -79,7 +79,7 @@ export default function NewPassword() {
   };
 
   return (
-    <Layout>
+    <Layout logoUrl="/dashboard">
       <Box
         component="form"
         sx={{

@@ -53,7 +53,7 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <Layout logoUrl="/dashboard">
+    <Layout>
       <Box
         component="form"
         sx={{
