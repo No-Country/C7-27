@@ -26,7 +26,7 @@ export default function Calendar({
   useEffect(() => {
     setSelectedDate(null);
     setSelectedHour("");
-  }, [availability, appointmentsList]);
+  }, [availability, appointmentsList]); 
 
   //Dias a deshabilitar en el calendario
   const shouldDisableDate = (date) => {

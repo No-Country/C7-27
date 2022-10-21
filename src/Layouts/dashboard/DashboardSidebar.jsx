@@ -74,7 +74,7 @@ export const DashboardSidebar = (props) => {
     },
     {
       href: "/dashboard/edit",
-      title: "Edit Web",
+      title: "Change App Name",
     },
   ];
 

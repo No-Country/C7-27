@@ -222,7 +222,7 @@ export default function RegisterProfessional() {
   };
 
   return (
-    <Layout>
+    <Layout logoUrl="/dashboard">
       <Box
         component="form"
         sx={{
