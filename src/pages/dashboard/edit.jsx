@@ -74,7 +74,7 @@ export default function EditWeb() {
             justifyContent: "center",
           }}
         >
-          <FormLabel component="legend">Web</FormLabel>
+          <FormLabel component="legend">Change App Name</FormLabel>
           <FormControl sx={{ width: "100%" }}>
             <TextField
               {...register("webName", {
