@@ -1,18 +1,17 @@
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
-import { Box, Button, Grid, Stack, Typography } from "../components/auth";
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
+import { Box, Button, Grid, Stack, Typography } from '../components/auth';
 
 export default function NavBar() {
   return (
     <Grid
       container
-      className="animate__animated animate__fadeInLeft"
       sx={{
         paddingX: 5,
         paddingY: 3,
-        display: "flex",
-        justifyContent: "space-between",
+        display: 'flex',
+        justifyContent: 'space-between',
         gap: 5,
       }}
     >
@@ -21,14 +20,15 @@ export default function NavBar() {
         xs={12}
         md={6}
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
           paddingLeft: {
             lg: 15,
           },
           gap: 2,
         }}
+        className="animate__animated animate__fadeInLeft"
       >
         <Typography variant="h3">Online Appointments</Typography>
         <Typography variant="h6">
@@ -51,9 +51,9 @@ export default function NavBar() {
         xs={12}
         md={5}
         sx={{
-          position: "relative",
-          height: "400px",
-          display: { xs: "none", md: "block" },
+          position: 'relative',
+          height: '400px',
+          display: { xs: 'none', md: 'block' },
           paddingRight: 15,
         }}
       >
@@ -62,6 +62,7 @@ export default function NavBar() {
           alt="Image"
           layout="fill"
           objectFit="contain"
+          className="animate__animated animate__fadeInRight"
         />
       </Grid>
     </Grid>
