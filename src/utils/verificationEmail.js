@@ -19,12 +19,15 @@ export default async function verificationEmail(userID, userEmail) {
     }
 
     //envio del email de activacion
-    const url = `${
-      process.env.NEXT_PUBLIC_API_URL || process.env.VERCEL_URL
-    }/${userID}/${token.token}/VerifiedUser`;
-    const emailContent = `<p>Click the link below to verify your account</p><a href=${url}>LINK</a>`;
-    const subject = "Verify your email";
+    let url = "";
+    if (process.env.NEXT_PUBLIC_API_URL) {
+      url = `${process.env.NEXT_PUBLIC_API_URL}/${userID}/${token.token}/VerifiedUser`;
+    } else {
+      url = `https://${process.env.VERCEL_URL}/${userID}/${token.token}/VerifiedUser`;
+    }
 
+    const emailContent = `<p>Click the link below to verify your account</p><a href="${url}">LINK</a>`;
+    const subject = "Verify your email";
     await sendEmail(userEmail, subject, emailContent);
   } catch (e) {
     console.log(e.message);

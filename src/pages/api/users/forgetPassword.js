@@ -21,13 +21,17 @@ export default async function handler(req, res) {
       return res.status(400).json({ msg: error.message });
     }
 
-    const url = `${process.env.NEXT_PUBLIC_API_URL || process.env.VERCEL_URL}/${
-      user._id
-    }/NewPassword`;
+    let url = "";
+    if (process.env.NEXT_PUBLIC_API_URL) {
+      url = `${process.env.NEXT_PUBLIC_API_URL}/${user._id}/NewPassword`;
+    } else {
+      url = `https://${process.env.VERCEL_URL}/${user._id}/NewPassword`;
+    }
+
     const emailContent = `<p>Click the link below to change your password</p><a href="${url}">LINK</a>`;
     const subject = "Change your email";
-    await sendEmail(email, subject, emailContent);
 
+    await sendEmail(email, subject, emailContent);
     return res.json(user);
   } catch (e) {
     return res.status(400).json({ msg: e.mesage });

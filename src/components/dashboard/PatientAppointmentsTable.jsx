@@ -57,6 +57,7 @@ export function PatientAppointmentsTable({ appointments }) {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
+            zIndex: 10,
           }}
         >
           <CardContent>
