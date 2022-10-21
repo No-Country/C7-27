@@ -1,52 +1,4 @@
-// import React from "react";
-// import {
-//   Table,
-//   TableBody,
-//   TableCell,
-//   TableHead,
-//   TableRow,
-//   TableSortLabel,
-//   Tooltip,
-// } from "../../components/auth";
-// import { SeverityPill } from "./SeverityPill";
-
-// export function ProfessionalAppointmentsTable({ appointments }) {
-//   return (
-//     <Table sx={{ whiteSpace: "nowrap" }}>
-//       <TableHead>
-//         <TableRow>
-//           <TableCell>Patient</TableCell>
-//           <TableCell sortDirection="desc">
-//             <Tooltip enterDelay={300} title="Sort">
-//               <TableSortLabel active direction="desc">
-//                 Date
-//               </TableSortLabel>
-//             </Tooltip>
-//           </TableCell>
-//           <TableCell>State</TableCell>
-//         </TableRow>
-//       </TableHead>
-//       <TableBody>
-//         {appointments?.map((appointment) => (
-//           <TableRow hover key={appointment._id}>
-//             <TableCell>
-//               {appointment.patientRef.lastName}{" "}
-//               {appointment.patientRef.firstName}
-//             </TableCell>
-//             <TableCell>{appointment.date}</TableCell>
-//             <TableCell>
-//               <SeverityPill color={appointment.confirmed ? "success" : "error"}>
-//                 {appointment.confirmed ? "Confirmed" : "Cancelled"}
-//               </SeverityPill>
-//             </TableCell>
-//           </TableRow>
-//         ))}
-//       </TableBody>
-//     </Table>
-//   );
-// }
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Box,
@@ -73,6 +25,11 @@ import axios from "axios";
 export function ProfessionalAppointmentsTable({ appointments }) {
   const [showOverlay, setShowOverlay] = useState(false);
   const [id, setId] = useState("");
+  const [myAppointments, setMyAppointmes] = useState(appointments);
+
+  useEffect(() => {
+    if (appointments.length > 0) setMyAppointmes(appointments);
+  }, [appointments]);
 
   const updateAppointment = () => {
     axios
@@ -81,8 +38,13 @@ export function ProfessionalAppointmentsTable({ appointments }) {
         confirmed: false,
       })
       .finally(() => {
+        setMyAppointmes(
+          myAppointments.map((a) =>
+            a._id === id ? { ...a, confirmed: false } : a
+          )
+        );
         setId("");
-        location.reload();
+        setShowOverlay(false);
       });
   };
 
@@ -163,7 +125,7 @@ export function ProfessionalAppointmentsTable({ appointments }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {appointments?.map((appointment) => (
+          {myAppointments?.map((appointment) => (
             <TableRow
               className="animate__animated animate__fadeInLeft"
               hover
