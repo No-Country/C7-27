@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Box,
@@ -23,8 +23,14 @@ import { SeverityPill } from "./SeverityPill";
 import axios from "axios";
 
 export function PatientAppointmentsTable({ appointments }) {
+  // console.log(appointments);
   const [showOverlay, setShowOverlay] = useState(false);
   const [id, setId] = useState("");
+  const [myAppointments, setMyAppointmes] = useState(appointments);
+
+  useEffect(() => {
+    if (appointments.length > 0) setMyAppointmes(appointments);
+  }, [appointments]);
 
   const updateAppointment = () => {
     axios
@@ -33,8 +39,13 @@ export function PatientAppointmentsTable({ appointments }) {
         confirmed: false,
       })
       .finally(() => {
+        setMyAppointmes(
+          myAppointments.map((a) =>
+            a._id === id ? { ...a, confirmed: false } : a
+          )
+        );
         setId("");
-        location.reload();
+        setShowOverlay(false);
       });
   };
 
@@ -52,8 +63,8 @@ export function PatientAppointmentsTable({ appointments }) {
             sx={{
               position: "absolute",
               backgroundColor: "#0009",
-              width: "100%",
-              height: "100%",
+              // width: "100%",
+              // height: "100%",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -116,7 +127,7 @@ export function PatientAppointmentsTable({ appointments }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {appointments?.map((appointment) => (
+          {myAppointments?.map((appointment) => (
             <TableRow
               className="animate__animated animate__fadeInLeft"
               hover

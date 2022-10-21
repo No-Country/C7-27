@@ -63,8 +63,14 @@ export default function AppointmentsPage({ token }) {
         confirmed: false,
       })
       .finally(() => {
+        setAppointmentsList(
+          appointmentsList.map((a) =>
+            a._id === id ? { ...a, confirmed: false } : a
+          )
+        );
         setId("");
-        location.reload();
+        setShowOverlay(false);
+        // location.reload();
       });
   };
 
