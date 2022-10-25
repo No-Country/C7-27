@@ -1,6 +1,8 @@
 <h1 align="center">MediApp 🩺</h1>
 <p align="center">
-    [<img src="https://user-images.githubusercontent.com/84481967/197835019-ad81b6c2-3965-45ef-95cb-ab3be80ec108.png">](https://youtu.be/KdFTEiXPj40)]
+
+[<img src="https://user-images.githubusercontent.com/84481967/197835019-ad81b6c2-3965-45ef-95cb-ab3be80ec108.png">](https://youtu.be/KdFTEiXPj40)
+
 </p>
 
 <h2 align="center"> Description </h2>
